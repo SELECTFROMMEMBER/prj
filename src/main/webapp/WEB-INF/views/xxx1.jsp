@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 
-xxx1.작업일
+xxx1.작업1
 
 
 
