@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--***************************************************-->
+<!-- mapper 태그 선언하기 -->
+<!-- mapper 태그 안의 namespace 값은 -->
+<!-- [원하는 인터페이스 저장 패키지 경로]하고 일치해야한다. -->
+<!--***************************************************-->
+<mapper namespace="com.wa.erp.BoardDAO">
+
+	<!--=========================================================-->
+	<!-- 로그인 아이디와 암호의 존재를 개수를 검색하는  -->
+	<!-- select 구문을 내포한 <select> 태그 선언하기    -->
+	<!--=========================================================-->
+	<select id="getboardList"  parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
+		select
+			*
+		from ( select rownum "RNUM" , zxcvb.* from (
+		 select 
+		 		b.b_no,
+		 		b.subject,
+		 		p.nickname,
+		 		to_char(b.reg_date,'YYYY-MM-DD') "reg_date",
+		 		b.read_count,
+		 		<if test="boardname!='tradeboard'">
+		 		b.rec_count,
+		 		</if>
+		 		b.content 
+		 		<if test="boardname=='tradeboard'">
+		 		,b.trade_type
+		 		,b.price
+		 		</if>
+		from 
+			${boardname} b , person_mem p 
+		where 
+			1=1
+			and
+			p.p_no=b.p_no
+		 	<if test="keyword!=null and keyword.length()>0">
+		 		and ( 
+					upper(b.subject) like upper('%${keyword}%')
+					or
+					upper(b.content) like upper('%${keyword}%')
+					)
+		 	</if>
+		 	
+		 	order  by reg_date desc
+		 	<![CDATA[
+			)zxcvb) where RNUM >= #{begin_rowNo} and RNUM <= #{end_rowNo}
+		]]>
+	
+	</select>
+
+	<select id="getcompanyList"
+		parameterType="com.wa.erp.BoardSearchDTO"
+		resultType="com.wa.erp.BoardDTO">
+		select
+			c.c_no
+			,name
+			,business_industry as "indus"
+			,sales
+			,sal_avg
+			,trunc(nvl(AVG(r.star),0),1) as "star_avg"
+
+		from
+			company_mem c
+			join company_info ci on c.c_no = ci.c_no
+			left join review r on c.c_no = r.c_no
+		where
+			1=1
+			<if test="selectedIndustry!=null and selectedIndustry.length()>0">
+				and business_industry = #{selectedIndustry}
+			</if>
+
+			<if test="keyword!=null and keyword.length()>0">
+				and (
+				upper(name) like upper('%${keyword1}%')
+				)
+			</if>
+			GROUP BY
+			c.c_no,name,business_industry,sales,sal_avg
+
+			<if test="sort!=null and sort.length()>0">
+				order by ${sort}
+			</if>
+	</select>
+
+	<select id="gettimeShareList"  resultType="com.wa.erp.BoardDTO">
+		 select  
+		 		f.b_no
+		 		, p.name 
+		 		, p.phone
+		 		, f.preferred_work
+		 		, f.start_time
+		 		, f.end_time
+		 		, to_char(f.reg_date,'YYYY-MM-DD') as "reg_date" 
+		 from 
+		 		freelancer f, person_mem p 
+		 where 
+		 		f.p_no = p.p_no 
+	</select>
+
+	<select id="getbuupList"  resultType="com.wa.erp.BoardDTO">
+		 select  
+		 		f.b_no
+		 		, p.name 
+		 		, p.phone
+		 		, f.hope_work
+		 		, f.start_time
+		 		, f.end_time
+		 		, to_char(f.reg_date,'YYYY-MM-DD') as "reg_date" 
+		 from 
+		 		part_time f, person_mem p 
+		 where 
+		 		f.p_no = p.p_no
+	</select>
+
+	<select id="getprjList"  resultType="com.wa.erp.BoardDTO">
+		 select  subject, c.field_name, reg_date from project b, competition_project_field_code c, person_mem p where  p.p_no = b.p_no and b.field_code = c.code_field
+	</select>
+
+	<select id="getgongMoList"  resultType="com.wa.erp.BoardDTO">
+		 select  subject,read_count, reg_date from competition b, company_mem c where b.c_no = c.c_no  
+	</select>
+	
+	<select id="getBoard" parameterType="java.util.HashMap" resultType="com.wa.erp.BoardDTO">
+		select
+			b.b_no,
+			p.nickname,
+			b.subject,
+			b.content,
+			b.read_count,
+			to_char(b.reg_date,'YYYY-MM-DD') as "reg_date",
+			<if test="tablename!='tradeboard'">
+			b.rec_count
+			</if>
+			<if test="tablename=='tradeboard'">
+			b.price,
+			b.trade_type
+			</if>
+		from 
+			${tablename} b, person_mem p
+		where
+            b.p_no = p.p_no
+            and
+			b.b_no=#{b_no}
+	</select>
+	
+	<!-- 부업 상세 -->	
+ 	<select id="getbuup" parameterType="int" resultType="com.wa.erp.BoardDTO">
+    select
+    	b_no 
+   		,p.p_no
+        ,p.name
+		,p.phone
+		,p.addr
+		,c.career
+		,t.pwd
+		,t.hope_work
+		,t.start_time
+        ,t.end_time
+        ,t.content
+        ,to_char(t.reg_date, 'YYYY-MM-DD')  as "reg_date"
+
+      from person_mem p , part_time t , career c
+         where 
+       	   t.b_no=#{t.b_no}
+         and 
+         	t.p_no=p.p_no 
+         and
+            t.p_no=c.p_no        
+	</select>
+	
+	<!-- 프리랜서 상세 -->
+	<select id="gettimeShare"  parameterType="int" resultType="com.wa.erp.BoardDTO">
+		select
+	        f.b_no
+	        ,p.p_no
+	        ,p.name
+	        ,p.phone
+	        ,p.addr
+	        ,c.career
+	        ,f.pwd
+	        ,f.preferred_work
+	        ,f.start_time
+	        ,f.end_time
+	        ,f.content
+	        ,to_char(f.reg_date, 'YYYY-MM-DD HH24:MI')  as "reg_date"
+	    from
+	    person_mem  p, freelancer f, career c
+	    where
+	      f.b_no=#{f.b_no}
+	    and
+	       f.p_no=p.p_no
+	     and 
+	       f.p_no=c.p_no
+	</select>	
+	
+	<select id="getcompanyDetail" parameterType="int" resultType="com.wa.erp.BoardDTO">
+		select
+		    m.c_no,
+			m.name,
+			i.url,
+			m.email,
+			i.volume,
+			i.sales,
+			i.emp_no,
+			i.birth,
+			m.ceo_name,
+			m.call,
+			i.sal_avg
+		from 
+			company_mem m ,company_info i 
+		where 
+			#{c_no}=m.c_no and m.c_no=i.c_no 
+</select>
+
+<select id="reviewContent"  parameterType="int" resultType="com.wa.erp.BoardDTO">
+			select
+				c_no,
+				content,
+				   star,
+				   rec_count 
+			from 
+			     review 
+			where 
+			    c_no=#{c_no}
+
+</select>
+	
+	<select id="getreviewContent"  parameterType="int" resultType="com.wa.erp.BoardReviewDTO">
+		select
+			content,
+			star
+		from
+			review
+		where
+			c_no = #{c_no}
+	</select>
+	
+	<update id="updateReadCount" parameterType="java.util.Map">
+		update
+			${tablename}
+		set 
+			read_count = read_count + 1
+		where 
+			b_no=#{b_no}
+	</update>
+	
+	<select id="getboardListCnt" parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
+		select count(*) from ${boardname}
+		<if test="keyword!=null and keyword.length()>0">
+		 	where ( 
+					upper(subject) like upper('%${keyword}%')
+					or
+					upper(content) like upper('%${keyword}%')
+					)
+		 	</if>
+	</select>
+
+	<select id="getboardListAllCnt"  parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
+		select count(*) from ${boardname}
+	</select>
+	<!--	
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		<select ~> 태그 안의 속성
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			id="namespace값마지막의인터페이스내부의메소드명중하나"
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			parameterType="SQL구문에참여하는외부데이터의타입"
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			resultType="SQL구문의결과값을저장할수있는자바자료형"
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		#{mid}의미
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		 	  mid   는 현재 참여하고 있는 HashMap 객체의 키값을 의미한다.
+		      {mid} 는  "mid" 라는 키값에 대응하는 데이터를 표현하라는 의미
+		       #    은 표현하는 데이터가 
+								문자면 
+									표현 데이터 앞뒤에  '  를 붙이고
+		                        숫자면 
+									표현 데이터 앞뒤에  '  를 붙이지 말란 의미이다.
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		 #{pwd}의미
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		 	  pwd   는 현재 참여하고 있는 HashMap 객체의 키값을 의미한다.
+		      {pwd} 는  "pwd" 라는 키값에 대응하는 데이터를 표현하라는 의미
+		       #    은 표현하는 데이터가 
+								문자면 
+									표현 데이터 앞뒤에  '  를 붙이고
+		                        숫자면 
+									표현 데이터 앞뒤에  '  를 붙이지 말란 의미이다.
+		-->
+</mapper>
+ 
