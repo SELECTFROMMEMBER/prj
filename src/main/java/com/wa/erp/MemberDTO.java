@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class MemberDTO {
-	private String mid;
+	private String pid;
 	private String writer;
 	private String pwd;
 	private List<String> skill;
@@ -17,6 +17,7 @@ public class MemberDTO {
 	private String ceo_name;
 	private String ceo_phone;
 	private String email;
+	private String email1;
 	private String email2;
 	/*-------------------*/
 
@@ -33,13 +34,18 @@ public class MemberDTO {
 	private String business_industry;
 	private List<String> welfare_code;
 	/*-------------------*/
-	
-	
-	public String getMid() {
-		return mid;
+	private String jumin_num1;
+	private String jumin_num2;
+	private String phone;
+	private int field_code;
+	private String is_job;
+	private String nickname;
+	private String sex;
+	public String getPid() {
+		return pid;
 	}
-	public void setMid(String mid) {
-		this.mid = mid;
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 	public String getWriter() {
 		return writer;
@@ -53,7 +59,6 @@ public class MemberDTO {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	
 	public List<String> getSkill() {
 		return skill;
 	}
@@ -102,11 +107,18 @@ public class MemberDTO {
 	public void setCeo_phone(String ceo_phone) {
 		this.ceo_phone = ceo_phone;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getEmail1() {
+		return email1;
+	}
+	public void setEmail1(String email1) {
+		this.email1 = email1;
 	}
 	public String getEmail2() {
 		return email2;
@@ -180,4 +192,49 @@ public class MemberDTO {
 	public void setWelfare_code(List<String> welfare_code) {
 		this.welfare_code = welfare_code;
 	}
+	public String getJumin_num1() {
+		return jumin_num1;
+	}
+	public void setJumin_num1(String jumin_num1) {
+		this.jumin_num1 = jumin_num1;
+	}
+	public String getJumin_num2() {
+		return jumin_num2;
+	}
+	public void setJumin_num2(String jumin_num2) {
+		this.jumin_num2 = jumin_num2;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public int getField_code() {
+		return field_code;
+	}
+	public void setField_code(int field_code) {
+		this.field_code = field_code;
+	}
+	public String getIs_job() {
+		return is_job;
+	}
+	public void setIs_job(String is_job) {
+		this.is_job = is_job;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	   
+	   
+	
 }

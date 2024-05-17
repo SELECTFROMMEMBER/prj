@@ -14,7 +14,7 @@
 	<!--=========================================================-->
 	<select id="getMidPwdCnt" parameterType="java.util.HashMap" resultType="int">
 <!-- 		select count(*)  from member where mid=#{mid} and pwd=#{pwd} -->
-		select count(*)  from person_mem where pid=#{pid} and p_pwd=#{p_pwd}
+		select count(*)  from person_mem where pid=#{pid} and pwd=#{pwd}
 	</select>
 	<!--	
 		~~~~~~~~~~~~~~~~~~~~~~~~~~~~

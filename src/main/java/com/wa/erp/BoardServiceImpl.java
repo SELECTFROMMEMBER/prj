@@ -95,6 +95,13 @@ public class BoardServiceImpl implements BoardService{
 		return boardDTO;
 	}
 	
+	@Override
+	public List<BoardDTO> getComment(Map<String,Object> paramMap) {
+		
+		List<BoardDTO> boardDTO = this.boardDAO.getComment(paramMap);
+		
+		return boardDTO;
+	}
 	
 	// *********************************************************************//
 	
@@ -198,4 +205,33 @@ public class BoardServiceImpl implements BoardService{
 		return boardListAllCnt;
 	}
 	
+	@Override
+	public int getReviewListAllCnt() {
+		int reviewListAllCnt = this.boardDAO.getReviewListAllCnt();
+		return reviewListAllCnt;
+	}
+
+	@Override
+	public int getReviewListCnt(BoardReviewDTO boardReviewDTO) {
+		int reviewListCnt = this.boardDAO.getReviewListCnt(boardReviewDTO);
+		return reviewListCnt;
+	}
+
+
+
+	@Override
+	public List<BoardReviewDTO> getreviewContent(BoardReviewDTO boardReviewDTO) {
+	List<BoardReviewDTO> reviewContent = this.boardDAO.getreviewContent(boardReviewDTO);
+
+		return reviewContent;
+	}
+
+	@Override
+	public BoardDTO getcompanyListDetail(int c_no) {
+		BoardDTO boardDTO  = this.boardDAO.getcompanyListDetail(c_no);
+		//------------------------------------------
+		// [1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
+		//------------------------------------------
+		return boardDTO;
+	}
 }

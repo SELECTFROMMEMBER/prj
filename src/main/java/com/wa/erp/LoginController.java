@@ -130,12 +130,12 @@ public class LoginController {
 			// 즉 id가 매개변수 mid로 들어온다.
 			// value="mid"의 mid는 입력양식의 name 값과 동일.
 			//--------------------------------------
-			@RequestParam( value="pid" ) String mid
+			@RequestParam( value="pid" ) String pid
 			//--------------------------------------
 			// "pwd" 라는 파라미터명에 해당하는 파라미터값을 꺼내서 
 			// 매개변수 pwd 에 저장하고 들어온다.
 			//--------------------------------------
-			,@RequestParam( value="p_pwd" ) String pwd
+			,@RequestParam( value="pwd" ) String pwd
 			
 			//--------------------------------------
 			// "autoLogin" 라는 파라미터명에 해당하는 파라미터값을 
@@ -177,8 +177,9 @@ public class LoginController {
 				// 한 HashMap 에 데이터가 다 들어있어야 DB연동하기 편하고 전송을 주고 받을 때도 편하다.
 				Map<String,String> map = new HashMap<String,String>();
 				// 키값은 오라클 테이블의 컬럼명과 일치해야함.
-				map.put("pid", mid);
-				map.put("p_pwd", pwd);
+				map.put("pid", pid);
+				map.put("pwd", pwd);
+				
 				
 				//----------------------------------------------------
 				// [로그인 아이디]와 [암호]의 DB 존재 개수를 저장할 변수 midPwdCnt 선언하고
@@ -190,7 +191,7 @@ public class LoginController {
 //				만약에 midPwdCnt 변수안의 데이터가 1이면, 즉 아이디와 암호가 DB에 있으면
 				if(midPwdCnt==1) {
 //					HttpSession 객체에 로그인 아이디 저장하기
-					session.setAttribute("pid", mid);
+					session.setAttribute("pid", pid);
 					
 				//--------------------------------------
 				// 매개변수 autoLogin 에 null 이 저장되어 있으면
@@ -213,9 +214,9 @@ public class LoginController {
 					// Cookie 객체를 생성하고 쿠키명-쿠키값을 ["pwd"-"입력암호"]로 하기
 					// Cookie 객체에 저장된 쿠키의 수명은 60*60*24으로 하기
 					//---------------------------------------------------
-					Cookie cookie1 = new Cookie("pid",mid);
+					Cookie cookie1 = new Cookie("pid",pid);
 						cookie1.setMaxAge(60*60*24);
-					Cookie cookie2 = new Cookie("p_pwd",pwd);
+					Cookie cookie2 = new Cookie("pwd",pwd);
 						cookie2.setMaxAge(60*60*24);
 
 						//---------------------------------------------------
@@ -249,7 +250,7 @@ public class LoginController {
 					//----------------------------------------
 					Cookie cookie1 = new Cookie("pid",null);
 					cookie1.setMaxAge(0);
-					Cookie cookie2 = new Cookie("p_pwd",null);
+					Cookie cookie2 = new Cookie("pwd",null);
 					cookie2.setMaxAge(0);
 					
 					//----------------------------------------

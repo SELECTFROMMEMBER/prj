@@ -51,39 +51,51 @@
 	
 	</select>
 
-	<select id="getcompanyList"
-		parameterType="com.wa.erp.BoardSearchDTO"
-		resultType="com.wa.erp.BoardDTO">
-		select
-			c.c_no
-			,name
-			,business_industry as "indus"
-			,sales
-			,sal_avg
-			,trunc(nvl(AVG(r.star),0),1) as "star_avg"
+	<select id="getcompanyList"  parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
+	select 
+		 ci.c_no 
+		 ,name  
+		 ,business_industry as "indus" 
+		 ,sales 
+		 ,sal_avg 
+	     ,round(nvl(AVG(r.star),0),1) as "star_avg"	
+		 ,addr
+	 from
+		    company_mem c
+    join company_info ci on c.c_no = ci.c_no
+    left join review r on c.c_no = r.c_no
 
-		from
-			company_mem c
-			join company_info ci on c.c_no = ci.c_no
-			left join review r on c.c_no = r.c_no
-		where
-			1=1
-			<if test="selectedIndustry!=null and selectedIndustry.length()>0">
-				and business_industry = #{selectedIndustry}
-			</if>
+    where 
+     	1=1
+         <if test="sido!=null and sido.length()>0 and sido!='시/도 선택'">
+        and ( 
+               upper(addr) like upper('%${sido}%')
+                  )
+         </if>
 
-			<if test="keyword!=null and keyword.length()>0">
-				and (
-				upper(name) like upper('%${keyword1}%')
-				)
-			</if>
-			GROUP BY
-			c.c_no,name,business_industry,sales,sal_avg
+         <if test="gugun!=null and gugun.length()>0 and gugun!='구/군 선택'">
+                and ( 
+               upper(addr) like upper('%${gugun}%')
+                  )
+     	 </if>
 
-			<if test="sort!=null and sort.length()>0">
-				order by ${sort}
-			</if>
-	</select>
+		 <if test="selectedIndustry!=null and selectedIndustry.length()>0">
+		 and business_industry = #{selectedIndustry}
+		 </if>
+
+		 <if test="keyword!=null and keyword.length()>0">
+             and ( 
+               upper(name) like upper('%${keyword}%')
+                  )
+          </if> 
+
+	        GROUP BY
+          ci.c_no,name,business_industry,sales,sal_avg,addr     
+
+		   <if test="sort!=null and sort.length()>0">
+	         order by ${sort}	
+	       </if>    
+	       </select>
 
 	<select id="gettimeShareList"  resultType="com.wa.erp.BoardDTO">
 		 select  
@@ -123,8 +135,13 @@
 		 select  subject,read_count, reg_date from competition b, company_mem c where b.c_no = c.c_no  
 	</select>
 	
+	<select id="getgongGoList" resultType="com.wa.erp.BoardDTO">
+		select c_no from gonggo
+	</select>
+	
 	<select id="getBoard" parameterType="java.util.HashMap" resultType="com.wa.erp.BoardDTO">
 		select
+			p.p_no,
 			b.b_no,
 			p.nickname,
 			b.subject,
@@ -144,6 +161,22 @@
             b.p_no = p.p_no
             and
 			b.b_no=#{b_no}
+	</select>
+	
+	<select id="getComment" parameterType="java.util.HashMap" resultType="com.wa.erp.BoardDTO">
+		select 
+				c.comment_no
+				,p.nickname
+                , to_char(c.reg_date,'YYYY-MM-DD') as "reg_date"
+                , c.content
+                ,c.rec_count
+        from person_mem p, ${comment} c
+        where
+            c.p_no = p.p_no
+            and
+            c.b_no = #{b_no}
+       order by
+       		reg_date asc
 	</select>
 	
 	<!-- 부업 상세 -->	
@@ -229,14 +262,44 @@
 </select>
 	
 	<select id="getreviewContent"  parameterType="int" resultType="com.wa.erp.BoardReviewDTO">
-		select
-			content,
-			star
-		from
-			review
-		where
-			c_no = #{c_no}
+	select
+		content,
+		star
+	from
+		review
+	where
+		c_no = ${c_no}
+		<if test="reviewSort!=null"> 
+		 order by ${reviewSort}	 
+		</if>
 	</select>
+	
+	<select  id="getReviewListCnt" parameterType="int"  resultType="int">
+		select count(*) from review where c_no= ${c_no}
+	</select>
+	
+	<select id="getReviewListAllCnt" resultType="int">
+		select count(*) from review
+	</select>
+	
+	<select id="getcompanyListDetail" parameterType="int" resultType="com.wa.erp.BoardDTO">
+	select
+	    m.c_no,
+		m.name,
+		i.url,
+		m.email,
+		i.volume,
+		i.sales,
+		i.emp_no,
+		i.birth,
+		m.ceo_name,
+		m.call,
+		i.sal_avg
+	from 
+		company_mem m ,company_info i 
+	where 
+		#{c_no}=m.c_no and m.c_no=i.c_no 
+</select>
 	
 	<update id="updateReadCount" parameterType="java.util.Map">
 		update

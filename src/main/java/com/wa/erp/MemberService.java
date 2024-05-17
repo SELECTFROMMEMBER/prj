@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface MemberService {
 	
-	public int insertMemberCnt( MemberDTO memberDTO);
+	public int insertMember( MemberDTO memberDTO);
 	
 	/*--------------회사 정보를 위한 선언-------------*/
 	public int insertCompany(MemberDTO companyDTO);

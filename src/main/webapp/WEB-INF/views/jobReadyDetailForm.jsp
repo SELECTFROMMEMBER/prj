@@ -6,14 +6,13 @@
 <html>
 
 <head>
+	 <style>
+    .hidden-row {
+        display: none;
+    }
+</style>
 	<script>
-// 	function goUpDelForm(){
-	
-// 		$("[name='jobReadyUpDelForm']").find("[name='UpDel_board']").val("jobsearchboard")
-// 		$("[name='jobReadyUpDelForm']").find("[name='b_no']").val(${boardDTO.b_no})
-// 		document.jobReadyUpDelForm.submit();
-		
-// 	}
+
 	</script>
 </head>
 <body>
@@ -26,7 +25,7 @@
 
     <div id="wrap" class="container"  >
       <h1 style="text-align: center;">취업준비 게시판 상세페이지</h1>
-      <form action="submit.php" method="POST">
+       <form action="submit.php" method="POST" name="commentRegForm" class="commentRegForm">
             <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
                    
                <tr>
@@ -64,18 +63,56 @@
               <tr>
                   <td>댓글</td>
                   <td>
-                   <textarea textarea style="width:100%; height:100%;" rows="4"></textarea>
-                  	 <input type="button" value="등록" >
+                   <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>
+                   	 <input type="hidden" value="comment_jobsearch" name="table" class="table"> 
+                  	 <input type="hidden" value="${boardDTO.p_no }" name="p_no" class="p_no"> 
+                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">                   	 
+                  	 <input type="button" value="등록"  onClick="checkCommentReg()">
                   </td>                       
               </tr> 
           </table>
+      </form>
           
           <center>
          <span onClick="pushboardname('jobsearchboard','jobReady')">[목록으로]</span>
         <input type="button" value="수정/삭제"
 							onclick="goUpDelForm(${boardDTO.b_no},'jobReady','jobsearchboard');">
      </center>
-      </form>
+     
+     <table style="margin: 0 auto;">
+      	<tr>
+      		<td>
+      	댓글
+      		</td>
+      		<td>
+      		좋아요
+      		</td>
+      	</tr>
+      	 <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
+        <tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
+            <td>
+                <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}<br><br>
+                ${board.content}
+            </td>
+            <td>
+                <span class="likeButton" onclick="toggleLike(this)"><i class="far fa-heart"></i></span>
+            </td>
+        </tr>
+    </c:forEach>
+    <tr id="showMoreBtn" <c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
+    	<td colspan="2" style="text-align: center;" onclick="showMoreComments()">
+        	더보기
+    	</td>
+	</tr>
+    <c:if test="${empty requestScope.commentList}">
+        <tr>
+            <td colspan="2">
+                댓글이 아직 없습니다.
+            </td>
+        </tr>
+    </c:if>
+      </table>
+     
   </div>
 <!--   <form name="jobReadyUpDelForm" action="/jobReadyUpDelForm.do" method="post"> -->
 <!-- 		<input type="hidden" name="UpDel_b_no" > -->
