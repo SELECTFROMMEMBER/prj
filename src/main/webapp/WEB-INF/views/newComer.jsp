@@ -103,7 +103,7 @@
 							varStatus="status">
 							
 							<tr style="cursor: pointer"
-								onCLick="goBoardDetailForm(${board.b_no},'newComer', 'newbieboard');">
+								onCLick="goBoardDetailForm(${board.b_no},'newComer', 'newbieboard','newbie');">
 								<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
 								<td align="center">${board.subject }</td>
 								<td align="center">${board.nickname }</td>

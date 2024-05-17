@@ -5,11 +5,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberDAO {
 	
-	int insertMemberCnt( MemberDTO memberDTO);
+	int insertMember( MemberDTO memberDTO);
 
-	int insertSkill( MemberDTO memberDTO);
+//	int insertSkill( MemberDTO memberDTO);
 	
-	int getMidCnt( MemberDTO memberDTO);
+	int getPidCnt( MemberDTO memberDTO);
 	
 	/*-------------회사 정보를 위한 서언-------------*/
 	int insertCompany(MemberDTO companyDTO);

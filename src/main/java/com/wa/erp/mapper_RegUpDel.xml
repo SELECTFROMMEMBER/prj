@@ -298,7 +298,171 @@
 			,sysdate
 			,(select nvl(max(r_no),0)+1 from review)
 			)
-	
 	</insert>
+	
+	<!-- 이력서 -->
+    <insert id="insertResume" parameterType="com.wa.erp.BoardDTO" >
+        insert into resume(
+        	resume_no
+            ,p_no
+            ,married
+            ,military
+            ,introduce
+            ,is_offer
+            ,hope_salary 
+        ) values (
+        (select nvl(max(resume_no),0)+1 from resume)           
+             ,1
+             ,#{married}
+            ,#{military}
+            ,#{introduce}
+            ,#{is_offer}
+            ,#{hope_salary}
+        )
+    </insert>
+    
+    <!-- 수상경력 -->
+    <insert id="insertAwards" parameterType="com.wa.erp.BoardDTO" >
+        insert into awards(
+            p_no
+            ,name
+            ,organizer
+            ,type
+            ,award_no
+        ) values (
+            1
+            ,#{name}
+            ,#{organizer}
+            ,#{type}
+            ,#{award_no}
+        )
+    </insert>
+    
+    <!-- 최종학력 -->
+    <insert id="insertEducation" parameterType="com.wa.erp.BoardDTO" >
+        insert into education(
+            p_no
+            ,school_name
+            ,education
+            ,enter_date
+            ,graduation_date
+        ) values (
+            1
+            ,#{school_name}
+            ,#{education}
+            ,#{enter_date}
+            ,#{graduation_date}
+        )
+    </insert>
+    
+    <!-- 경력 -->
+    <insert id="insertCareer" parameterType="com.wa.erp.BoardDTO" >
+        insert into career(
+            p_no
+            ,career1
+            <if test="career2 != null and career2 != ''">
+              ,career2
+                 </if>
+                 <if test="career3 != null and career3 != ''">
+              ,career3
+                 </if>
+                 <if test="career4 != null and career4 != ''">
+              ,career4
+                 </if>
+                 <if test="career5 != null and career5 != ''">
+              ,career5
+                 </if>
+         
+        ) values (
+            1
+            ,#{career1}
+            <if test="career2 != null and career2 != ''">
+        ,#{career2}
+        </if>
+             <if test="career3 != null and career3 != ''">
+        ,#{career3}
+        </if>
+         <if test="career4 != null and career4 != ''">
+        ,#{career4}
+        </if> 
+        <if test="career5 != null and career5 != ''">
+        ,#{career5}
+        </if>
+        )
+    </insert>
+
+    
+    <!-- 개인보유자격증	  -->
+    <insert id="insertPerson_license" parameterType="com.wa.erp.BoardDTO" >
+         insert into person_license(
+            p_no
+            ,license_name1
+             <if test="license_name2 != null and license_name2 != ''">
+              ,license_name2
+                 </if>
+                 <if test="license_name3 != null and license_name3 != ''">
+              ,license_name3
+                 </if>
+                 <if test="license_name4 != null and license_name4 != ''">
+              ,license_name4
+                 </if>
+                 <if test="license_name5 != null and license_name5 != ''">
+              ,license_name5
+                 </if>
+        ) values (
+           1                          
+            ,#{license_name1} 
+              <if test="license_name2 != null and license_name2 != ''">
+        ,#{license_name2}
+        </if>
+             <if test="license_name3 != null and license_name3 != ''">
+        ,#{license_name3}
+        </if>
+         <if test="license_name4 != null and license_name4 != ''">
+        ,#{license_name4}
+        </if> 
+        <if test="license_name5 != null and license_name5 != ''">
+        ,#{license_name5}
+        </if>
+        )
+    </insert> 
+    
+    <!-- 개인보유스킬 -->
+     <insert id="insertSkill_Code" parameterType="com.wa.erp.BoardDTO" >
+        insert into person_skill 
+        <foreach collection="skill_code"  item="tmp"  open=" ( " close=" ) "  separator=" union ">
+            select 
+				1
+                , #{tmp}
+            from dual
+        </foreach>
+    </insert> 
+    
+    <insert id="insertComment" parameterType="com.wa.erp.BoardDTO">
+    	insert into ${table}
+    	(
+    	comment_no
+    	,b_no
+    	,p_no
+    	,content
+    	)
+    	values(
+    	(select nvl(max(comment_no),0)+1 from ${table})
+    	,#{b_no}
+        ,#{p_no}
+        ,#{content}
+    	)
+    </insert>
+    
+    <update id="updateRec" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		${table}
+    	set
+    		rec_count = rec_count+1
+    	where
+    		comment_no = #{comment_no}
+    </update>
+    
+    
 </mapper>
  

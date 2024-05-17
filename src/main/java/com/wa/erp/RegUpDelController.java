@@ -354,6 +354,36 @@ public class RegUpDelController {
 	  	//===========================================================
 		//											등록 비동기
 		//===========================================================
+	  
+	  	//===========================================================
+		//											게시판 댓글쓰기
+		//===========================================================
+	  @RequestMapping(
+		   		value="/commentRegProc.do"
+			   ,method=RequestMethod.POST
+			   ,produces="application/json;chaeset=UTF-8"
+		   )
+		   
+		  @ResponseBody
+		  public Map<String, String> CommentRegProc(
+				  
+				   BoardDTO boardDTO
+				   
+			){
+		  
+		   Map<String, String> resultMap = new HashMap<String, String>();
+		   
+		   int commnetRegCnt = this.regUpDelService.insertComment(boardDTO);
+		   
+		   
+		   resultMap.put("result", commnetRegCnt+"");
+		   
+		   return resultMap;
+		   
+		  }
+	  	//===========================================================
+		//											게시판 댓글쓰기
+		//===========================================================
 	  /*mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm*/
 	
 	  
@@ -681,6 +711,52 @@ public class RegUpDelController {
 
 					return resultMap;
 					 }
+				
+				//============================================================
+				// 이력서 등록
+	 			//============================================================
+				@RequestMapping(
+						value="/resumeRegProc.do"
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+						)
+					@ResponseBody
+					public Map<String,String> resumeRegProc(
+					BoardDTO boardDTO
+						) {
+					
+					Map<String,String> resultMap = new HashMap<String,String>();
+
+					int resumeRegCnt = this.regUpDelService.insertResume(boardDTO);
+
+					resultMap.put("result", resumeRegCnt+"");
+
+					return resultMap;
+					 }
+				
+				//============================================================
+				// 추천수 업!
+	 			//============================================================
+				@RequestMapping(
+						value="/recUpProc.do"
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+						)
+					@ResponseBody
+					public Map<String,String> recUpProc(
+					BoardDTO boardDTO
+						) {
+					
+					Map<String,String> resultMap = new HashMap<String,String>();
+
+					int updateRecCnt = this.regUpDelService.updateRec(boardDTO);
+
+					resultMap.put("result", updateRecCnt+"");
+
+					return resultMap;
+					 }
+				
+				
 }
 	
 

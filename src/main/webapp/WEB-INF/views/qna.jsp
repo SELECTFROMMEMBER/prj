@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%@include file="/WEB-INF/views/common.jsp"%>  
+    pageEncoding="UTF-8"%>  
 
 <!DOCTYPE html>
 <html>
@@ -11,59 +10,12 @@
 
 function pageNoClick( clickPageNo ){
 
-		$("[name='boardSearchForm']").find(".selectPageNo").val(clickPageNo);
+		$("[name='boardSearchForm']").find(".SelectPageNo").val(clickPageNo);
 		
 		search('qna');
 		
 	}
 	
-// 	게시판 검색하는 함수 search() 선언.
-// // 	[검색] 버튼 클릭 시 호출되는 함수이다.
-// 	function search(){
-	
-// 		var boardSearchFormObj = $("[name='boardSearchForm']");
-		
-// 		boardSearchFormObj.find('.boardname').val("qnaboard");
-		
-// 		var keywordObj = boardSearchFormObj.find(".keyword");
-
-// 		var keyword = keywordObj.val();
-		
-// 		if(typeof(keyword)!='string'){ keyword=""; }
-		
-// 		keyword = $.trim(keyword);
-// 		keywordObj.val(keyword);
-
-// 		boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val());
-		
-// 		alert(boardSearchFormObj.serialize());
-// 		$.ajax(
-// 			{
-// 				url: "/qna.do"
-// 				,type: "post"
-// 				,data: boardSearchFormObj.serialize()
-// 				,success: function(responseHtml){
-// 					var obj = $(responseHtml);
-// 					alert(
-// 							boardSearchFormObj.serialize()
-// 					)
-					
-// 					$(".qnaListDiv").html(
-// 							obj.find(".qnaListDiv").html()
-// 					);
-// 					$(".pagingNos").html(
-// 							obj.find(".pagingNos").html()
-// 					);
-
-// 				}
-// 				,error: function(){
-// 					alert("검색 실패! 관리자에게 문의 바람");
-// 				}
-// 			}		
-// 		);
-
-
-// 		}
   </script>
 </head>
 <body>
@@ -106,7 +58,7 @@ function pageNoClick( clickPageNo ){
 							varStatus="status">
 
 							
-								<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'qna', 'qnaboard');">
+								<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'qna', 'qnaboard', 'qna');">
 									<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
 									<td align="center">${board.subject}</td>
 									<td align="center">${board.nickname}</td>

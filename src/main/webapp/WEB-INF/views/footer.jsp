@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@include file="/WEB-INF/views/common.jsp"%>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,6 +8,7 @@
 </head>
 <body>   
 </body>
+<%@include file="/WEB-INF/views/common.jsp" %>
 <div id="container">
 <footer>    
       <div id="bottomMenu">
