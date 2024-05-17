@@ -234,4 +234,170 @@ public class BoardServiceImpl implements BoardService{
 		//------------------------------------------
 		return boardDTO;
 	}
+	
+		//프로젝트 공모 게시판을 위한 선언
+		@Autowired
+		private BoardDAO boardDTO;
+		
+		//입력을 위한 선언
+		@Override
+		public int insertPrj(BoardDTO boardDTO) {
+			
+			int boardRegCnt = this.boardDAO.insertPrj(boardDTO);
+			
+			return boardRegCnt;
+		}
+
+		@Override
+		public BoardDTO getPrj(int prj_no) {
+			
+			int updateCount = this.boardDAO.prjUpdateReadcount(prj_no);
+			
+			BoardDTO boardDTO = this.boardDAO.getPrj(prj_no);
+			
+			return boardDTO;
+			
+		}
+		
+		// 프로젝트 수정/삭제
+		@Override
+		public BoardDTO getPrjForUpDel(int prj_no) {
+			
+			BoardDTO boardDTO = this.boardDAO.getPrj(prj_no);
+			
+			return boardDTO;
+		}
+		
+		@Override
+		public int updatePrj(BoardDTO boardDTO) {
+			
+			int prjCnt = this.boardDAO.getPrjCnt( boardDTO.getPrj_no() );
+			if( prjCnt==0 ) { return prjCnt; }
+			
+			int prjPwdCnt = this.boardDAO.getPrjPwdCnt(boardDTO);
+			if( prjPwdCnt==0 ) {return -1;}
+			
+			int prjUpCnt = this.boardDAO.updatePrj(boardDTO);
+			
+			return prjUpCnt;
+		}
+
+		@Override
+		public int deldatePrj(BoardDTO boardDTO) {
+			
+			int prjCnt = this.boardDAO.getPrjCnt( boardDTO.getPrj_no() );
+			if( prjCnt==0 ) { return prjCnt; }
+			
+			int prjPwdCnt = this.boardDAO.getPrjPwdCnt(boardDTO);
+			if( prjPwdCnt==0 ) {return -1;}
+			
+			int prjDelCnt = this.boardDAO.deldatePrj(boardDTO);
+			
+			return prjDelCnt;
+		}
+
+		
+		//공모전을 위한 선언들
+		@Override
+		public int insertGongMo(BoardDTO boardDTO) {
+			// boardDAOImpl 객체의
+			// insertBoard 메소드 호출하여
+			// 게시판 글 입력 후 적용 행의 개수 얻기
+			int boardRegCnt = this.boardDTO.insertGongMo(boardDTO);
+			// 1개 게시판 글 입력 적용 행의 개수 리턴하기
+			return boardRegCnt;
+		}
+
+		@Override
+		public List<BoardDTO> getGongMoList(BoardSearchDTO boardSearchDTO) {
+			
+			List<BoardDTO> gongMoList = this.boardDAO.getGongMoList(boardSearchDTO);
+			
+			return gongMoList;
+		}
+
+		@Override
+		public BoardDTO getGongMo(int comp_pk) {
+			// [BoardDAOImpl 객체]의 updateReadcount 메소드를 호출하여
+			// [조회수 증가]하고 수정한 행의 개수를 얻는다.
+			int updateCount = this.boardDAO.gongMoUpdateReadcount(comp_pk);
+			// [BoardDAOImpl 객체]의 getBoard 메소드를 호출하여
+			// [1개 게시판 글]을 얻는다.
+			BoardDTO boardDTO = this.boardDAO.getGongMo(comp_pk);
+			// [1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
+			return boardDTO;
+		}
+
+		@Override
+		public BoardDTO gongMoForUpDel(int comp_pk) {
+			BoardDTO boardDTO = this.boardDAO.getGongMo(comp_pk);
+			// [1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
+			return boardDTO;
+		}
+
+		@Override
+		public int updateGongMo(BoardDTO boardDTO) {
+			// 암호의 존재 개수 얻기
+			// 만약 암호의 존개 개수가 0개면(=암호가 틀렸으면) -1 리턴하기
+			int boardPwdCnt = this.boardDAO.getGongMoPwdCnt(boardDTO);
+			if( boardPwdCnt==0 ) {return -1;}
+			// 수정 실행하고 수정 적용행의 개수 얻기
+			int boardUpCnt = this.boardDAO.updateGongMo(boardDTO);
+			// 수정 적용행의 개수 리턴히기
+			return boardUpCnt;
+		}
+
+		@Override
+		public int deldateGongMo(BoardDTO boardDTO) {
+			// 암호의 존재 개수 얻기
+			// 만약 암호의 존개 개수가 0개면(=암호가 틀렸으면) -1 리턴하기
+			int boardPwdCnt = this.boardDAO.getGongMoPwdCnt(boardDTO);
+			if( boardPwdCnt==0 ) {return -1;}
+					
+			// 삭제 실행하고 수정 적용행의 개수 얻기
+			int boardDelCnt = this.boardDAO.deldateGongMo(boardDTO);
+			// 삭제 적용행의 개수 리턴히기
+			return boardDelCnt;
+		}
+
+		@Override
+		public int getPrjListAllCnt() {
+			
+			int boardListAllCnt = this.boardDAO.getPrjListAllCnt();
+			
+			return boardListAllCnt;
+		}
+
+		@Override
+		public int getPrjListCnt(BoardSearchDTO boardSearchDTO) {
+			
+			int boardListCnt = this.boardDAO.getPrjListCnt(boardSearchDTO);
+			
+			return boardListCnt;
+		}
+
+		@Override
+		public List<BoardDTO> getPrjList(BoardSearchDTO boardSearchDTO) {
+			
+			List<BoardDTO> boardList = this.boardDAO.getPrjList( boardSearchDTO );
+			
+			return boardList;
+		}
+
+		@Override
+		public int getGongMoListAllCnt() {
+			
+			int gongMoListAllCnt = this.boardDAO.getGongMoListAllCnt();
+			
+			return gongMoListAllCnt;
+		}
+
+		@Override
+		public int getGongMoListCnt(BoardSearchDTO boardSearchDTO) {
+			
+			int gongMoListCnt = this.boardDAO.getGongMoListCnt(boardSearchDTO);
+			
+			return gongMoListCnt;
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
 }

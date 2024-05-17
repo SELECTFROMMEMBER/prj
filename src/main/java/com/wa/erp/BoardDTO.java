@@ -66,7 +66,84 @@ public class BoardDTO {
 	private String hope_salary;
 	private int comment_no;
 	
+		//프로젝트 공모 위한 선언//
+		private int prj_no;
+		private String project_type;
+		private int field_code;
+		private int people_to;
+		private String code_field;
+		private int comp_pk;
+		private String skill_name;
+		public int getComp_pk() {
+			return comp_pk;
+		}
 	
+	
+	public int getPrj_no() {
+			return prj_no;
+		}
+
+
+		public void setPrj_no(int prj_no) {
+			this.prj_no = prj_no;
+		}
+
+
+		public String getProject_type() {
+			return project_type;
+		}
+
+
+		public void setProject_type(String project_type) {
+			this.project_type = project_type;
+		}
+
+
+		public int getField_code() {
+			return field_code;
+		}
+
+
+		public void setField_code(int field_code) {
+			this.field_code = field_code;
+		}
+
+
+		public int getPeople_to() {
+			return people_to;
+		}
+
+
+		public void setPeople_to(int people_to) {
+			this.people_to = people_to;
+		}
+
+
+		public String getCode_field() {
+			return code_field;
+		}
+
+
+		public void setCode_field(String code_field) {
+			this.code_field = code_field;
+		}
+
+
+		public String getSkill_name() {
+			return skill_name;
+		}
+
+
+		public void setSkill_name(String skill_name) {
+			this.skill_name = skill_name;
+		}
+
+
+		public void setComp_pk(int comp_pk) {
+			this.comp_pk = comp_pk;
+		}
+
+
 	public int getDesc_rank() {
 		return desc_rank;
 	}

@@ -17,72 +17,80 @@
 
 
     <center>
+    
   <div id="wrap" >
-   <table align="center"border="1"cellpadding="7"style="border-collapse:collapse"><table align="center"border="1"cellpadding="7"style="border-collapse:collapse">
-        <h1 style="text-align: center;">프로젝트상세</h1> 
-       
-            <td>제목</td>
-            <td>1111111111</td>
+  	<c:if test="${!empty requestScope.boardDTO }">
+   <table align="center" border="1" cellpadding="7" style="border-collapse:collapse">
+   		<br>
+        <h1 style="text-align: center;">프로젝트상세</h1>
+        <br> 
+       	<tr>
+            <th>제목</th>
+            <td style="width: 500px;">${boardDTO.subject}</td>
+        </tr>
+        
+        <tr>
+            <th>닉네임</th>
+            <td>${boardDTO.nickname}</td>
+        </tr>
+        
+        <tr>
+            <th>작성일</th>
+            <td>${boardDTO.reg_date}</td>
         </tr>   
           
         <tr>
-            <td>희망 프로젝트</td>
-            <td>1111111111
+            <th>희망 프로젝트</th>
+            <td>${boardDTO.field_name}</td>
         </tr>
-
-        
          
         <tr>
-            <td>프로젝트 종류</td>
-            <td>
-            1111111111
-              
-            </td>
+            <th>프로젝트 종류</th>
+            <td>${boardDTO.project_type}</td>
         </tr>
         
-    <tr> 
-        <td>모집인원</td>   
-        <td>
-           1111111111
-        </td>
-    </tr>  
-
-    <tr>
-        <td>보유자격증</td>
-
-        <td>
-           1111111111
-        </td>
-    </tr>
+	    <tr> 
+	        <th>모집인원</th>   
+	        <td>${boardDTO.people_to}명</td>
+	    </tr>
+	    
+	    <tr> 
+	        <th>기간</th>   
+	        <td>${boardDTO.start_time} ~ ${boardDTO.end_time}</td>
+	    </tr>
+	    
+	    <tr>
+            <th>요구기술</th>
+            <td>${boardDTO.skill_name}</td>
+        </tr>  
+    
+     	<tr>
+	        <th>내용</th>
+	        <td>
+	        <textarea name="content" class="content" rows="12" cols="70"
+	         maxlength="500" readonly>${boardDTO.content}</textarea>
+	        </td>
+        </tr>
+        <tr>  
+	        <th>업로드 된 파일</th>
+	        <td></td>
+  		</tr>
+  		
+		</table>
+		<br>
+        <input type="button" onClick="location.replace('/prj.do')" value=" 목록으로 ">    
+        <input type="button" value="수정/삭제" onclick="document.prjUpDelForm.submit();">
+        </center>
         
-
-    <tr>
-        <td>요구기술</td>
-        <td>		    
+        <!-- 수정 삭제를 위한 히든 태그 선언 -->
+        <form name="prjUpDelForm" action="/prjUpDelForm.do" method="post">
+		<!-- 게시판 고유번호가 저장된 hidden 태그 선언하기 -->
+		<input type="hidden" name="prj_no" value="${requestScope.boardDTO.prj_no}">
+		</form>
           
-          
-           1111111111
-        </td>
-          <tr>
-        <td>내용</td>
-        <td>		    
-          
-          
-           1111111111
-        </td>
-          <tr>
-        <td>업로드 된 파일</td>
-        <td>		    
-          
-          
-           1111111111
-        </td>
-    </tr>
-</table>
-          <input type="button" onClick="location.replace('/12Wa.do')" value="목록으로">    
-          </center>
         </div>
-       
+        
+       </c:if>
 </body>
 <%@ include file="footer.jsp" %>
 </html>
