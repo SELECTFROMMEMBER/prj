@@ -51,8 +51,6 @@ public class PrjGongMoController {
 
 		mav.addObject("boardMap", boardMap);
 		
-		System.out.println(prjListCnt +" / "+ prjListAllCnt);
-		
 		mav.setViewName("prj.jsp");
 		
 		return mav;

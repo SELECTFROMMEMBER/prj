@@ -59,8 +59,7 @@
         <tr>
             <th>내용</th>
             <td>
-            <textarea name="content" class="content" rows="12" cols="70"
-	         maxlength="500" readonly>${boardDTO.content}</textarea>
+           ${boardDTO.content}
             </td>
         </tr>
         
