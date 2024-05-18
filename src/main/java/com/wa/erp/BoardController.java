@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,6 @@ public class BoardController {
 		
 //		게시판 총 개수 저장할 변수 boardListAllCnt 선언하여 저장하기
 		int freedomeListAllCnt = this.boardService.getboardListAllCnt(boardSearchDTO);
-		
 		
 		
 		
@@ -75,7 +75,7 @@ public class BoardController {
 		
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		
-
+	
 		//ModelAndView 객체 생성하기
 		ModelAndView mav = new ModelAndView();
 		
@@ -432,21 +432,28 @@ public class BoardController {
 			// 파라미터 값은 모두 문자로 처리된다. int b_no 에서 int로 변환한다.
 			//--------------------------------------
 			@RequestParam(value="Detail_b_no") int b_no,
-			@RequestParam(value="Detail_board") String table
+			@RequestParam(value="Detail_board") String table,
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort
+			
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
+		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
+		
 //		BoardServiceImpl 객체의 getBoard 메소드를 호출하여
 //		상세보기 화면에서 필요한 [1개의 게시판 글] 가져오기
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
-		
+		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		//ModelAndView 객체 생성하기
 		ModelAndView mav = new ModelAndView();
 		
 		
 		mav.addObject("boardDTO", boardDTO);
+		mav.addObject("commentList", commentList);
 		
 		//[ModelAndView 객체]의 setViewName 메소드 호출하여
 		//[호출할 JSP 페이지명]을 문자로 저장하기
@@ -469,18 +476,24 @@ public class BoardController {
 	@RequestMapping( value ="/qnaDetailForm.do")
 	public ModelAndView qnaDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
-			@RequestParam(value="Detail_board") String table
+			@RequestParam(value="Detail_board") String table,
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
-
+		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
+		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
+		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("boardDTO", boardDTO);
+		mav.addObject("commentList", commentList);
 
 		mav.setViewName("qnaDetailForm.jsp");
 		
@@ -497,18 +510,24 @@ public class BoardController {
 	@RequestMapping( value ="/newComerDetailForm.do")
 	public ModelAndView newComerDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
-			@RequestParam(value="Detail_board") String table
+			@RequestParam(value="Detail_board") String table,
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
+		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
+		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("boardDTO", boardDTO);
+		mav.addObject("commentList", commentList);
 		
 		mav.setViewName("newComerDetailForm.jsp");
 		
@@ -530,18 +549,24 @@ public class BoardController {
 	@RequestMapping( value ="/jobReadyDetailForm.do")
 	public ModelAndView jobReadyDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
-			@RequestParam(value="Detail_board") String table
+			@RequestParam(value="Detail_board") String table,
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
+		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
+		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("boardDTO", boardDTO);
+		mav.addObject("commentList", commentList);
 		
 		mav.setViewName("jobReadyDetailForm.jsp");
 		
@@ -563,18 +588,24 @@ public class BoardController {
 	@RequestMapping( value ="/interviewDetailForm.do")
 	public ModelAndView interviewDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
-			@RequestParam(value="Detail_board") String table
+			@RequestParam(value="Detail_board") String table,
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
+		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
+		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("boardDTO", boardDTO);
+		mav.addObject("commentList", commentList);
 		
 		mav.setViewName("interviewDetailForm.jsp");
 		
@@ -595,18 +626,24 @@ public class BoardController {
 	@RequestMapping( value ="/joongGoDetailForm.do")
 	public ModelAndView joongGoDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
-			@RequestParam(value="Detail_board") String table
+			@RequestParam(value="Detail_board") String table,
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
+		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
+		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("boardDTO", boardDTO);
+		mav.addObject("commentList", commentList);
 		
 		mav.setViewName("joongGoDetailForm.jsp");
 		
@@ -711,25 +748,36 @@ public class BoardController {
 			@RequestMapping( value="/companyListDetail.do")
 			public ModelAndView companyListDetailForm( 
 					
-					@RequestParam(value="c_no") int c_no	
-					
-			){	
-				
-				BoardDTO boardDTO = this.boardService.getcompanyDetail(c_no);
-			    List<BoardReviewDTO> reviewContent = this.boardService.getreviewContent(c_no);
-			    
-			  
+					@RequestParam(value="c_no") int c_no	,
+					BoardReviewDTO boardReviewDTO
 
-			    
+
+			){	
+				int reviewListAllCnt =  this.boardService.getReviewListAllCnt( );
+				int reviewListCnt =  this.boardService.getReviewListCnt( boardReviewDTO );
+				if(boardReviewDTO.getReviewSort()==""){
+					boardReviewDTO.setReviewSort(null);
+				}
+				Map<String,Integer> boardMap = Util.getPagingMap(
+						boardReviewDTO.getSelectPageNo()       
+						, boardReviewDTO.getRowCntPerPage()    
+						, reviewListCnt                         
+				);
+				boardReviewDTO.setSelectPageNo(  (int)boardMap.get("selectPageNo")  ); 
+				boardReviewDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
+				boardReviewDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
+				boardReviewDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     ); 
+				BoardDTO boardDTO = this.boardService.getcompanyListDetail(c_no);
+			    List<BoardReviewDTO> reviewContent = this.boardService.getreviewContent(boardReviewDTO);
 				ModelAndView mav = new ModelAndView( );
-				
 				mav.addObject("boardDTO", boardDTO);
 			    mav.addObject("reviewContent", reviewContent);
 				mav.setViewName("companyListDetail.jsp");
-
+				mav.addObject("reviewListCnt", reviewListCnt+"" );
+				mav.addObject("reviewListAllCnt", reviewListAllCnt );
+				mav.addObject("boardMap", boardMap );
 				return mav;
 			}
-			
-	
-	
+
+
 }

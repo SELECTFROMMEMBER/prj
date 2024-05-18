@@ -30,7 +30,25 @@ public class RegUpDelServiceImpl implements RegUpDelService{
 		
 		return boardRegCnt;
 	}
-	
+	//================================================================
+	//======================    게시판 댓글 등록   ============================
+	//================================================================
+	@Override
+	public int insertComment(BoardDTO boardDTO) {
+		
+		int CommentRegCnt = this.regUpDelDAO.insertComment(boardDTO);
+		
+		return CommentRegCnt;
+	}
+	//================================================================
+	//======================    게시판 댓글 좋아요+   =========================
+	//================================================================
+	@Override
+	public int updateRec(BoardDTO boardDTO) {
+		int updateRecCnt = this.regUpDelDAO.updateRec(boardDTO);
+		
+		return updateRecCnt;
+	}
 	//================================================================
 	//======================    게시판 수정   ===============================
 	//================================================================
@@ -283,5 +301,26 @@ public int insertGongo(BoardDTO boardDTO ) {
 		//----------------------------------------------
 		return reviewRegCnt;
 	}	
+	
+	//이력서 등록
+	public int insertResume(BoardDTO boardDTO ) {
+		int insertResumeCnt = this.regUpDelDAO.insertResume(boardDTO);			
+		int insertAwardsCnt = this.regUpDelDAO.insertAwards(boardDTO); 
+			if(insertAwardsCnt==0) {return -1;}
+			
+		 int insertEducationCnt = this.regUpDelDAO.insertEducation(boardDTO); 
+		 	if(insertEducationCnt==0) {return -2;}
+		 	
+		 int insertCareerCnt = this.regUpDelDAO.insertCareer(boardDTO); 
+		 	if(insertCareerCnt==0) {return -3;}
+		 	
+		 int insertPerson_licenseCnt = this.regUpDelDAO.insertPerson_license(boardDTO);
+		 	if(insertPerson_licenseCnt==0) {return -4;}
+		 	
+		 int insertSkillCnt = this.regUpDelDAO.insertSkill_Code(boardDTO);
+		 	if(insertSkillCnt==0) {return -5;}
+		 
+		 return insertResumeCnt;
+	}
 		
 }

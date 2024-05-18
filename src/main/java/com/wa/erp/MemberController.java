@@ -80,7 +80,7 @@ public class MemberController {
 //	}
 	
 	@RequestMapping(
-			value="/memberProc.do"
+			value="/memProc.do"
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 			)
@@ -102,7 +102,7 @@ public class MemberController {
 		// [BoardServiceImpl 객체]의 updateBoard 메소드 호출로 
 		// 게시판 글 수정하고 [수정 적용행의 개수] 얻기
 		//-------------------------------------------
-		int insertMemCnt = this.memberService.insertMemberCnt(memberDTO);
+		int insertMemCnt = this.memberService.insertMember(memberDTO);
 		
 		//-------------------------------------------
 		// HashMap 객체에 게시판 수정 행의 개수 저장하기

@@ -103,7 +103,7 @@
 					<c:forEach var="board" items="${requestScope.jobReadyList }"
 						varStatus="status">
 						
-						<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'jobReady', 'jobsearchboard');">
+						<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'jobReady', 'jobsearchboard', 'jobsearch','');">
 							<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
 							<td align="center">${board.subject }</td>
 							<td align="center">${board.nickname }</td>

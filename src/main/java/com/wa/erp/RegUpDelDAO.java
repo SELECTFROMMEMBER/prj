@@ -11,6 +11,10 @@ public interface RegUpDelDAO {
 	BoardDTO getBoard(BoardSearchDTO boardSearchDTO);
 	
 	int insertBoard(BoardDTO boardDTO);
+
+	int insertComment(BoardDTO boardDTO);
+	
+	int updateRec(BoardDTO boardDTO);
 	
 	int updateBoard(BoardDTO boardDTO);
 	
@@ -56,4 +60,17 @@ public interface RegUpDelDAO {
 		//기업리뷰 작성
 
 		int upReview(BoardDTO boardDTO);
+		
+		//이력서 등록
+		int insertResume(BoardDTO boardDTO);
+		
+		int insertAwards(BoardDTO boardDTO);
+		
+		int insertEducation(BoardDTO boardDTO);
+		
+		int insertCareer(BoardDTO boardDTO);
+		
+		int insertPerson_license(BoardDTO boardDTO);
+		
+		int insertSkill_Code(BoardDTO boardDTO);
 	}

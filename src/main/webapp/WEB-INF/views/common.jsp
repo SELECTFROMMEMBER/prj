@@ -6,7 +6,7 @@
 <script src="/js/common.js"></script>
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"> -->
 <link href="/style/style.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
  
 <script>
 //해당 주소로 들어갈 때 파라미터값 입력하는 함수
@@ -22,11 +22,11 @@ function pushboardname(boardname,boardurl){
 //주소 
 $('document').ready(function() {
     var area0 = ["시/도 선택","서울특별시","인천광역시","부산광역시","경기도","강원도"];
-    var area1 = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
-    var area2 = ["계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
-    var area3 = ["강서구","금정구","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구","기장군"];
-    var area4 = ["고양시","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시","수원시","시흥시","안산시","안성시","안양시","양주시","오산시","용인시","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시","가평군","양평군","여주군","연천군"];
-    var area5 = ["강릉시","동해시","삼척시","속초시","원주시","춘천시","태백시","고성군","양구군","양양군","영월군","인제군","정선군","철원군","평창군","홍천군","화천군","횡성군"];
+    var area1 = ["구/군 선택","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
+    var area2 = ["구/군 선택","계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
+    var area3 = ["구/군 선택","강서구","금정구","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구","기장군"];
+    var area4 = ["구/군 선택","고양시","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시","수원시","시흥시","안산시","안성시","안양시","양주시","오산시","용인시","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시","가평군","양평군","여주군","연천군"];
+    var area5 = ["구/군 선택","강릉시","동해시","삼척시","속초시","원주시","춘천시","태백시","고성군","양구군","양양군","영월군","인제군","정선군","철원군","평창군","홍천군","화천군","횡성군"];
     
     $("select[id^=sido]").each(function() {
       $selsido = $(this);
@@ -146,21 +146,57 @@ function submitReview() {
 let isLiked = false;
 let likeCount = 0;
 
-function toggleLike(button) {
-    const likeButton = button;
-    const likeIcon = likeButton.querySelector('i');
-    const likeCount = likeButton.nextElementSibling;
-    const isLiked = likeButton.classList.toggle('clicked');
+function toggleLike(button,comment_no) {
+    var likeButton = $(button);
+    var likeIcon = likeButton.find('i');
+//     var likeCount = likeButton.next();
+    var isLiked = likeButton.toggleClass('clicked').hasClass('clicked');
+
     if (isLiked) {
-        likeIcon.classList.remove('far');
-        likeIcon.classList.add('fas');
-        likeCount.innerText++;
+        likeIcon.removeClass('far').addClass('fas');
+        upCount(comment_no);
+//         likeCount.text(parseInt(likeCount.text()) + 1);
     } else {
-        likeIcon.classList.remove('fas');
-        likeIcon.classList.add('far');
-        likeCount.innerText--;
+        likeIcon.removeClass('fas').addClass('far');
+        downCount(comment_no);
+//         likeCount.text(parseInt(likeCount.text()) - 1);
     }
 }
+
+
+
+//추천수 up
+
+
+function upCount(comment_no){
+	alert(comment_no);
+	var commentObj = $("form[name='commentRegForm']");
+	var serialize = commentObj.serialize();
+	
+	serialize = serialize+"&comment_no="+comment_no;
+	
+	$.ajax(
+			{
+				url: "/recUpProc.do"
+				,type: "post"
+				,data: serialize
+				,success: function(json) {
+	        	
+	            var result = json["result"];
+	            if (result == 1) {
+	                alert("개추요~");
+	            } else {
+	                alert("추천실패");
+	            }
+	        }
+				,error: function(){
+					alert("검색 실패! 관리자에게 문의 바람");
+				}
+			}		
+		);
+}
+
+
 
 
 //게시판 비동기 검색 공용함수
@@ -179,7 +215,6 @@ function toggleLike(button) {
 
 		boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val());
 		
-		alert(boardSearchFormObj.serialize());
 		$.ajax(
 			{
 				url: "/"+community+".do"
@@ -187,17 +222,12 @@ function toggleLike(button) {
 				,data: boardSearchFormObj.serialize()
 				,success: function(responseHtml){
 					var obj = $(responseHtml);
-					alert(
-							boardSearchFormObj.serialize()
-					)
-					
 					$("."+community+"ListDiv").html(
 							obj.find("."+community+"ListDiv").html()
 					);
 					$(".pagingNos").html(
 							obj.find(".pagingNos").html()
 					);
-
 				}
 				,error: function(){
 					alert("검색 실패! 관리자에게 문의 바람");
@@ -211,7 +241,7 @@ function toggleLike(button) {
 //--------------------------------------------------------------------------
 //게시판 상세글 들어가기
 //--------------------------------------------------------------------------
-	function goBoardDetailForm(b_no,boardurl,boardname){
+	function goBoardDetailForm(b_no,boardurl,boardname,comment,sort){
 	
 		//boardSideCategori 에 있는 <form name="freedomeDetailForm"> 의 name과 action값을 매개변수로 들어온 boarurl과 boardname을 사용하여 변경
 		$("form[name='freedomeDetailForm']").attr({"name":boardurl+"DetailForm","action":"/"+boardurl+"DetailForm.do"});
@@ -221,6 +251,11 @@ function toggleLike(button) {
 		
 		//name이 table인 히든태그에 table을 value로 저장
  		$("[name='"+boardurl+"DetailForm']").find("[name='Detail_board']").val(boardname);
+
+		//댓글테이블명 입력하기
+		$("[name='"+boardurl+"DetailForm']").find("[name='Comment_board']").val("comment_"+comment);
+		//댓글 sort
+		$("[name='"+boardurl+"DetailForm']").find("[name='comment_sort']").val(sort);
  		
 		//히든태그에 저장된 값을 파라미터값으로 가지고 form 네임값이 board+"DetailForm"을 가진 태그에 action에 지정된 주소로 이동
  		document.forms[boardurl+"DetailForm"].submit();
@@ -356,10 +391,59 @@ function checkboardRegForm(boardname,boardurl) {
 	            } else {
 	                alert("게시판 작성 실패입니다. 관리자에게 문의 바람!");
 	            }
-	        },
-	        error: function() {
+	        }
+	        ,error: function() {
 	            alert("작성 실패! 관리자에게 문의 바람니다.");
 	        }
 	    });
+	}
+	
+	
+	//---------------------------------------------------------
+	//커뮤니티 게시판 댓글 입력하기
+	//---------------------------------------------------------
+	function checkCommentReg(){
+	 	var commentObj = $("form[name='commentRegForm']");
+	 	
+	 	
+	 
+	 	if( 
+	 			commentObj.find(".content").val().trim().length==0 
+	 			||
+	 			commentObj.find(".content").val().trim().length>20 
+	 	){
+	 		alert("댓글은 임의 문자 1~20자 입력해야합니다.");
+	 		return;
+	 	}
+	 	if( confirm("댓글을 입력하시겠습니까?")==false ){ return; }
+		$.ajax(
+				{ 
+					url    : "/commentRegProc.do"
+					,type  : "post"
+					,data  : commentObj.serialize( )
+					,success : function(json){
+						var result = json["result"];
+						if(result==1){
+							alert("댓글 입력 성공입니다.");
+							location.reload(); 
+						}
+						
+						else{
+							alert("댓글 입력 실패입니다. 관리자에게 문의 바람!");
+						}
+					}
+					,error : function(){
+						alert("입력 실패! 관리자에게 문의 바람니다.");
+					}
+				}
+			);
+	}
+	
+	
+	function showMoreComments() {
+		//hidden-row를 가지는 모든 태그의 디스플레이 스타일을 table-row로 설정한다. 즉 화면에 표시
+	    $(".hidden-row").css("display", "table-row");
+		//showMoreBtn을 id로 가지는 요소를 숨긴다.
+	    $("#showMoreBtn").hide();
 	}
 </script>

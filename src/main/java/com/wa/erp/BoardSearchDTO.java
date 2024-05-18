@@ -15,6 +15,8 @@ public class BoardSearchDTO {
 	private String type;
 	private String table;
 	private double avg_star;
+	private String sido;
+	private String gugun;
 //	private String keyword2;
 //	private String orand;
 //	private List<String> checkdate;
@@ -32,7 +34,18 @@ public class BoardSearchDTO {
 //	
 	
 	
-	
+	public String getSido() {
+		return sido;
+	}
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+	public String getGugun() {
+		return gugun;
+	}
+	public void setGugun(String gugun) {
+		this.gugun = gugun;
+	}
 	public String getTable() {
 		return table;
 	}

@@ -27,22 +27,36 @@ public class MemberServiceImpl implements MemberService{
 	private MemberDAO memberDAO;
 	
 
-	public int insertMemberCnt(MemberDTO memberDTO){
+	public int insertMember(MemberDTO memberDTO){
 		
-		int midCnt = this.memberDAO.getMidCnt(memberDTO);
+		int midCnt = this.memberDAO.getPidCnt(memberDTO);
 		if(midCnt>0) {
 			return 2;
 		}
-		int insertSkill = this.memberDAO.insertSkill(memberDTO);
+//		int insertSkill = this.memberDAO.insertSkill(memberDTO);
+//		
+//		
+//		if(insertSkill==0) {
+//			return insertSkill;
+//		}
+		System.out.println(memberDTO.getPid());
+		System.out.println(memberDTO.getPwd());
+		System.out.println(memberDTO.getName());
+		System.out.println(memberDTO.getPhone());
+		System.out.println(memberDTO.getAddr1());
+		System.out.println(memberDTO.getAddr2());
+		System.out.println(memberDTO.getAddr3());
+		System.out.println(memberDTO.getEmail1());
+		System.out.println(memberDTO.getEmail2());
+		System.out.println(memberDTO.getField_code());
+		System.out.println(memberDTO.getIs_job());
+		System.out.println(memberDTO.getNickname());
+		System.out.println(memberDTO.getSex());
+		System.out.println(memberDTO.getJumin_num1());
+		System.out.println(memberDTO.getJumin_num2());
 		
 		
-		if(insertSkill==0) {
-			return insertSkill;
-		}
-		
-		
-		
-		int insertMemCnt = this.memberDAO.insertMemberCnt(memberDTO);
+		int insertMemCnt = this.memberDAO.insertMember(memberDTO);
 		
 		
 

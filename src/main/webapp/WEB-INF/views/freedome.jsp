@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@include file="/WEB-INF/views/common.jsp"%>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,99 +40,11 @@
 		// 즉 <input type="hidden" name="selectPageNo" value="1"> 태그에
 		// value 값에 [클릭한 페이지 번호]를 저장하기
 		//---------------------------------------------
-		$("[name='boardSearchForm']").find(".selectPageNo").val(clickPageNo);
+		$("[name='boardSearchForm']").find(".SelectPageNo").val(clickPageNo);
 		
 		search("freedome");
 		
 	}
-	
-// 	게시판 검색하는 함수 search() 선언.
-// 	[검색] 버튼 클릭 시 호출되는 함수이다.
-// 	function search(){
-// 		//---------------------------------------------
-// 		// 변수 boardSearchFormObj 선언하고 
-// 		// name='boardSearchForm' 를 가진 form 태그 관리 JQuery 객체를 생성하고 저장하기
-// 		//---------------------------------------------
-// 		var boardSearchFormObj = $("[name='boardSearchForm']");
-		
-// 		//---------------------------------------------
-// 		// class='keyword1' 를 가진 태그 관리 JQuery 객체를 생성하고 
-// 		// 변수 keyword1Obj 에 저장하기
-// 		//---------------------------------------------
-// 		var keywordObj = boardSearchFormObj.find(".keyword");
-// // 		var checkboxObj = boardSearchFormObj.find(".checkdate:checked")
-		
-		
-// 		//---------------------------------------------
-// 		// 입력된 키워드 읽어와서 변수 keyword 에 저장하기
-// 		// 만약에 변수 keyword 에 문자가 안들어 있으면 "" 저장하기
-// 		// 변수 keyword 에 앞뒤공백 제거하기
-// 		//---------------------------------------------
-// 		var keyword = keywordObj.val();
-		
-// 		if(typeof(keyword)!='string'){ keyword=""; }
-		
-// 		keyword = $.trim(keyword);
-// 		keywordObj.val(keyword);
-		
-// // 		입력한 데이터가 없거나 공백이면 모두 검색한다고 경고상자 띄우기
-// // 		if(keyword1=="" && keyword2=="" && checkboxObj.length==0){
-// // 			alert("입력한 데이터가 없거나 공백이면 모두 검색합니다.")
-
-// // 		입력한 데이터가 없거나 공백이면 모두 검색한다고 경고상자 띄우기
-// // 		if(keyword1=="" && keyword2=="" && checkboxObj.length==0){
-// // 			alert("입력한 데이터가 없거나 공백이면 모두 검색합니다.")
-		
-		
-		
-		
-		
-// 		boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val());
-		
-// 		alert(boardSearchFormObj.serialize());
-// 		$.ajax(
-// 			{
-// // 				WAS로 접속할 주소 설정
-// 				url: "/freedome.do"
-// // 				WAS로 접속하는 방법 설정. get또는 post
-// 				,type: "post"
-// // 				WAS에 보낼 파명과 파값을 설정하기. "파명=파값&파명=파값~"
-// 				,data: boardSearchFormObj.serialize()
-				
-// 				,success: function(responseHtml){
-// 					var obj = $(responseHtml);
-					
-// // 					$("body").append("<hr>"+responseHtml ); 
-					
-					
-// 					alert(
-// 							boardSearchFormObj.serialize()
-// 					)
-					
-// 					$(".freedomeListDiv table").html(
-// 							obj.find(".freedomeListDiv table").html()
-// 					);
-// 					$(".pagingNos").html(
-// 							obj.find(".pagingNos").html()
-// 					);
-					
-					
-// // 					var clone = $("#pagingNo").clone();
-					
-// // 					$(".boardListDiv").prepend(clone);
-					
-// // 					$(".pagingNos").clone().appendTo("#pageCopy");
-
-// // 					$(".xxx").remove();
-// 				}
-// 				,error: function(){
-// 					alert("검색 실패! 관리자에게 문의 바람");
-// 				}
-// 			}		
-// 		);
-
-
-// 		}
 	
 	</script>
 
@@ -176,7 +87,7 @@
               <c:forEach var="board" items="${requestScope.freedomeList }"  varStatus="status">
 <%--               <c:if test="${status.index+1 >= requestScope.boardMap.begin_rowNo && status.index+1 <= requestScope.boardMap.end_rowNo}"> --%>
 								
-              <tr style="cursor:pointer" onCLick= "goBoardDetailForm(${board.b_no},'freedome', 'freeboard');">
+              <tr style="cursor:pointer" onCLick= "goBoardDetailForm(${board.b_no},'freedome', 'freeboard','free','');">
               	<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
               	<td align="center"> ${board.subject }</td>
               	<td align="center"> ${board.nickname }</td>
@@ -243,9 +154,7 @@
 		&nbsp;&nbsp;&nbsp;		
 		<!--------------------------------------------->
 		[${requestScope.freedomeListCnt}/${requestScope.freedomeListAllCnt}]개 	
-		<td align="center">
-          		${requestScope.freedomeListCnt}
-            </td>
+		
 		<!--------------------------------------------->
 		&nbsp;&nbsp;
 </span>
@@ -253,7 +162,7 @@
 <!--- 게시판 페이징 번호 출력하기.  끝   -->
 <!--nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-->
 
-<select name="rowCntPerPage" class="rowCntPerPage" onChange="search(freedome)">
+<select name="rowCntPerPage" class="rowCntPerPage" onChange="search('freedome')">
 	<option value="10">10
 	<option value="15">15
 	<option value="20">20
@@ -270,5 +179,6 @@
        
        
 </body>
+	<%@include file="/WEB-INF/views/common.jsp" %>
     <%@ include file="footer.jsp" %>
 </html>

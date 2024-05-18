@@ -16,52 +16,7 @@
 		search("joongGo");
 		
 	}
-	
-//	게시판 검색하는 함수 search() 선언.
-//	[검색] 버튼 클릭 시 호출되는 함수이다.
-// 	function search(){
-		
-// 		var boardSearchFormObj = $("[name='boardSearchForm']");
-		
-// 		var keywordObj = boardSearchFormObj.find(".keyword");
 
-// 		var keyword = keywordObj.val();
-		
-// 		if(typeof(keyword)!='string'){ keyword=""; }
-		
-// 		keyword = $.trim(keyword);
-// 		keywordObj.val(keyword);
-
-// 		boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val());
-		
-// 		alert(boardSearchFormObj.serialize());
-// 		$.ajax(
-// 			{
-// 				url: "/joongGoList.do"
-// 				,type: "post"
-// 				,data: boardSearchFormObj.serialize()
-// 				,success: function(responseHtml){
-// 					var obj = $(responseHtml);
-// 					alert(
-// 							boardSearchFormObj.serialize()
-// 					)
-					
-// 					$(".joongGoListDiv").html(
-// 							obj.find(".joongGoListDiv").html()
-// 					);
-// 					$(".pagingNos").html(
-// 							obj.find(".pagingNos").html()
-// 					);
-
-// 				}
-// 				,error: function(){
-// 					alert("검색 실패! 관리자에게 문의 바람");
-// 				}
-// 			}		
-// 		);
-
-
-// 		}
 </script>
 
 </head>
@@ -108,7 +63,7 @@
 						varStatus="status">
 						
 							<tr style="cursor: pointer"
-								onCLick="goBoardDetailForm(${board.b_no},'joongGo', 'tradeboard');">
+								onCLick="goBoardDetailForm(${board.b_no},'joongGo', 'tradeboard', 'trade','');">
 								<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
 								<td align="center">
 										<c:choose>

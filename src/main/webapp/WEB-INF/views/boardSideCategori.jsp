@@ -40,6 +40,8 @@
 		method="post">
 		<input type="hidden" name="Detail_b_no"> 
 		<input type="hidden" name="Detail_board">
+		<input type="hidden" name="Comment_board">
+		<input type="hidden" name="comment_sort">
 	</form>
 
 	<form name="freedomeRegForm" action="/freedomeRegForm.do" method="post">

@@ -51,7 +51,6 @@ public class LoginServiceImpl implements LoginService{
 		// 즉 로그인 [아이디]와 [암호]의 DB 존재 개수를 구해서 변수 midPwdCnt 에 저장한다.
 		//----------------------------------------------------
 		int midPwdCnt = this.loginDAO.getMidPwdCnt(midPwdMap);
-
 		//----------------------------------------------------
 		// [로그인 아이디]와 [암호]의 DB 존재 개수를 리턴하기
 		//----------------------------------------------------

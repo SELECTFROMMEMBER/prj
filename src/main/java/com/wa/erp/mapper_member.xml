@@ -79,6 +79,47 @@
 		</foreach>
 	</insert>
 	
+	<select id="getPidCnt" parameterType="com.wa.erp.MemberDTO" resultType="int">
+		select
+			count(*)
+		from
+			person_mem
+		where
+			pid = #{pid}
+	</select>
+	
+	<insert id="insertMember" parameterType="com.wa.erp.MemberDTO" >
+      insert  into person_mem
+      (
+	      p_no
+	    ,name
+	    ,pid
+	    ,pwd
+	    ,phone
+	    ,email
+	    ,field_code
+	    ,is_job
+	    ,nickname
+	    ,addr
+	    ,sex
+	    ,jumin_num
+      )
+       values (
+         (select nvl(max(p_no),0)+1 from person_mem)
+         ,#{name}
+         ,#{pid}
+         ,#{pwd}
+         ,#{phone}
+         ,#{email1}||''|| #{email2}
+         ,${field_code}
+         ,#{is_job}
+         ,#{nickname}
+         ,#{addr1} ||''|| #{addr2} ||''||#{addr3}
+         ,#{sex}
+         ,#{jumin_num1} ||''|| #{jumin_num2}
+         )
+
+   </insert>
 	
 </mapper>
  

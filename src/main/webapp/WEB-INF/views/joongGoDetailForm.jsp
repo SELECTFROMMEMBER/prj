@@ -6,7 +6,11 @@
 <html>
 
 <head>
-
+<style>
+    .hidden-row {
+        display: none;
+    }
+</style>
   
 </head>
 <body>
@@ -19,6 +23,7 @@
 
     <div id="wrap" class="container"  >
   <h1 style="text-align: center;">중고 게시판 상세페이지</h1>    
+   <form action="submit.php" method="POST" name="commentRegForm" class="commentRegForm">
      <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
             
             
@@ -62,12 +67,15 @@
                   <td>댓글</td>
                   <td>
                 
-                  	 <textarea textarea style="width:100%; height:100%;" rows="4"></textarea>
-                  	 <input type="button" value="등록" > 
+                  	 <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>
+                   	 <input type="hidden" value="comment_trade" name="table" class="table"> 
+                  	 <input type="hidden" value="${boardDTO.p_no }" name="p_no" class="p_no"> 
+                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">                   	 
+                  	 <input type="button" value="등록"  onClick="checkCommentReg()">
                   </td>               
               </tr>   
           </table>
-          
+		</form>          
 
           
           <center>
@@ -75,6 +83,53 @@
                 <input type="button" value="수정/삭제"
 							onclick="goUpDelForm(${boardDTO.b_no},'joongGo','tradeboard');">
            </center>
+           
+           
+           <table style="margin: 0 auto;">
+      	<tr>
+      		<td>
+      	댓글
+      		</td>
+      		<c:if test="${param.comment_sort!='rec_count asc' and param.comment_sort!='rec_count desc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'joongGo', 'tradeboard','trade','rec_count desc');">좋아요</th>
+              </c:if>
+             
+             <c:if test="${param.comment_sort=='rec_count desc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'joongGo', 'tradeboard','trade','rec_count asc');">좋아요▼</th>
+              </c:if>
+             
+             <c:if test="${param.comment_sort=='rec_count asc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'joongGo', 'tradeboard','trade','');">좋아요▲</th>
+              </c:if>
+      	</tr>
+       <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
+        <tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
+            <td>
+                <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}<br><br>
+                ${board.content}
+            </td>
+            <td>
+                 <span class="likeButton" onclick="toggleLike(this,${board.comment_no})"><i  class="far fa-thumbs-up"></i></span>
+                ${board.rec_count}
+            </td>
+        </tr>
+    </c:forEach>
+    <tr id="showMoreBtn" <c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
+    	<td colspan="2" style="text-align: center;" onclick="showMoreComments()">
+        	더보기
+    	</td>
+	</tr>
+    <c:if test="${empty requestScope.commentList}">
+        <tr>
+            <td colspan="2">
+                댓글이 아직 없습니다.
+            </td>
+        </tr>
+    </c:if>
+      </table>
+           
+           
+           
   		</div>
        </div>
 </body>
