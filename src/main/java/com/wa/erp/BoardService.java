@@ -52,4 +52,40 @@ public interface BoardService {
 	List<BoardReviewDTO> getreviewContent(BoardReviewDTO boardReviewDTO);
 
 	BoardDTO getcompanyListDetail(int c_no);
+	
+		//프로젝트를 위한 선언
+		List<BoardDTO> getPrjList(BoardSearchDTO boardSearchDTO);
+		
+		BoardDTO getPrj(int prj_no);
+		
+		BoardDTO getPrjForUpDel(int prj_no);
+		
+		int insertPrj(BoardDTO boardDTO);
+		
+		int updatePrj(BoardDTO boardDTO);
+
+		int deldatePrj(BoardDTO boardDTO);
+
+		int getPrjListAllCnt();
+
+		int getPrjListCnt(BoardSearchDTO boardSearchDTO);
+
+		
+		
+		// 공모전 관련
+		List<BoardDTO> getGongMoList(BoardSearchDTO boardSearchDTO);
+		
+		BoardDTO getGongMo(int comp_no);
+
+		BoardDTO gongMoForUpDel(int comp_pk);
+		
+		int insertGongMo(BoardDTO boardDTO);
+
+		int updateGongMo(BoardDTO boardDTO);
+
+		int deldateGongMo(BoardDTO boardDTO);
+
+		int getGongMoListAllCnt();
+
+		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
 }

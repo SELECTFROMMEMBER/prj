@@ -33,7 +33,37 @@ public class BoardSearchDTO {
 	private int end_rowNo;			// 테이블 검색 시 끝행 번호 저장 변수 선언.
 //	
 	
+		//프로젝트/공모전 게시판을 위한 선언//
+		private List<String> date;
+		private String ing;
+		private String project_type;
+		private String field_name;
 	
+	
+	public List<String> getDate() {
+			return date;
+		}
+		public void setDate(List<String> date) {
+			this.date = date;
+		}
+		public String getIng() {
+			return ing;
+		}
+		public void setIng(String ing) {
+			this.ing = ing;
+		}
+		public String getProject_type() {
+			return project_type;
+		}
+		public void setProject_type(String project_type) {
+			this.project_type = project_type;
+		}
+		public String getField_name() {
+			return field_name;
+		}
+		public void setField_name(String field_name) {
+			this.field_name = field_name;
+		}
 	public String getSido() {
 		return sido;
 	}

@@ -394,30 +394,6 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping( value ="/prj.do")
-	public ModelAndView prj(
-			BoardSearchDTO boardSearchDTO
-			) {
-		List<BoardDTO> prjList = this.boardService.getprjList();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("prjList", prjList);
-		mav.setViewName("prj.jsp");
-		return mav;
-	}
-	
-	@RequestMapping( value ="/gongMo.do")
-	public ModelAndView gongMo(
-			BoardSearchDTO boardSearchDTO
-			) {
-		List<BoardDTO> gongMoList = this.boardService.getgongMoList();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("gongMoList", gongMoList);
-		mav.setViewName("gongMo.jsp");
-		return mav;
-	}
-	
-	
-	
 	
 	//--------------------------------------------------------------------------------------
 	// 자유게시판 상세보기
