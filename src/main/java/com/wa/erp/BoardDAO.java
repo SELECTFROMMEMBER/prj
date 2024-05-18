@@ -56,4 +56,46 @@ public interface BoardDAO {
 	List<BoardReviewDTO> getreviewContent(BoardReviewDTO boardReviewDTO);
 
 	BoardDTO getcompanyListDetail(int c_no);
+	
+		//프로젝트 게시판 관련
+		List<BoardDTO> getPrjList(BoardSearchDTO boardSearchDTO);
+		
+		int getPrjListCnt(BoardSearchDTO boardSearchDTO);
+		
+		int getPrjListAllCnt();
+		
+		BoardDTO getPrj(int prj_no);
+		
+		int prjUpdateReadcount(int prj_no);
+		
+		int getPrjPwdCnt( BoardDTO boardDTO );
+		
+		int updatePrj( BoardDTO boardDTO );
+
+		int deldatePrj(BoardDTO boardDTO);
+		
+		int getPrjCnt(int prj_no);
+		
+		int insertPrj(BoardDTO boardDTO);
+			
+
+		//공모전 관련
+		int insertGongMo(BoardDTO boardDTO);
+
+		BoardDTO getGongMo(int comp_pk);
+
+		int updateGongMo(BoardDTO boardDTO);
+
+		int getGongMoPwdCnt(BoardDTO boardDTO);
+
+		int deldateGongMo(BoardDTO boardDTO);
+
+		int gongMoUpdateReadcount(int comp_pk);
+
+		List<BoardDTO> getGongMoList(BoardSearchDTO boardSearchDTO);
+
+		int getGongMoListAllCnt();
+
+		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
+	
 }
