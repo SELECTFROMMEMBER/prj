@@ -272,7 +272,7 @@ public class BoardServiceImpl implements BoardService{
 		public int updatePrj(BoardDTO boardDTO) {
 			
 			int prjCnt = this.boardDAO.getPrjCnt( boardDTO.getPrj_no() );
-			if( prjCnt==0 ) { return prjCnt; }
+			if( prjCnt==0 ) { return -2; }
 			
 			int prjPwdCnt = this.boardDAO.getPrjPwdCnt(boardDTO);
 			if( prjPwdCnt==0 ) {return -1;}
@@ -400,4 +400,40 @@ public class BoardServiceImpl implements BoardService{
 			return gongMoListCnt;
 		}
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		@Override
+		public List<BoardDTO> getCommentLike(Map<String, Object> paramMap){
+			
+			List<BoardDTO> getCommentLike = this.boardDAO.getCommentLike(paramMap);
+			
+			return getCommentLike;
+		}
+/// 기업정보관련 추가///////////////
+		@Override
+		public int getcompanyListCnt(BoardSearchDTO boardSearchDTO) {
+			int companyListCnt = this.boardDAO.getcompanyListCnt(boardSearchDTO);
+			
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return companyListCnt;
+		}
+
+		@Override
+		public int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO) {
+			int companyAllListCnt = this.boardDAO.getcompanyListAllCnt(boardSearchDTO);
+			
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return companyAllListCnt;
+		}
+
+		@Override
+		public BoardDTO getcompanyWelfare(int c_no) {
+			BoardDTO welfare = this.boardDAO.getcompanyWelfare(c_no);
+
+			return welfare;
+		}
+///////////////////////////////////////////
 }

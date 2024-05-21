@@ -55,7 +55,7 @@
 	        #{pwd},
 	        0,
 	        sysdate,
-	        1,
+	        #{p_no},
 	        <if test="table!='tradeboard'">
 	        0
 	        </if>
@@ -77,6 +77,8 @@
 			,price = #{price}
 			</if>
 		where
+			p_no =#{p_no}
+			and
 			b_no = #{b_no}
 			and
 			pwd= #{pwd}
@@ -86,6 +88,8 @@
 		delete from 
 			${table}
 		where 
+			p_no=#{p_no}
+			and
 			b_no=#{b_no}
 			and
 			pwd=#{pwd}	
@@ -300,10 +304,13 @@
 			)
 	</insert>
 	
-	<!-- 이력서 -->
-    <insert id="insertResume" parameterType="com.wa.erp.BoardDTO" >
+	 <!-- 이력서 -->
+    <insert id="insertResume" parameterType="com.wa.erp.BoardDTO" useGeneratedKeys="true" keyProperty="resume_no">
+	    <selectKey keyProperty="resume_no" resultType="int" order="BEFORE">
+	        SELECT NVL(MAX(resume_no), 0) + 1 FROM resume
+	    </selectKey>
         insert into resume(
-        	resume_no
+           resume_no
             ,p_no
             ,married
             ,military
@@ -311,8 +318,8 @@
             ,is_offer
             ,hope_salary 
         ) values (
-        (select nvl(max(resume_no),0)+1 from resume)           
-             ,1
+         	#{resume_no}          
+             ,5
              ,#{married}
             ,#{military}
             ,#{introduce}
@@ -320,45 +327,135 @@
             ,#{hope_salary}
         )
     </insert>
-    
+
     <!-- 수상경력 -->
     <insert id="insertAwards" parameterType="com.wa.erp.BoardDTO" >
         insert into awards(
-            p_no
-            ,name
-            ,organizer
-            ,type
-            ,award_no
+        resume_no
+            
+            ,name1
+            ,organizer1
+            ,type1
+            ,award_no1
+             <if test="name2 != null and name2 != ''">
+              ,name2
+                 </if>
+                  <if test="organizer2 != null and organizer2 != ''">
+              ,organizer2
+                 </if>
+                  <if test="type2 != null and type2 != ''">
+              ,type2
+                 </if>
+                 ,award_no2
+                 
+                  <if test="name3 != null and name3 != ''">
+              ,name3
+                 </if>
+                  <if test="organizer3 != null and organizer3 != ''">
+              ,organizer3
+                 </if>
+                  <if test="type3 != null and type3 != ''">
+              ,type3
+                 </if>
+                 ,award_no3
+                 
+                  <if test="name4 != null and name4 != ''">
+              ,name4
+                 </if>
+                  <if test="organizer4 != null and organizer4 != ''">
+              ,organizer4
+                 </if>
+                  <if test="type4 != null and type4 != ''">
+              ,type4
+                 </if>
+                 ,award_no4
         ) values (
-            1
-            ,#{name}
-            ,#{organizer}
-            ,#{type}
-            ,#{award_no}
+        #{resume_no}    
+            
+            ,#{name1}
+            ,#{organizer1}
+            ,#{type1}
+            ,#{award_no1}
+            <if test="name2 != null and name2 != ''">
+        ,#{name2}
+        </if>
+            <if test="organizer2 != null and organizer2 != ''">
+        ,#{organizer2}
+        </if>
+        <if test="type2 != null and type2 != ''">
+        ,#{type2}
+        </if>       
+         <choose>
+          <when test="award_no2 == 0">
+             ,null
+          </when>
+          <otherwise>
+             ,#{award_no2}
+          </otherwise>  
+       </choose>
+       
+        <if test="name3 != null and name3 != ''">
+        ,#{name3}
+        </if>
+            <if test="organizer3 != null and organizer3 != ''">
+        ,#{organizer3}
+        </if>
+        <if test="type3 != null and type3 != ''">
+        ,#{type3}
+        </if>      
+         <choose>
+          <when test="award_no3 == 0">
+             ,null
+          </when>
+          <otherwise>
+             ,#{award_no3}
+          </otherwise>  
+       </choose>
+       
+        <if test="name4 != null and name4 != ''">
+        ,#{name4}
+        </if>
+            <if test="organizer4 != null and organizer4 != ''">
+        ,#{organizer4}
+        </if>
+        <if test="type4 != null and type4 != ''">
+        ,#{type4}
+        </if>      
+         <choose>
+          <when test="award_no4 == 0">
+             ,null
+          </when>
+          <otherwise>
+             ,#{award_no4}
+          </otherwise>  
+       </choose>
+        
         )
     </insert>
     
+    
+
     <!-- 최종학력 -->
     <insert id="insertEducation" parameterType="com.wa.erp.BoardDTO" >
         insert into education(
-            p_no
+            resume_no
             ,school_name
             ,education
             ,enter_date
             ,graduation_date
         ) values (
-            1
+            #{resume_no}    
             ,#{school_name}
             ,#{education}
             ,#{enter_date}
             ,#{graduation_date}
         )
     </insert>
-    
+
     <!-- 경력 -->
     <insert id="insertCareer" parameterType="com.wa.erp.BoardDTO" >
         insert into career(
-            p_no
+            resume_no
             ,career1
             <if test="career2 != null and career2 != ''">
               ,career2
@@ -374,7 +471,7 @@
                  </if>
          
         ) values (
-            1
+          #{resume_no}    
             ,#{career1}
             <if test="career2 != null and career2 != ''">
         ,#{career2}
@@ -391,11 +488,10 @@
         )
     </insert>
 
-    
-    <!-- 개인보유자격증	  -->
+   <!-- 개인보유자격증     -->
     <insert id="insertPerson_license" parameterType="com.wa.erp.BoardDTO" >
-         insert into person_license(
-            p_no
+        insert into person_license(
+            resume_no
             ,license_name1
              <if test="license_name2 != null and license_name2 != ''">
               ,license_name2
@@ -410,7 +506,7 @@
               ,license_name5
                  </if>
         ) values (
-           1                          
+           #{resume_no}                         
             ,#{license_name1} 
               <if test="license_name2 != null and license_name2 != ''">
         ,#{license_name2}
@@ -426,17 +522,18 @@
         </if>
         )
     </insert> 
-    
+
     <!-- 개인보유스킬 -->
      <insert id="insertSkill_Code" parameterType="com.wa.erp.BoardDTO" >
-        insert into person_skill 
-        <foreach collection="skill_code"  item="tmp"  open=" ( " close=" ) "  separator=" union ">
+        INSERT INTO person_skill (resume_no, skill_code)
+     <foreach collection="skill_code"  item="tmp"  open=" ( " close=" ) "  separator=" union all ">
             select 
-				1
-                , #{tmp}
+            	#{resume_no}     
+                ,#{tmp}
             from dual
         </foreach>
-    </insert> 
+</insert>
+
     
     <insert id="insertComment" parameterType="com.wa.erp.BoardDTO">
     	insert into ${table}
@@ -462,7 +559,52 @@
     	where
     		comment_no = #{comment_no}
     </update>
+
+    <update id="downdateRec" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		${table}
+    	set
+    		rec_count = rec_count-1
+    	where
+    		comment_no = #{comment_no}
+    </update>
     
+    <insert id="insertLike" parameterType="com.wa.erp.BoardDTO">
+    	insert into	like_comment
+    	(
+    		comment_table
+    		,comment_no
+    		<if test="p_no != 0">
+    		,p_no
+    		</if>
+    		,b_no
+    		<if test="c_no !=0">
+    		,c_no    		
+    		</if>
+    	)
+    	values(
+    		#{table}
+    		,#{comment_no}
+    		<if test="p_no != 0">
+    		,#{p_no}
+    		</if>
+    		,#{b_no}
+    		<if test="c_no !=0">
+    		#{c_no}
+    		</if>
+    	)
+    </insert>
     
+    <delete id="deleteLike" parameterType="com.wa.erp.BoardDTO">
+    	delete from like_comment
+    	where
+    		comment_no=#{comment_no}
+    		and
+    		comment_table=#{table}
+    		and
+    		p_no=#{p_no}
+    		and
+    		b_no=#{b_no}
+    </delete>
 </mapper>
  

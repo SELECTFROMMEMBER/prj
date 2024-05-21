@@ -219,7 +219,6 @@
           	</center>
           </c:if>
           </div>
-          <center>
           <br>
           <center>
            
@@ -276,9 +275,12 @@
 </select> 행보기 &nbsp;&nbsp;&nbsp;
 </center>
           
+      <c:if test="${sessionScope.member=='company'}">    
           <br>
+     <center>
           <input type="button" value="등록" onCLick= "location.replace('/gongMoRegForm.do')">
      </center>
+     </c:if>
   </div>
   
       <form name="gongMoDetailForm" action="/gongMoDetailForm.do" method="post">

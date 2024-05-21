@@ -43,10 +43,23 @@ public class BoardDTO {
 	private String call;
 	private String married;
 	private String military;
-	private String type;
-	private String organizer;
-	private int award_no;
-	private List<String> skill_code;
+	private String name1;
+	private String name2;
+	private String name3;
+	private String name4;
+	private String type1;
+	private String type2;
+	private String type3;
+	private String type4;
+	private String organizer1;
+	private String organizer2;
+	private String organizer3;
+	private String organizer4;
+	private int award_no1;
+	private int award_no2;
+	private int award_no3;
+	private int award_no4;
+	private List<Integer> skill_code;
 	private String career1;
 	private String career2;
 	private String career3;
@@ -59,13 +72,24 @@ public class BoardDTO {
 	private String license_name5;
 	private String education;
 	private String school_name;
-	private Date enter_date;
-	private Date graduation_date;
+	private String enter_date;
+	private String graduation_date;
 	private String introduce;
 	private String is_offer;
 	private String hope_salary;
 	private int comment_no;
-	
+	private int resume_no;
+	private String comment_table;
+	private int like_no;
+	private int age;
+	private String sex;
+	private String is_job;
+	private String skills;
+	private String welfare;
+    private String type;
+	private String organizer;
+	private int award_no;
+
 		//프로젝트 공모 위한 선언//
 		private int prj_no;
 		private String project_type;
@@ -74,309 +98,17 @@ public class BoardDTO {
 		private String code_field;
 		private int comp_pk;
 		private String skill_name;
-		public int getComp_pk() {
-			return comp_pk;
-		}
-	
-	
-	public int getPrj_no() {
-			return prj_no;
-		}
-
-
-		public void setPrj_no(int prj_no) {
-			this.prj_no = prj_no;
-		}
-
-
-		public String getProject_type() {
-			return project_type;
-		}
-
-
-		public void setProject_type(String project_type) {
-			this.project_type = project_type;
-		}
-
-
-		public int getField_code() {
-			return field_code;
-		}
-
-
-		public void setField_code(int field_code) {
-			this.field_code = field_code;
-		}
-
-
-		public int getPeople_to() {
-			return people_to;
-		}
-
-
-		public void setPeople_to(int people_to) {
-			this.people_to = people_to;
-		}
-
-
-		public String getCode_field() {
-			return code_field;
-		}
-
-
-		public void setCode_field(String code_field) {
-			this.code_field = code_field;
-		}
-
-
-		public String getSkill_name() {
-			return skill_name;
-		}
-
-
-		public void setSkill_name(String skill_name) {
-			this.skill_name = skill_name;
-		}
-
-
-		public void setComp_pk(int comp_pk) {
-			this.comp_pk = comp_pk;
-		}
-
-
-	public int getDesc_rank() {
-		return desc_rank;
+		public String getSkills() {
+		return skills;
 	}
-	public void setDesc_rank(int desc_rank) {
-		this.desc_rank = desc_rank;
+	public void setSkills(String skills) {
+		this.skills = skills;
 	}
-	public int getC_no() {
-		return c_no;
+	public String getWelfare() {
+		return welfare;
 	}
-	public void setC_no(int c_no) {
-		this.c_no = c_no;
-	}
-	public int getB_no() {
-		return b_no;
-	}
-	public void setB_no(int b_no) {
-		this.b_no = b_no;
-	}
-	public int getP_no() {
-		return p_no;
-	}
-	public void setP_no(int p_no) {
-		this.p_no = p_no;
-	}
-	public int getR_no() {
-		return r_no;
-	}
-	public void setR_no(int r_no) {
-		this.r_no = r_no;
-	}
-	public String getTable() {
-		return table;
-	}
-	public void setTable(String table) {
-		this.table = table;
-	}
-	public String getReg_date() {
-		return reg_date;
-	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
-	}
-	public int getRead_count() {
-		return read_count;
-	}
-	public void setRead_count(int read_count) {
-		this.read_count = read_count;
-	}
-	public int getRec_count() {
-		return rec_count;
-	}
-	public void setRec_count(int rec_count) {
-		this.rec_count = rec_count;
-	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getAddr() {
-		return addr;
-	}
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-	public String getTrade_type() {
-		return trade_type;
-	}
-	public void setTrade_type(String trade_type) {
-		this.trade_type = trade_type;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getIndus() {
-		return indus;
-	}
-	public void setIndus(String indus) {
-		this.indus = indus;
-	}
-	public int getSales() {
-		return sales;
-	}
-	public void setSales(int sales) {
-		this.sales = sales;
-	}
-	public int getSal_avg() {
-		return sal_avg;
-	}
-	public void setSal_avg(int sal_avg) {
-		this.sal_avg = sal_avg;
-	}
-	public String getHope_work() {
-		return hope_work;
-	}
-	public void setHope_work(String hope_work) {
-		this.hope_work = hope_work;
-	}
-	public String getField_name() {
-		return field_name;
-	}
-	public void setField_name(String field_name) {
-		this.field_name = field_name;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getPreferred_work() {
-		return preferred_work;
-	}
-	public void setPreferred_work(String preferred_work) {
-		this.preferred_work = preferred_work;
-	}
-	public String getStart_time() {
-		return start_time;
-	}
-	public void setStart_time(String start_time) {
-		this.start_time = start_time;
-	}
-	public String getEnd_time() {
-		return end_time;
-	}
-	public void setEnd_time(String end_time) {
-		this.end_time = end_time;
-	}
-	public String getCareer() {
-		return career;
-	}
-	public void setCareer(String career) {
-		this.career = career;
-	}
-	public int getStar() {
-		return star;
-	}
-	public void setStar(int star) {
-		this.star = star;
-	}
-	public double getStar_avg() {
-		return star_avg;
-	}
-	public void setStar_avg(double star_avg) {
-		this.star_avg = star_avg;
-	}
-	public int getRating() {
-		return rating;
-	}
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getVolume() {
-		return volume;
-	}
-	public void setVolume(String volume) {
-		this.volume = volume;
-	}
-	public String getEmp_no() {
-		return emp_no;
-	}
-	public void setEmp_no(String emp_no) {
-		this.emp_no = emp_no;
-	}
-	public String getBirth() {
-		return birth;
-	}
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
-	public String getCeo_name() {
-		return ceo_name;
-	}
-	public void setCeo_name(String ceo_name) {
-		this.ceo_name = ceo_name;
-	}
-	public String getCall() {
-		return call;
-	}
-	public void setCall(String call) {
-		this.call = call;
-	}
-	public String getMarried() {
-		return married;
-	}
-	public void setMarried(String married) {
-		this.married = married;
-	}
-	public String getMilitary() {
-		return military;
-	}
-	public void setMilitary(String military) {
-		this.military = military;
+	public void setWelfare(String welfare) {
+		this.welfare = welfare;
 	}
 	public String getType() {
 		return type;
@@ -396,121 +128,533 @@ public class BoardDTO {
 	public void setAward_no(int award_no) {
 		this.award_no = award_no;
 	}
+		public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public String getIs_job() {
+		return is_job;
+	}
+	public void setIs_job(String is_job) {
+		this.is_job = is_job;
+	}
+		public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+		public int getComp_pk() {
+			return comp_pk;
+		}
+		public int getDesc_rank() {
+			return desc_rank;
+		}
+		public void setDesc_rank(int desc_rank) {
+			this.desc_rank = desc_rank;
+		}
+		public int getC_no() {
+			return c_no;
+		}
+		public void setC_no(int c_no) {
+			this.c_no = c_no;
+		}
+		public int getB_no() {
+			return b_no;
+		}
+		public void setB_no(int b_no) {
+			this.b_no = b_no;
+		}
+		public int getP_no() {
+			return p_no;
+		}
+		public void setP_no(int p_no) {
+			this.p_no = p_no;
+		}
+		public int getR_no() {
+			return r_no;
+		}
+		public void setR_no(int r_no) {
+			this.r_no = r_no;
+		}
+		public String getTable() {
+			return table;
+		}
+		public void setTable(String table) {
+			this.table = table;
+		}
+		public String getReg_date() {
+			return reg_date;
+		}
+		public void setReg_date(String reg_date) {
+			this.reg_date = reg_date;
+		}
+		public int getRead_count() {
+			return read_count;
+		}
+		public void setRead_count(int read_count) {
+			this.read_count = read_count;
+		}
+		public int getRec_count() {
+			return rec_count;
+		}
+		public void setRec_count(int rec_count) {
+			this.rec_count = rec_count;
+		}
+		public String getNickname() {
+			return nickname;
+		}
+		public void setNickname(String nickname) {
+			this.nickname = nickname;
+		}
+		public String getSubject() {
+			return subject;
+		}
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
+		public String getContent() {
+			return content;
+		}
+		public void setContent(String content) {
+			this.content = content;
+		}
+		public String getAddr() {
+			return addr;
+		}
+		public void setAddr(String addr) {
+			this.addr = addr;
+		}
+		public String getPwd() {
+			return pwd;
+		}
+		public void setPwd(String pwd) {
+			this.pwd = pwd;
+		}
+		public String getTrade_type() {
+			return trade_type;
+		}
+		public void setTrade_type(String trade_type) {
+			this.trade_type = trade_type;
+		}
+		public int getPrice() {
+			return price;
+		}
+		public void setPrice(int price) {
+			this.price = price;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getIndus() {
+			return indus;
+		}
+		public void setIndus(String indus) {
+			this.indus = indus;
+		}
+		public int getSales() {
+			return sales;
+		}
+		public void setSales(int sales) {
+			this.sales = sales;
+		}
+		public int getSal_avg() {
+			return sal_avg;
+		}
+		public void setSal_avg(int sal_avg) {
+			this.sal_avg = sal_avg;
+		}
+		public String getHope_work() {
+			return hope_work;
+		}
+		public void setHope_work(String hope_work) {
+			this.hope_work = hope_work;
+		}
+		public String getField_name() {
+			return field_name;
+		}
+		public void setField_name(String field_name) {
+			this.field_name = field_name;
+		}
+		public String getPhone() {
+			return phone;
+		}
+		public void setPhone(String phone) {
+			this.phone = phone;
+		}
+		public String getPreferred_work() {
+			return preferred_work;
+		}
+		public void setPreferred_work(String preferred_work) {
+			this.preferred_work = preferred_work;
+		}
+		public String getStart_time() {
+			return start_time;
+		}
+		public void setStart_time(String start_time) {
+			this.start_time = start_time;
+		}
+		public String getEnd_time() {
+			return end_time;
+		}
+		public void setEnd_time(String end_time) {
+			this.end_time = end_time;
+		}
+		public String getCareer() {
+			return career;
+		}
+		public void setCareer(String career) {
+			this.career = career;
+		}
+		public int getStar() {
+			return star;
+		}
+		public void setStar(int star) {
+			this.star = star;
+		}
+		public double getStar_avg() {
+			return star_avg;
+		}
+		public void setStar_avg(double star_avg) {
+			this.star_avg = star_avg;
+		}
+		public int getRating() {
+			return rating;
+		}
+		public void setRating(int rating) {
+			this.rating = rating;
+		}
+		public String getUrl() {
+			return url;
+		}
+		public void setUrl(String url) {
+			this.url = url;
+		}
+		public String getEmail() {
+			return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		public String getVolume() {
+			return volume;
+		}
+		public void setVolume(String volume) {
+			this.volume = volume;
+		}
+		public String getEmp_no() {
+			return emp_no;
+		}
+		public void setEmp_no(String emp_no) {
+			this.emp_no = emp_no;
+		}
+		public String getBirth() {
+			return birth;
+		}
+		public void setBirth(String birth) {
+			this.birth = birth;
+		}
+		public String getCeo_name() {
+			return ceo_name;
+		}
+		public void setCeo_name(String ceo_name) {
+			this.ceo_name = ceo_name;
+		}
+		public String getCall() {
+			return call;
+		}
+		public void setCall(String call) {
+			this.call = call;
+		}
+		public String getMarried() {
+			return married;
+		}
+		public void setMarried(String married) {
+			this.married = married;
+		}
+		public String getMilitary() {
+			return military;
+		}
+		public void setMilitary(String military) {
+			this.military = military;
+		}
+		public String getName1() {
+			return name1;
+		}
+		public void setName1(String name1) {
+			this.name1 = name1;
+		}
+		public String getName2() {
+			return name2;
+		}
+		public void setName2(String name2) {
+			this.name2 = name2;
+		}
+		public String getName3() {
+			return name3;
+		}
+		public void setName3(String name3) {
+			this.name3 = name3;
+		}
+		public String getName4() {
+			return name4;
+		}
+		public void setName4(String name4) {
+			this.name4 = name4;
+		}
+		public String getType1() {
+			return type1;
+		}
+		public void setType1(String type1) {
+			this.type1 = type1;
+		}
+		public String getType2() {
+			return type2;
+		}
+		public void setType2(String type2) {
+			this.type2 = type2;
+		}
+		public String getType3() {
+			return type3;
+		}
+		public void setType3(String type3) {
+			this.type3 = type3;
+		}
+		public String getType4() {
+			return type4;
+		}
+		public void setType4(String type4) {
+			this.type4 = type4;
+		}
+		public String getOrganizer1() {
+			return organizer1;
+		}
+		public void setOrganizer1(String organizer1) {
+			this.organizer1 = organizer1;
+		}
+		public String getOrganizer2() {
+			return organizer2;
+		}
+		public void setOrganizer2(String organizer2) {
+			this.organizer2 = organizer2;
+		}
+		public String getOrganizer3() {
+			return organizer3;
+		}
+		public void setOrganizer3(String organizer3) {
+			this.organizer3 = organizer3;
+		}
+		public String getOrganizer4() {
+			return organizer4;
+		}
+		public void setOrganizer4(String organizer4) {
+			this.organizer4 = organizer4;
+		}
+		public int getAward_no1() {
+			return award_no1;
+		}
+		public void setAward_no1(int award_no1) {
+			this.award_no1 = award_no1;
+		}
+		public int getAward_no2() {
+			return award_no2;
+		}
+		public void setAward_no2(int award_no2) {
+			this.award_no2 = award_no2;
+		}
+		public int getAward_no3() {
+			return award_no3;
+		}
+		public void setAward_no3(int award_no3) {
+			this.award_no3 = award_no3;
+		}
+		public int getAward_no4() {
+			return award_no4;
+		}
+		public void setAward_no4(int award_no4) {
+			this.award_no4 = award_no4;
+		}
+		public List<Integer> getSkill_code() {
+			return skill_code;
+		}
+		public void setSkill_code(List<Integer> skill_code) {
+			this.skill_code = skill_code;
+		}
+		public String getCareer1() {
+			return career1;
+		}
+		public void setCareer1(String career1) {
+			this.career1 = career1;
+		}
+		public String getCareer2() {
+			return career2;
+		}
+		public void setCareer2(String career2) {
+			this.career2 = career2;
+		}
+		public String getCareer3() {
+			return career3;
+		}
+		public void setCareer3(String career3) {
+			this.career3 = career3;
+		}
+		public String getCareer4() {
+			return career4;
+		}
+		public void setCareer4(String career4) {
+			this.career4 = career4;
+		}
+		public String getCareer5() {
+			return career5;
+		}
+		public void setCareer5(String career5) {
+			this.career5 = career5;
+		}
+		public String getLicense_name1() {
+			return license_name1;
+		}
+		public void setLicense_name1(String license_name1) {
+			this.license_name1 = license_name1;
+		}
+		public String getLicense_name2() {
+			return license_name2;
+		}
+		public void setLicense_name2(String license_name2) {
+			this.license_name2 = license_name2;
+		}
+		public String getLicense_name3() {
+			return license_name3;
+		}
+		public void setLicense_name3(String license_name3) {
+			this.license_name3 = license_name3;
+		}
+		public String getLicense_name4() {
+			return license_name4;
+		}
+		public void setLicense_name4(String license_name4) {
+			this.license_name4 = license_name4;
+		}
+		public String getLicense_name5() {
+			return license_name5;
+		}
+		public void setLicense_name5(String license_name5) {
+			this.license_name5 = license_name5;
+		}
+		public String getEducation() {
+			return education;
+		}
+		public void setEducation(String education) {
+			this.education = education;
+		}
+		public String getSchool_name() {
+			return school_name;
+		}
+		public void setSchool_name(String school_name) {
+			this.school_name = school_name;
+		}
+
+
+		public String getEnter_date() {
+			return enter_date;
+		}
+		public void setEnter_date(String enter_date) {
+			this.enter_date = enter_date;
+		}
+		public String getGraduation_date() {
+			return graduation_date;
+		}
+		public void setGraduation_date(String graduation_date) {
+			this.graduation_date = graduation_date;
+		}
+		public String getIntroduce() {
+			return introduce;
+		}
+		public void setIntroduce(String introduce) {
+			this.introduce = introduce;
+		}
+		public String getIs_offer() {
+			return is_offer;
+		}
+		public void setIs_offer(String is_offer) {
+			this.is_offer = is_offer;
+		}
+		public String getHope_salary() {
+			return hope_salary;
+		}
+		public void setHope_salary(String hope_salary) {
+			this.hope_salary = hope_salary;
+		}
+		public int getComment_no() {
+			return comment_no;
+		}
+		public void setComment_no(int comment_no) {
+			this.comment_no = comment_no;
+		}
+		public int getPrj_no() {
+			return prj_no;
+		}
+		public void setPrj_no(int prj_no) {
+			this.prj_no = prj_no;
+		}
+		public String getProject_type() {
+			return project_type;
+		}
+		public void setProject_type(String project_type) {
+			this.project_type = project_type;
+		}
+		public int getField_code() {
+			return field_code;
+		}
+		public void setField_code(int field_code) {
+			this.field_code = field_code;
+		}
+		public int getPeople_to() {
+			return people_to;
+		}
+		public void setPeople_to(int people_to) {
+			this.people_to = people_to;
+		}
+		public String getCode_field() {
+			return code_field;
+		}
+		public void setCode_field(String code_field) {
+			this.code_field = code_field;
+		}
+		public String getSkill_name() {
+			return skill_name;
+		}
+		public void setSkill_name(String skill_name) {
+			this.skill_name = skill_name;
+		}
+		public void setComp_pk(int comp_pk) {
+			this.comp_pk = comp_pk;
+		}
+		public int getResume_no() {
+			return resume_no;
+		}
+		public void setResume_no(int resume_no) {
+			this.resume_no = resume_no;
+		}
+		public String getComment_table() {
+			return comment_table;
+		}
+		public void setComment_table(String comment_table) {
+			this.comment_table = comment_table;
+		}
+		public int getLike_no() {
+			return like_no;
+		}
+		public void setLike_no(int like_no) {
+			this.like_no = like_no;
+		}
 	
-	public List<String> getSkill_code() {
-		return skill_code;
-	}
-	public void setSkill_code(List<String> skill_code) {
-		this.skill_code = skill_code;
-	}
-	public String getCareer1() {
-		return career1;
-	}
-	public void setCareer1(String career1) {
-		this.career1 = career1;
-	}
-	public String getCareer2() {
-		return career2;
-	}
-	public void setCareer2(String career2) {
-		this.career2 = career2;
-	}
-	public String getCareer3() {
-		return career3;
-	}
-	public void setCareer3(String career3) {
-		this.career3 = career3;
-	}
-	public String getCareer4() {
-		return career4;
-	}
-	public void setCareer4(String career4) {
-		this.career4 = career4;
-	}
-	public String getCareer5() {
-		return career5;
-	}
-	public void setCareer5(String career5) {
-		this.career5 = career5;
-	}
-	public String getLicense_name1() {
-		return license_name1;
-	}
-	public void setLicense_name1(String license_name1) {
-		this.license_name1 = license_name1;
-	}
-	public String getLicense_name2() {
-		return license_name2;
-	}
-	public void setLicense_name2(String license_name2) {
-		this.license_name2 = license_name2;
-	}
-	public String getLicense_name3() {
-		return license_name3;
-	}
-	public void setLicense_name3(String license_name3) {
-		this.license_name3 = license_name3;
-	}
-	public String getLicense_name4() {
-		return license_name4;
-	}
-	public void setLicense_name4(String license_name4) {
-		this.license_name4 = license_name4;
-	}
-	public String getLicense_name5() {
-		return license_name5;
-	}
-	public void setLicense_name5(String license_name5) {
-		this.license_name5 = license_name5;
-	}
-	public String getEducation() {
-		return education;
-	}
-	public void setEducation(String education) {
-		this.education = education;
-	}
-	public String getSchool_name() {
-		return school_name;
-	}
-	public void setSchool_name(String school_name) {
-		this.school_name = school_name;
-	}
-	public Date getEnter_date() {
-		return enter_date;
-	}
-	public void setEnter_date(Date enter_date) {
-		this.enter_date = enter_date;
-	}
-	public Date getGraduation_date() {
-		return graduation_date;
-	}
-	public void setGraduation_date(Date graduation_date) {
-		this.graduation_date = graduation_date;
-	}
-	public String getIntroduce() {
-		return introduce;
-	}
-	public void setIntroduce(String introduce) {
-		this.introduce = introduce;
-	}
-	public String getIs_offer() {
-		return is_offer;
-	}
-	public void setIs_offer(String is_offer) {
-		this.is_offer = is_offer;
-	}
-	public String getHope_salary() {
-		return hope_salary;
-	}
-	public void setHope_salary(String hope_salary) {
-		this.hope_salary = hope_salary;
-	}
-	public int getComment_no() {
-		return comment_no;
-	}
-	public void setComment_no(int comment_no) {
-		this.comment_no = comment_no;
-	}
+	
+	
 	
 	
 	

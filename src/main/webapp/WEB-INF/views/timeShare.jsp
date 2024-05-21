@@ -83,11 +83,12 @@ function gotimeShareDetailForm(b_no){
 					<b>조회할 데이터가 없습니다.</b>
 				</center>
 			</c:if>
-
-			<center>
-				<input type="button" value="등록"
-					onCLick="location.replace('/timeShareRegForm.do')">
-			</center>
+			<c:if test="${sessionScope.member=='person'}">
+				<center>
+					<input type="button" value="등록"
+						onCLick="location.replace('/timeShareRegForm.do')">
+				</center>
+			</c:if>
 			</form>
 		</div>
 		<form name="timeShareDetailForm" action="/timeShareDetailForm.do"
