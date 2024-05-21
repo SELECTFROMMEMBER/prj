@@ -408,4 +408,21 @@ public class BoardServiceImpl implements BoardService{
 			
 			return getCommentLike;
 		}
+		
+		//기업마이페이지
+		@Override
+		public List<BoardDTO> getMyGongMoList(int c_no) {
+			
+			List<BoardDTO> myGongMoList = this.boardDAO.getMyGongMoList(c_no);
+			
+			return myGongMoList;
+		}
+
+		@Override
+		public List<BoardDTO> getMyGongGoList(int c_no) {
+			
+			List<BoardDTO> myGongGoList = this.boardDAO.getMyGongGoList(c_no);
+			
+			return myGongGoList;
+		}
 }

@@ -96,7 +96,7 @@
 				</c:otherwise>
 			</c:choose>
 			<c:if test="${sessionScope.member=='company'}">
-				<a href="javascript:location.replace('/myCompany.do')" id="myPageButton">기업마이페이지</a>
+				<a onClick="document.MyCompanyForm.submit()" id="myPageButton">기업마이페이지</a>
 			</c:if>
 			<c:if test="${sessionScope.member=='person'}">
 				<a href="javascript:location.replace('/myPage.do')" id="myPageButton">개인마이페이지</a>
@@ -104,6 +104,10 @@
   </header>
   </div>
   
+  <form name="MyCompanyForm"  action="/myCompany.do"  method="post">
+		<input type="hidden" name="c_no"  value='${sessionScope.c_no}'>
+	</form>
+		
   <form name="freedome" action="/freedome.do"
 						method="post">
    		 <input type="hidden" name="boardname" class="boardname">

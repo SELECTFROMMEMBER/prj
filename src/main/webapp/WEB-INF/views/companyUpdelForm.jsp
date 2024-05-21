@@ -68,24 +68,24 @@
 						<th>등록 사항</th>
 					</tr>
 					<tr>
-						<td>기업명:</td>
+						<td>기업명</td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>기업 로고 등록:</td>
+						<td>기업 로고 등록</td>
 
 					</tr>
 					<tr>
-						<td>홈페이지:</td>
+						<td>홈페이지</td>
 						<td><input type="text" id="url" class="url" name="url"
 							required></td>
 					</tr>
 					<tr>
-						<td>기업 이메일:</td>
+						<td>기업 이메일</td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>복리후생:</td>
+						<td>복리후생</td>
 						<td><input type="checkbox" id="welfare_code"
 							name="welfare_code" value="1"> <label for="benefits">4대보험가입</label>
 							<input type="checkbox" id="welfare_code" name="welfare_code"
@@ -96,7 +96,7 @@
 							for="benefits">보너스 및 인센티브</label></td>
 					</tr>
 					<tr>
-						<td>기업 형태:</td>
+						<td>기업 형태</td>
 						<td><select id="volume" name="volume" required>
 								<option value=""></option>
 								<option value="대기업">대기업</option>
@@ -105,7 +105,7 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>대표 업종:</td>
+						<td>대표 업종</td>
 						<td><select id="business_industry" name="business_industry"
 							required>
 								<option value="화장품 및 뷰티 제품 제조업">화장품 및 뷰티 제품 제조업
@@ -141,25 +141,25 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>설립일:</td>
+						<td>설립일</td>
 						<td><input type="date" id="birth" name="birth" required></td>
 					</tr>
 					<tr>
 
-						<td>대표자명:</td>
+						<td>대표자명</td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>회사 번호:</td>
+						<td>회사 번호</td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>사업자번호:</td>
+						<td>사업자번호</td>
 						<td></td>
 					</tr>
 
 					<tr>
-						<td>매출 액:</td>
+						<td>매출 액</td>
 						<td><input type="text" id="sales" name="sales" required></td>
 					</tr>
 					<tr>
@@ -174,11 +174,11 @@
 
 
 					<tr>
-						<td>사원수:</td>
+						<td>사원수</td>
 						<td><input type="text" id="emp_no" name="emp_no" required></td>
 					</tr>
 					<tr>
-						<td>평균연봉:</td>
+						<td>평균연봉</td>
 						<td><input type="text" id="sal_avg" name="sal_avg" required></td>
 					</tr>
 

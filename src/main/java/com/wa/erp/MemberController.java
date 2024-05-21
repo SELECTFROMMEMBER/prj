@@ -2,6 +2,7 @@ package com.wa.erp;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +32,29 @@ public class MemberController {
 		return mav;
 	}
 	
+	@Autowired
+	private BoardService boardService;
+	
 	@RequestMapping(value="/myCompany.do")
-	public ModelAndView myCompany() {
+	public ModelAndView myCompany(
+			@RequestParam(value="c_no") int c_no)
+			 {
+		
+		List<BoardDTO> gongMoList = this.boardService.getMyGongMoList(c_no);
+		
+		List<BoardDTO> gongGoList = this.boardService.getMyGongGoList(c_no);
+		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("gongGoList", gongGoList);
+		
+		mav.addObject("gongMoList", gongMoList);
+		
 		mav.setViewName("myCompany.jsp");
+		
 		return mav;
 	}
+	
 	@RequestMapping(value="/memberRegForm.do")
 	public ModelAndView memberRegForm() {
 		ModelAndView mav = new ModelAndView();

@@ -99,5 +99,10 @@ public interface BoardDAO {
 		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
 
 		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
+		
+		//기업마이페이지
+		List<BoardDTO> getMyGongMoList(int c_no);
+
+		List<BoardDTO> getMyGongGoList(int c_no);
 	
 }

@@ -90,6 +90,37 @@ public class BoardDTO {
 		private String code_field;
 		private int comp_pk;
 		private String skill_name;
+		
+		//마이기업페이지
+		private int g_no;
+		private String gonggoreg_date;
+		private String opendate;
+		private String closedate;
+		
+		public int getG_no() {
+			return g_no;
+		}
+		public void setG_no(int g_no) {
+			this.g_no = g_no;
+		}
+		public String getGonggoreg_date() {
+			return gonggoreg_date;
+		}
+		public void setGonggoreg_date(String gonggoreg_date) {
+			this.gonggoreg_date = gonggoreg_date;
+		}
+		public String getOpendate() {
+			return opendate;
+		}
+		public void setOpendate(String opendate) {
+			this.opendate = opendate;
+		}
+		public String getClosedate() {
+			return closedate;
+		}
+		public void setClosedate(String closedate) {
+			this.closedate = closedate;
+		}
 		public int getComp_pk() {
 			return comp_pk;
 		}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--***************************************************-->
+<!-- mapper 태그 선언하기 -->
+<!-- mapper 태그 안의 namespace 값은 -->
+<!-- [원하는 인터페이스 저장 패키지 경로]하고 일치해야한다. -->
+<!--***************************************************-->
+<mapper namespace="com.wa.erp.BoardDAO">
+
+		<select id="getMyGongMoList"  parameterType="int"  resultType="com.wa.erp.BoardDTO">
+	        select
+	        	 comp_pk 
+	        	 ,subject
+	        	 ,to_char(reg_date, 'YYYY-MM-DD') as "reg_date"
+	        	 ,to_char(start_time, 'YYYY-MM-DD') as "start_time"
+	        	 ,to_char(end_time, 'YYYY-MM-DD') as "end_time"
+	        from 
+	        	 competition 
+	       	where
+	       		 c_no = #{c_no}
+	       	order by
+				comp_pk desc
+	    </select>
+	    
+	    <select id="getMyGongGoList"  parameterType="int"  resultType="com.wa.erp.BoardDTO">
+	        select
+	        	 g_no 
+	        	 ,content
+	        	 ,to_char(gonggoreg_date, 'YYYY-MM-DD') as "gonggoreg_date"
+	        	 ,to_char(opendate, 'YYYY-MM-DD') as "opendate"
+	        	 ,to_char(closedate, 'YYYY-MM-DD') as "closedate"
+	        from 
+	        	 gonggo 
+	       	where
+	       		 c_no = #{c_no}
+	       	order by
+				g_no desc
+	    </select>
+    
+</mapper>
+ 
