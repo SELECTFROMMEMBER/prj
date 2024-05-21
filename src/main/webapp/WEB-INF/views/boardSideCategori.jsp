@@ -8,7 +8,6 @@
 <title></title>
 </head>
 <body>
-
 	<div
 		style="position: absolute; top; 100 px; left; 150 px width: 145px; float: left; z-index: 3;">
 		<br>
@@ -41,6 +40,9 @@
 		<input type="hidden" name="Detail_b_no"> 
 		<input type="hidden" name="Detail_board">
 		<input type="hidden" name="Comment_board">
+		<input type="hidden" name="comment_sort">
+		<input type="hidden" name="p_no" value=0>
+		<input type="hidden" name="c_no" value=0>
 	</form>
 
 	<form name="freedomeRegForm" action="/freedomeRegForm.do" method="post">

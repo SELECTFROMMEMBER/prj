@@ -83,6 +83,7 @@
           
                <input type="hidden" name="b_no" value="${requestScope.boardDTO.b_no}">
                <input type="hidden" name="table" value="tradeboard">
+               <input type="hidden" name="p_no" value="${sessionScope.p_no}">
           
 			      
               <center>

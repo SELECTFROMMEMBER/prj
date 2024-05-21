@@ -47,7 +47,27 @@ public class RegUpDelServiceImpl implements RegUpDelService{
 	public int updateRec(BoardDTO boardDTO) {
 		int updateRecCnt = this.regUpDelDAO.updateRec(boardDTO);
 		
+		
+		System.out.println("1:"+boardDTO.getComment_no());
+		System.out.println("1:"+boardDTO.getTable());
+		System.out.println("1:"+boardDTO.getP_no());
+		System.out.println("1:"+boardDTO.getB_no());
+		int insertLikeCnt = this.regUpDelDAO.insertLike(boardDTO);
+		if(insertLikeCnt==0) {return -1;}
+		
 		return updateRecCnt;
+	}
+	//================================================================
+	//======================    게시판 댓글 싫어요-   =========================
+	//================================================================
+	@Override
+	public int downdateRec(BoardDTO boardDTO) {
+		int downdateRecCnt = this.regUpDelDAO.downdateRec(boardDTO);
+		
+		int deleteLikeCnt = this.regUpDelDAO.deleteLike(boardDTO);
+		if(deleteLikeCnt==0) {return -1;}
+		
+		return downdateRecCnt;
 	}
 	//================================================================
 	//======================    게시판 수정   ===============================
@@ -56,7 +76,7 @@ public class RegUpDelServiceImpl implements RegUpDelService{
 	public int updateBoard(BoardDTO boardDTO) {
 		
 		int boardCnt = this.regUpDelDAO.getboardCnt( boardDTO);
-		if( boardCnt==0 ) { return boardCnt; }
+		if( boardCnt==0 ) { return -2; }
 		
 		int boardPwdCnt = this.regUpDelDAO.getboardPwdCnt( boardDTO );
 		if( boardPwdCnt==0 ) { return -1; }
@@ -322,5 +342,6 @@ public int insertGongo(BoardDTO boardDTO ) {
 		 
 		 return insertResumeCnt;
 	}
+	
 		
 }

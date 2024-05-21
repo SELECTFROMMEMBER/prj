@@ -83,7 +83,7 @@
           
                <input type="hidden" name="b_no" value="${requestScope.boardDTO.b_no}">
                <input type="hidden" name="table" value="newbieboard">
-          
+          		<input type="hidden" name="p_no" value="${sessionScope.p_no}">
 			      
               <center>
                  <span style= "cursor:pointer"  onClick="pushboardname('newbieboard','newComer')">[목록화면]</span>

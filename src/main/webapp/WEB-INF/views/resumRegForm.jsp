@@ -144,10 +144,10 @@
             
             <tr>
                 <td>수상경력</td>
-                <td>대회이름: <input type="text" id="name" class="name" name="name" required>
-                     수상명: <input type="text" id="type"   class="type"  name="type" required>
-                  <br> 주최기관:<input type="text" id="organizer"  class="organizer"   name="organizer" required>
-                     상장번호:<input type="text" id="award_no"  class="award_no"    name="award_no" required>
+                <td>대회이름: <input type="text" id="name1" class="name1" name="name1" required>
+                     수상명: <input type="text" id="type1"   class="type1"  name="type1" required>
+                  <br> 주최기관:<input type="text" id="organizer1"  class="organizer1"   name="organizer1" required>
+                     상장번호:<input type="text" id="award_no1"  class="award_no1"    name="award_no1" required>
                  
                 </td>
             </tr>
@@ -156,18 +156,18 @@
                    <td for="startDate" >보유스킬</td>
                   <td>
         
-                  <label><input type="checkbox" name="skill_code" class="skill_code" value="1"> JAVA</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="2"> Servlet/JSP</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="3"> XML</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="4"> DataBase</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="5"> MVC</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="6"> Spring</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="7"> Front-End</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="8"> Excel</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="9"> PPT</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="10"> OS</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="11"> CAD</label>
-                    <label><input type="checkbox" name="skill_code" class="skill_code" value="12"> 3D RINTING</label>
+                  <label><input type="checkbox" name="skill_code" class="skill_code" value=1> JAVA</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=2> Servlet/JSP</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=3> XML</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=4> DataBase</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=5> MVC</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=6> Spring</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=7> Front-End</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=8> Excel</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=9> PPT</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=10> OS</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=11> CAD</label>
+                    <label><input type="checkbox" name="skill_code" class="skill_code" value=12> 3D RINTING</label>
               
                     
                   
@@ -197,10 +197,11 @@
                 <td>
                    <select id="education" name="education" class="education" >
                         <option value="none">최종 학력 선택</option>
-                        <option value="primary">초등학교 졸업</option>
-                        <option value="middle">중학교 졸업</option>
-                        <option value="high">고등학교 졸업</option>
-                        <option value="university">대학교 졸업 (4년 이상)</option>
+                        <option value="초등학교 졸업">초등학교 졸업</option>
+                        <option value="중학교 졸업">중학교 졸업</option>
+                        <option value="고등학교 졸업">고등학교 졸업</option>
+                        <option value="전문대 졸업">전문대 졸업</option>
+                        <option value="4년제 졸업">대학교 졸업 (4년 이상)</option>
                    </select>
                        <input type="text" id="school_name"
                        class="school_name"

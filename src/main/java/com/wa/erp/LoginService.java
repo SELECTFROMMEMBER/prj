@@ -4,5 +4,8 @@ import java.util.Map;
 
 public interface LoginService {
 	
-	public int getMidPwdCnt( Map<String,String> midPwd);
+	
+	public BoardDTO getMem(Map<String,String> midPwd);
+	
+	public int checkpercom(Map<String,String> midPwd);
 	}

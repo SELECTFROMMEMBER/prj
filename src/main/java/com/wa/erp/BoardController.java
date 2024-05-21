@@ -1,6 +1,7 @@
 package com.wa.erp;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -409,20 +410,43 @@ public class BoardController {
 			//--------------------------------------
 			@RequestParam(value="Detail_b_no") int b_no,
 			@RequestParam(value="Detail_board") String table,
-			@RequestParam(value="Comment_board") String comment			
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort,
+			@RequestParam(value="p_no", required=false) int p_no,
+			@RequestParam(value="c_no", required=false) int c_no
+			
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
 		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
+		paramMap.put("p_no", p_no);
+		paramMap.put("c_no", c_no);
+		
 //		BoardServiceImpl 객체의 getBoard 메소드를 호출하여
 //		상세보기 화면에서 필요한 [1개의 게시판 글] 가져오기
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
 		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
+		
 		//ModelAndView 객체 생성하기
 		ModelAndView mav = new ModelAndView();
 		
+		if(c_no!=0 || p_no!=0) {
+			List<BoardDTO> commentLike = this.boardService.getCommentLike(paramMap);		
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (commentLike != null) {
+				    for (int i = 0; i < commentLike.size(); i++) {
+				        BoardDTO likeDTO = commentLike.get(i);
+				        int likeNo = likeDTO.getLike_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
 		
 		mav.addObject("boardDTO", boardDTO);
 		mav.addObject("commentList", commentList);
@@ -449,18 +473,39 @@ public class BoardController {
 	public ModelAndView qnaDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
 			@RequestParam(value="Detail_board") String table,
-			@RequestParam(value="Comment_board") String comment
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort,
+			@RequestParam(value="p_no", required=false) int p_no,
+			@RequestParam(value="c_no", required=false) int c_no
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
 		paramMap.put("comment",comment );
-
+		paramMap.put("sort", sort);
+		paramMap.put("p_no", p_no);
+		paramMap.put("c_no", c_no);
+		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
 		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 
 		ModelAndView mav = new ModelAndView();
+		
+		if(c_no!=0 || p_no!=0) {
+			List<BoardDTO> commentLike = this.boardService.getCommentLike(paramMap);		
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (commentLike != null) {
+				    for (int i = 0; i < commentLike.size(); i++) {
+				        BoardDTO likeDTO = commentLike.get(i);
+				        int likeNo = likeDTO.getLike_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
 		
 		mav.addObject("boardDTO", boardDTO);
 		mav.addObject("commentList", commentList);
@@ -481,18 +526,39 @@ public class BoardController {
 	public ModelAndView newComerDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
 			@RequestParam(value="Detail_board") String table,
-			@RequestParam(value="Comment_board") String comment
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort,
+			@RequestParam(value="p_no", required=false) int p_no,
+			@RequestParam(value="c_no", required=false) int c_no
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
 		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
+		paramMap.put("p_no", p_no);
+		paramMap.put("c_no", c_no);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
 		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
+		
+		if(c_no!=0 || p_no!=0) {
+			List<BoardDTO> commentLike = this.boardService.getCommentLike(paramMap);		
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (commentLike != null) {
+				    for (int i = 0; i < commentLike.size(); i++) {
+				        BoardDTO likeDTO = commentLike.get(i);
+				        int likeNo = likeDTO.getLike_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
 		
 		mav.addObject("boardDTO", boardDTO);
 		mav.addObject("commentList", commentList);
@@ -518,18 +584,39 @@ public class BoardController {
 	public ModelAndView jobReadyDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
 			@RequestParam(value="Detail_board") String table,
-			@RequestParam(value="Comment_board") String comment
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort,
+			@RequestParam(value="p_no", required=false) int p_no,
+			@RequestParam(value="c_no", required=false) int c_no
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
 		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
+		paramMap.put("p_no", p_no);
+		paramMap.put("c_no", c_no);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
 		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
+		
+		if(c_no!=0 || p_no!=0) {
+			List<BoardDTO> commentLike = this.boardService.getCommentLike(paramMap);		
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (commentLike != null) {
+				    for (int i = 0; i < commentLike.size(); i++) {
+				        BoardDTO likeDTO = commentLike.get(i);
+				        int likeNo = likeDTO.getLike_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
 		
 		mav.addObject("boardDTO", boardDTO);
 		mav.addObject("commentList", commentList);
@@ -555,18 +642,39 @@ public class BoardController {
 	public ModelAndView interviewDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
 			@RequestParam(value="Detail_board") String table,
-			@RequestParam(value="Comment_board") String comment
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort,
+			@RequestParam(value="p_no", required=false) int p_no,
+			@RequestParam(value="c_no", required=false) int c_no
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
 		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
+		paramMap.put("p_no", p_no);
+		paramMap.put("c_no", c_no);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
 		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
+		
+		if(c_no!=0 || p_no!=0) {
+			List<BoardDTO> commentLike = this.boardService.getCommentLike(paramMap);		
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (commentLike != null) {
+				    for (int i = 0; i < commentLike.size(); i++) {
+				        BoardDTO likeDTO = commentLike.get(i);
+				        int likeNo = likeDTO.getLike_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
 		
 		mav.addObject("boardDTO", boardDTO);
 		mav.addObject("commentList", commentList);
@@ -591,18 +699,39 @@ public class BoardController {
 	public ModelAndView joongGoDetailForm(
 			@RequestParam(value="Detail_b_no") int b_no,
 			@RequestParam(value="Detail_board") String table,
-			@RequestParam(value="Comment_board") String comment
+			@RequestParam(value="Comment_board") String comment,
+			@RequestParam(value="comment_sort", required=false) String sort,
+			@RequestParam(value="p_no", required=false) int p_no,
+			@RequestParam(value="c_no", required=false) int c_no
 			) {
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("tablename", table);
 		paramMap.put("b_no", b_no);
 		paramMap.put("comment",comment );
+		paramMap.put("sort", sort);
+		paramMap.put("p_no", p_no);
+		paramMap.put("c_no", c_no);
 		
 		BoardDTO boardDTO = this.boardService.getBoard(paramMap);
 		List<BoardDTO> commentList = this.boardService.getComment(paramMap);
 		
 		ModelAndView mav = new ModelAndView();
+		
+		if(c_no!=0 || p_no!=0) {
+			List<BoardDTO> commentLike = this.boardService.getCommentLike(paramMap);		
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (commentLike != null) {
+				    for (int i = 0; i < commentLike.size(); i++) {
+				        BoardDTO likeDTO = commentLike.get(i);
+				        int likeNo = likeDTO.getLike_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
 		
 		mav.addObject("boardDTO", boardDTO);
 		mav.addObject("commentList", commentList);

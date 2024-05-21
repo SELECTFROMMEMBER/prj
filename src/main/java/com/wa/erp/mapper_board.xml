@@ -175,8 +175,17 @@
             c.p_no = p.p_no
             and
             c.b_no = #{b_no}
-       order by
-       		reg_date asc
+        <choose>
+        	<when test="sort!=null and sort.length()>0">
+        	order by
+       			${sort}
+        	</when>
+        	<otherwise>
+        	order by
+        		reg_date asc
+        	</otherwise>
+        </choose>
+       	
 	</select>
 	
 	<!-- 부업 상세 -->	
@@ -323,6 +332,28 @@
 
 	<select id="getboardListAllCnt"  parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
 		select count(*) from ${boardname}
+	</select>
+	
+	
+	<select id="getCommentLike" parameterType="java.util.Map" resultType="com.wa.erp.BoardDTO">
+	select
+    	comment_no as "like_no"
+	from 
+    	like_comment
+	where
+    	comment_table=#{comment}
+    	<if test="p_no != 0">
+    	and
+    	p_no = #{p_no}
+    	</if>
+    	<if test="c_no != 0">
+    	and
+    	c_no = #{c_no}
+    	</if>
+    	and
+    	b_no=#{b_no}     
+    order by
+    	1 asc
 	</select>
 	<!--	
 		~~~~~~~~~~~~~~~~~~~~~~~~~~~~

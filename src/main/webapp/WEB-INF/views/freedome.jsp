@@ -87,9 +87,9 @@
               <c:forEach var="board" items="${requestScope.freedomeList }"  varStatus="status">
 <%--               <c:if test="${status.index+1 >= requestScope.boardMap.begin_rowNo && status.index+1 <= requestScope.boardMap.end_rowNo}"> --%>
 								
-              <tr style="cursor:pointer" onCLick= "goBoardDetailForm(${board.b_no},'freedome', 'freeboard','free');">
+              <tr style="cursor:pointer" onCLick= "goBoardDetailForm(${board.b_no},'freedome', 'freeboard','free','');">
               	<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
-              	<td align="center"> ${board.subject }</td>
+              	<td align="center"> ${board.subject}</td>
               	<td align="center"> ${board.nickname }</td>
               	<td align="center"> ${board.reg_date }</td>
               	<td align="center"> ${board.read_count }</td>

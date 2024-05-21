@@ -30,7 +30,7 @@
 	        
 	    ) values (
 	        (select nvl(max(prj_no),0)+1 from project),
-	        1,
+	        #{p_no},
 	        #{subject},
 	        #{project_type},
 	        #{field_code},
@@ -56,6 +56,10 @@
 			read_count = read_count+1
 		where
 			prj_no=#{prj_no}
+			and
+			pwd=#{pwd}
+			and
+			p_no=#{p_no}
 	
 	</update>
 	
@@ -154,6 +158,8 @@
 			prj_no = #{prj_no}
 			and
 			pwd = #{pwd}
+			and
+			p_no=#{p_no}
 			
 		</update>
 	
@@ -188,7 +194,8 @@
 			prj_no = #{prj_no}
 			and
 			pwd = #{pwd}
-			
+			and
+			p_no=#{p_no}
 		</delete>
 		
 		<select id="getPrjListCnt" parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
@@ -325,7 +332,8 @@
 	<!-- 공모전 상세글 불러오기 -->
 	<select id="getGongMo" parameterType="int" resultType="com.wa.erp.BoardDTO">
     	select
-    		 comp_pk
+    		m.c_no
+    		,comp_pk
     		,subject
     		,name
     		,field_name

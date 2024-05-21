@@ -46,8 +46,9 @@
         <!-- 개인 회원 로그인 폼 -->
         <div id="personalTabContent" class="tab-content center">    
             <form id="personalLoginForm" action="/loginProc.do" method="POST">
+            	<input type="hidden" name="board" value="person_mem">
                 <label for="pid">개인회원 아이디</label>
-                <input type="text" id="pid" name="pid" required><br>
+                <input type="text" id="mid" name="mid" required><br>
                 <label for="pwd">비밀번호</label>
                 <input type="password" id="pwd" name="pwd" required><br>
                 <input type="submit" value="로그인">
@@ -62,10 +63,11 @@
         <!-- 기업 회원 로그인 폼 -->
         <div id="companyTabContent" class="tab-content center">
             <form id="companyLoginForm" action="/loginProc.do" method="POST">
+            	<input type="hidden" name="board" value="company_mem">
                 <label for="companyUsername">기업회원 아이디</label>
-                <input type="text" id="companyUsername" name="companyUsername" required><br>
+                <input type="text" id="mid" name="mid" required><br>
                 <label for="companyPassword">비밀번호</label>
-                <input type="password" id="companyPassword" name="companyPassword" required><br>
+                <input type="password" id="pwd" name="pwd" required><br>
                 <input type="submit" value="로그인">
                 <input type="button" value="회원가입" onclick="location.replace('/companyRegForm.do')">
                 <section class="login-join">
@@ -95,23 +97,28 @@
 
         loadTabContent('personalTabContent');
 
+
         // AJAX 요청을 처리하는 JavaScript 코드
-        document.getElementById('personalLoginForm').addEventListener('submit', function() {
+        function handleLoginFormSubmit(event, formId) {
             event.preventDefault(); // 기본 동작(페이지 새로고침) 방지
 
-            var formData = new FormData(this);
-            
+            var formData = new FormData(document.getElementById(formId));
+
             fetch('/loginProc.do', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
-            	
                 if (data == 1) {
-                    alert('로그인 성공');
+                    alert('로그인 성공(개인회원)');
                     location.replace('/12Wa.do');
-                } else {
+                } 
+                else if (data == 2) {
+                    alert('로그인 성공(기업회원)');
+                    location.replace('/12Wa.do');                
+                }
+                else {
                     alert('로그인 실패');
                 }
             })
@@ -119,6 +126,14 @@
                 alert('웹서버 접속 실패! 관리자에게 문의 바람.');
                 console.error(error);
             });
+        }
+
+        document.getElementById('personalLoginForm').addEventListener('submit', function(event) {
+            handleLoginFormSubmit(event, 'personalLoginForm');
+        });
+
+        document.getElementById('companyLoginForm').addEventListener('submit', function(event) {
+            handleLoginFormSubmit(event, 'companyLoginForm');
         });
     </script>
     

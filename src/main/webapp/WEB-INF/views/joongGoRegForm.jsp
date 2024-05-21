@@ -26,6 +26,11 @@
     			<input type="radio" id="trade_type" name="trade_type" value="sell">판매
               </tr>
               
+              <tr>
+                  <td>닉네임</td>
+                  <td>${sessionScope.nickname}</td>  
+              </tr>
+              
                <tr>
                   <td>제목</td>
                   <td> <input type="text" name="subject"></td>  
@@ -57,6 +62,7 @@
                 
           </table>
            <input type="hidden" name="table" value="tradeboard">
+           <input type="hidden" name="p_no" value="${sessionScope.p_no}">
           <center>
           <input type="button" value="등록"  onClick="checkboardRegForm('tradeboard','joongGo')">
         </center>

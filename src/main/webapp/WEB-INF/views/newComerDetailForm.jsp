@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@include file="/WEB-INF/views/common.jsp"%>  
+    <%@ page import="java.util.List, java.util.ArrayList" %>
+    <%@ page import= "com.wa.erp.BoardDTO"%>  
+
 
 <!DOCTYPE html>
 <html>
@@ -63,7 +65,7 @@
                   <td>
                    <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>                   
                   	 <input type="hidden" value="comment_newbie" name="table" class="table"> 
-                  	 <input type="hidden" value="${boardDTO.p_no }" name="p_no" class="p_no"> 
+                  	 <input type="hidden" value="${sessionScope.p_no }" name="p_no" class="p_no"> 
                   	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">                   	 
                   	 <input type="button" value="등록"  onClick="checkCommentReg()">
                   </td>                        
@@ -73,8 +75,10 @@
           
           <center>
          <span onClick="pushboardname('newbieboard','newComer')">[목록으로]</span>
+         <c:if test="${sessionScope.p_no==boardDTO.p_no}">
        	 <input type="button" value="수정/삭제"
 							onclick="goUpDelForm(${boardDTO.b_no},'newComer','newbieboard');">
+     	 </c:if>
      </center>
      
      
@@ -83,21 +87,41 @@
       		<td>
       	댓글
       		</td>
-      		<td>
-      		좋아요
-      		</td>
+      		<c:if test="${param.comment_sort!='rec_count asc' and param.comment_sort!='rec_count desc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'newComer', 'newbieboard','newbie','rec_count desc');">좋아요</th>
+              </c:if>
+             
+             <c:if test="${param.comment_sort=='rec_count desc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'newComer', 'newbieboard','newbie','rec_count asc');">좋아요▼</th>
+              </c:if>
+             
+             <c:if test="${param.comment_sort=='rec_count asc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'newComer', 'newbieboard','newbie','');">좋아요▲</th>
+              </c:if>
       	</tr>
-      	 <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
-        <tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
-            <td>
+
+				
+		<c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
+            <tr class="${status.index >= 5 ? 'hidden-row' : ''}">
+              <td>
                 <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}<br><br>
                 ${board.content}
-            </td>
-            <td>
-                <span class="likeButton" onclick="toggleLike(this)"><i class="far fa-heart"></i></span>
-            </td>
-        </tr>
-    </c:forEach>
+              </td>
+              <td>
+                <span class="likeButton" data-comment-no="${board.comment_no}" onclick="toggleLike(this, ${board.comment_no})">
+                 <c:choose>
+                   <c:when test="${likeNoList.contains(board.comment_no)}">
+                     <i class="fas fa-thumbs-up"></i>
+                    </c:when>
+                    <c:otherwise>
+                      <i class="far fa-thumbs-up"></i>
+                    </c:otherwise>
+                  </c:choose>
+                </span>
+                <span id="likeCount${board.comment_no}">${board.rec_count}</span>
+              </td>
+            </tr>
+          </c:forEach>
     <tr id="showMoreBtn" <c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
     	<td colspan="2" style="text-align: center;" onclick="showMoreComments()">
         	더보기

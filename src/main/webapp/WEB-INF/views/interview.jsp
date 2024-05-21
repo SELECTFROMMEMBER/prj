@@ -15,6 +15,8 @@
 		search("interview");
 		
 	}
+  
+  
 	
 //	게시판 검색하는 함수 search() 선언.
 //	[검색] 버튼 클릭 시 호출되는 함수이다.
@@ -102,7 +104,7 @@
 							varStatus="status">
 						
 								<tr style="cursor: pointer"
-									onCLick="goBoardDetailForm(${board.b_no},'interview', 'interviewboard', 'interviewboard');">
+									onCLick="goBoardDetailForm(${board.b_no},'interview', 'interviewboard', 'interviewboard','');">
             						<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
 									<td align="center">${board.subject }</td>
 									<td align="center">${board.nickname }</td>

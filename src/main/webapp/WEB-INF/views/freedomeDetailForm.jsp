@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <%@ page import="java.util.List, java.util.ArrayList" %>
+    <%@ page import= "com.wa.erp.BoardDTO"%>
+  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,14 +13,79 @@
     .hidden-row {
         display: none;
     }
+    
+    .likeButton.clicked i {
+        color: #007bff; /* 좋아요 버튼 클릭 시 색상 */
+    }
 </style>
   
 <script>
 
+
+function searchWithSort(sort){
+// 	   $("[name='reviewUpForm']").find("[name='reviewSort']").val(sort);
+	   search();
+	}
+	
+function search(){
+	
+	var commentFormObj = $("[name='commentRegForm']");
+		alert(commentFormObj.serialize());
+		return
+	$.ajax(
+	         {
+	            //-------------------------------
+	            // WAS 로 접속할 주소 설정
+	            //-------------------------------
+	            url      : "/freedomeDetailForm.do"
+	            //-------------------------------
+	            // WAS 로 접속하는 방법 설정. get 또는 post
+	            //-------------------------------
+	            ,type    : "post"
+	            //--------------------------------------
+	            // WAS 에 보낼 파명과 파값을 설정하기. "파명=파값&파명=파값~"
+	            //--------------------------------------
+	            ,data    : commentFormObj.serialize()
+	            //----------------------------------------------------------
+	            // WAS 의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+	            // 이때 익명함수의 매개변수로 WAS 의 응답물이 들어 온다.
+	            // "/boardList.do" 주소의 응답물은  boardList.jsp 페이지의
+	            // 실행결과인 HTML 문서 문자열이이다.
+	            //----------------------------------------------------------
+	            ,success : function(responseHtml){
+	               //-----------------------------------
+	               // 매개변수로 들어오는 HTML 문자열을 관리하는 
+	               // JQuery 객체 생성하여 변수 obj 에 저장하기
+	               //-----------------------------------
+	               var obj = $(responseHtml);
+	               //-----------------------------------
+	               // 매개변수로 받은 HTML 문자열 중에 
+	               // <div class='boardListDiv'> 태그 안의 html 문자열을
+	               // 현 화면의 <div class='boardListDiv'> 태그 안에  덮어쓰기
+	               //-----------------------------------boardListDiv pagingNos
+	               $(".commentList").html( 
+	                     obj.find(".commentList").html() 
+	               );
+	            
+
+	               /*$(".xxx").remove();
+	               $("body").prepend(
+	                  "<textarea class=xxx cols=100 rows=100>"
+	                  + obj.filter(".boardListDiv").html()
+	                  +"</textarea>"
+	               )*/
+	               
+	            }
+	            ,error   : function(){
+	               alert("정렬 실패! 관리자에게 문의 바람니다.");
+	            }
+	         }
+	      );
 	
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+
 </head>
   
 <body>
@@ -63,7 +130,8 @@
 
 			  <tr>
                 <td>추천수</td>
-                <td>${boardDTO.rec_count }</td>                       
+                <td>${boardDTO.rec_count }</td>   
+                        
               </tr>
               
               <tr>
@@ -71,8 +139,9 @@
                   <td>
                    <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>
                    	 <input type="hidden" value="comment_free" name="table" class="table"> 
-                  	 <input type="hidden" value="${boardDTO.p_no }" name="p_no" class="p_no"> 
-                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">                    	 
+                  	 <input type="hidden" value="${sessionScope.p_no }" name="p_no" class="p_no"> 
+                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">
+                  	 <input type="hidden" name="commentSort" class="commentSort" value="">                    	 
                   	 <input type="button" value="등록"  onClick="checkCommentReg()">
                   </td>                       
               </tr> 
@@ -81,57 +150,57 @@
           
           <center>
          <span onClick="pushboardname('freeboard','freedome')">[목록으로]</span>
+         <c:if test="${sessionScope.p_no==boardDTO.p_no}">
          <input type="button" value="수정/삭제"
 							onclick="goUpDelForm(${boardDTO.b_no},'freedome','freeboard');">
+		 </c:if>
      </center>
       </form>
       
-      
-      <c:if
-            test="${param.sort!='sal_avg asc' and param.sort!='sal_avg desc'}">
-            <p style="cursor: pointer" onClick="searchWithSort('sal_avg desc')">연봉</p>
-         </c:if>
-
-         <c:if test="${param.sort=='sal_avg desc'}">
-            <p style="cursor: pointer" onClick="searchWithSort('sal_avg asc')">연봉▼</p>
-         </c:if>
-
-         <c:if test="${param.sort=='sal_avg asc'}">
-            <p style="cursor: pointer" onClick="searchWithSort('')">연봉▲</p>
-         </c:if>
-      
-      
+      <div name="commentList">
       <table style="margin: 0 auto;">
       	<tr>
-      		<td>
+      		<th>
       			댓글
-      		</td>
-      		<td>
-      			<c:if test="${param.commentSort!='rec_count asc' and param.commentSort!='rec_count desc'}">
-              <th  style="width: 10%; text-align: center; cursor:pointer; "onClick="searchWithSort('rec_count desc')">좋아요</th>
+      		</th>
+      			<c:if test="${param.comment_sort!='rec_count asc' and param.comment_sort!='rec_count desc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'freedome', 'freeboard','free','rec_count desc');">좋아요</th>
               </c:if>
              
-             <c:if test="${param.commentSort=='rec_count desc'}">
-              <th  style="width: 10%; text-align: center; cursor:pointer; "onClick="searchWithSort('rec_count asc')">좋아요▼</th>
+             <c:if test="${param.comment_sort=='rec_count desc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'freedome', 'freeboard','free','rec_count asc');">좋아요▼</th>
               </c:if>
              
-             <c:if test="${param.commentSort=='rec_count asc'}">
-              <th  style="width: 10%; text-align: center; cursor:pointer; "onClick="searchWithSort('')">좋아요▲</th>
+             <c:if test="${param.comment_sort=='rec_count asc'}">
+              <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'freedome', 'freeboard','free','');">좋아요▲</th>
               </c:if>
-      		</td>
       	</tr>
-      	 <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
-        <tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
-            <td>
+      	
+      	<!-- ==================================================================================================== -->
+				
+<!--           기존 반복문을 수정하여 좋아요 상태 표시 -->
+          <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
+            <tr class="${status.index >= 5 ? 'hidden-row' : ''}">
+              <td>
                 <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}<br><br>
                 ${board.content}
-            </td>
-            <td>
-                <span class="likeButton" onclick="toggleLike(this,${board.comment_no})"><i  class="far fa-thumbs-up"></i></span>
-                ${board.rec_count}
-            </td>
-        </tr>
-    </c:forEach>
+              </td>
+              <td>
+                <span class="likeButton" data-comment-no="${board.comment_no}" onclick="toggleLike(this, ${board.comment_no})">
+                 <c:choose>
+                   <c:when test="${likeNoList.contains(board.comment_no)}">
+                     <i class="fas fa-thumbs-up"></i>
+                    </c:when>
+                    <c:otherwise>
+                      <i class="far fa-thumbs-up"></i>
+                    </c:otherwise>
+                  </c:choose>
+                </span>
+                <span id="likeCount${board.comment_no}">${board.rec_count}</span>
+              </td>
+            </tr>
+          </c:forEach>
+    	
     <tr id="showMoreBtn" <c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
     	<td colspan="2" style="text-align: center;" onclick="showMoreComments()">
         	더보기
@@ -147,8 +216,10 @@
       	
       	
       </table>
+      </div>
       
                   <input type="hidden" name="commentSort" class="commentSort" value="">
+  </div>
   </div>
 </body>
 <%@include file="/WEB-INF/views/common.jsp"%>  

@@ -13,6 +13,8 @@ public interface RegUpDelService {
 	int insertComment(BoardDTO boardDTO);
 	//게시판 댓글 좋아요 +
 	int updateRec(BoardDTO boardDTO);
+	//게시판 댓글 싫어요 +
+	int downdateRec(BoardDTO boardDTO);
 	/*mmmmmmmmmmmmmmmmmm*/
 	BoardDTO getBoard(BoardSearchDTO boardSearchDTO);
 	
@@ -39,4 +41,5 @@ public interface RegUpDelService {
 		
 		//이력서 등록
 		int insertResume(BoardDTO boardDTO);
+
 	}

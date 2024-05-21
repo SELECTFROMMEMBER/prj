@@ -6,7 +6,7 @@
 <script src="/js/common.js"></script>
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"> -->
 <link href="/style/style.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
  
 <script>
 //해당 주소로 들어갈 때 파라미터값 입력하는 함수
@@ -146,35 +146,33 @@ function submitReview() {
 let isLiked = false;
 let likeCount = 0;
 
-function toggleLike(button,comment_no) {
+function toggleLike(button, comment_no) {
+	if(${empty sessionScope.p_no} && ${empty sessionScope.c_no}){
+		alert("로그인을 하고 이용해주세요");
+		return;
+	}
     var likeButton = $(button);
-    var likeIcon = likeButton.find('i');
-//     var likeCount = likeButton.next();
-    var isLiked = likeButton.toggleClass('clicked').hasClass('clicked');
-
+    var isLiked = likeButton.find('i').hasClass('far');
+    alert(isLiked);
     if (isLiked) {
-        likeIcon.removeClass('far').addClass('fas');
+    	likeButton.addClass('clicked');
+        likeButton.find('i').removeClass('far').addClass('fas');
         upCount(comment_no);
-//         likeCount.text(parseInt(likeCount.text()) + 1);
     } else {
-        likeIcon.removeClass('fas').addClass('far');
+    	likeButton.removeClass('clicked');
+        likeButton.find('i').removeClass('fas').addClass('far');
         downCount(comment_no);
-//         likeCount.text(parseInt(likeCount.text()) - 1);
     }
 }
 
 
-
 //추천수 up
-
-
 function upCount(comment_no){
-	alert(comment_no);
 	var commentObj = $("form[name='commentRegForm']");
 	var serialize = commentObj.serialize();
 	
 	serialize = serialize+"&comment_no="+comment_no;
-	
+
 	$.ajax(
 			{
 				url: "/recUpProc.do"
@@ -185,8 +183,38 @@ function upCount(comment_no){
 	            var result = json["result"];
 	            if (result == 1) {
 	                alert("개추요~");
+	                location.reload();
 	            } else {
 	                alert("추천실패");
+	            }
+	        }
+				,error: function(){
+					alert("개추 실패! 관리자에게 문의 바람");
+				}
+			}		
+		);
+}
+
+//추천수 down
+function downCount(comment_no){
+	var commentObj = $("form[name='commentRegForm']");
+	var serialize = commentObj.serialize();
+	
+	serialize = serialize+"&comment_no="+comment_no;
+	
+	$.ajax(
+			{
+				url: "/recDownProc.do"
+				,type: "post"
+				,data: serialize
+				,success: function(json) {
+	        	
+	            var result = json["result"];
+	            if (result == 1) {
+	                alert("비추요~");
+	                location.reload();
+	            } else {
+	                alert("추천해제실패");
 	            }
 	        }
 				,error: function(){
@@ -241,7 +269,7 @@ function upCount(comment_no){
 //--------------------------------------------------------------------------
 //게시판 상세글 들어가기
 //--------------------------------------------------------------------------
-	function goBoardDetailForm(b_no,boardurl,boardname,comment){
+	function goBoardDetailForm(b_no,boardurl,boardname,comment,sort){
 	
 		//boardSideCategori 에 있는 <form name="freedomeDetailForm"> 의 name과 action값을 매개변수로 들어온 boarurl과 boardname을 사용하여 변경
 		$("form[name='freedomeDetailForm']").attr({"name":boardurl+"DetailForm","action":"/"+boardurl+"DetailForm.do"});
@@ -254,6 +282,15 @@ function upCount(comment_no){
 
 		//댓글테이블명 입력하기
 		$("[name='"+boardurl+"DetailForm']").find("[name='Comment_board']").val("comment_"+comment);
+		//댓글 sort
+		$("[name='"+boardurl+"DetailForm']").find("[name='comment_sort']").val(sort);
+		
+		if(${sessionScope.member=='person'}){			
+			$("[name='"+boardurl+"DetailForm']").find("[name='p_no']").val(${sessionScope.p_no});
+		}
+		if(${sessionScope.member=='company'}){
+			$("[name='"+boardurl+"DetailForm']").find("[name='c_no']").val(${sessionScope.c_no});			
+		}
  		
 		//히든태그에 저장된 값을 파라미터값으로 가지고 form 네임값이 board+"DetailForm"을 가진 태그에 action에 지정된 주소로 이동
  		document.forms[boardurl+"DetailForm"].submit();
@@ -304,11 +341,13 @@ function upCount(comment_no){
 					pwdObj.val("");
 				}
 				
-				else if(result==0){
+				else if(result==-2){
 					alert("삭제된 게시글 입니다.");
 					pushboardname(boardname,boardurl);
 				}
-				
+				else if(result==0){
+					alert("수정 실패입니다.");
+				}
 				else{
 					alert("게시글 수정 성공입니다.");
 					pushboardname(boardname,boardurl);

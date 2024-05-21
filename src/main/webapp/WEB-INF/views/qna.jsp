@@ -58,7 +58,7 @@ function pageNoClick( clickPageNo ){
 							varStatus="status">
 
 							
-								<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'qna', 'qnaboard', 'qna');">
+								<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'qna', 'qnaboard', 'qna','');">
 									<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
 									<td align="center">${board.subject}</td>
 									<td align="center">${board.nickname}</td>
