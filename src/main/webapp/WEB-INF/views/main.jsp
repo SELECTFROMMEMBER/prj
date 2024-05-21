@@ -28,15 +28,9 @@
         <button id="next">&rang;</button>
       </div>
     </div>
-    
-<div style="text-align: right;">
-  <a  href="javascript:location.replace('/loginForm.do')">로그인 ㅣ</a>
-  <a  href="javascript:location.replace('/myCompany.do')">기업마이페이지 ㅣ</a>
-  <a  href="javascript:location.replace('/myPage.do')">개인마이페이지</a>
-</div>
 
 
-    <div id="contents">
+		<div id="contents">
       <div id="tabMenu">
         <input type="radio" id="tab1" name="tabs" checked>
         <label for="tab1">공지사항</label>

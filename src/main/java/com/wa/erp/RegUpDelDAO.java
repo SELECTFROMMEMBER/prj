@@ -15,6 +15,8 @@ public interface RegUpDelDAO {
 	int insertComment(BoardDTO boardDTO);
 	
 	int updateRec(BoardDTO boardDTO);
+
+	int downdateRec(BoardDTO boardDTO);
 	
 	int updateBoard(BoardDTO boardDTO);
 	
@@ -73,4 +75,8 @@ public interface RegUpDelDAO {
 		int insertPerson_license(BoardDTO boardDTO);
 		
 		int insertSkill_Code(BoardDTO boardDTO);
+
+		int insertLike(BoardDTO boardDTO);
+
+		int deleteLike(BoardDTO boardDTO);
 	}

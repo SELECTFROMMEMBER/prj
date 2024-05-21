@@ -83,9 +83,11 @@
 		select
 			count(*)
 		from
-			person_mem
+			person_mem p, company_mem c
 		where
-			pid = #{pid}
+			p.pid = #{pid}
+			or
+			c.cid = #{pid}
 	</select>
 	
 	<insert id="insertMember" parameterType="com.wa.erp.MemberDTO" >

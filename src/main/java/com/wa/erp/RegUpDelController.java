@@ -755,6 +755,30 @@ public class RegUpDelController {
 
 					return resultMap;
 					 }
+
+				
+				//============================================================
+				// 추천수 다운!
+				//============================================================
+				@RequestMapping(
+						value="/recDownProc.do"
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+						)
+				@ResponseBody
+				public Map<String,String> recDownProc(
+						BoardDTO boardDTO
+						) {
+					
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int downdateRecCnt = this.regUpDelService.downdateRec(boardDTO);
+					
+					resultMap.put("result", downdateRecCnt+"");
+					
+					return resultMap;
+				}
+				
 				
 				
 }

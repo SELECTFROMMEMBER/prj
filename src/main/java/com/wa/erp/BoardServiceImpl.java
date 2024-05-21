@@ -272,7 +272,7 @@ public class BoardServiceImpl implements BoardService{
 		public int updatePrj(BoardDTO boardDTO) {
 			
 			int prjCnt = this.boardDAO.getPrjCnt( boardDTO.getPrj_no() );
-			if( prjCnt==0 ) { return prjCnt; }
+			if( prjCnt==0 ) { return -2; }
 			
 			int prjPwdCnt = this.boardDAO.getPrjPwdCnt(boardDTO);
 			if( prjPwdCnt==0 ) {return -1;}
@@ -400,4 +400,12 @@ public class BoardServiceImpl implements BoardService{
 			return gongMoListCnt;
 		}
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		@Override
+		public List<BoardDTO> getCommentLike(Map<String, Object> paramMap){
+			
+			List<BoardDTO> getCommentLike = this.boardDAO.getCommentLike(paramMap);
+			
+			return getCommentLike;
+		}
 }

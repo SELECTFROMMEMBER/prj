@@ -333,6 +333,28 @@
 	<select id="getboardListAllCnt"  parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
 		select count(*) from ${boardname}
 	</select>
+	
+	
+	<select id="getCommentLike" parameterType="java.util.Map" resultType="com.wa.erp.BoardDTO">
+	select
+    	comment_no as "like_no"
+	from 
+    	like_comment
+	where
+    	comment_table=#{comment}
+    	<if test="p_no != 0">
+    	and
+    	p_no = #{p_no}
+    	</if>
+    	<if test="c_no != 0">
+    	and
+    	c_no = #{c_no}
+    	</if>
+    	and
+    	b_no=#{b_no}     
+    order by
+    	1 asc
+	</select>
 	<!--	
 		~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		<select ~> 태그 안의 속성

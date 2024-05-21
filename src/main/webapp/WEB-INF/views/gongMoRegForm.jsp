@@ -117,6 +117,7 @@
             </tr>
              
               </table>
+              <input type="hidden" name="c_no" value="${sessionScope.c_no}">
               </form>
               <br>
           <input type="button" onClick="checkGongMoRegForm()" value=" 등록 ">

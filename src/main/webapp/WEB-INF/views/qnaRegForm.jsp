@@ -27,7 +27,7 @@
               
               <tr>
                   <td>닉네임</td>
-                  <td></td>  
+                  <td>${sessionScope.nickname}</td>  
               </tr>
               
               <tr>
@@ -42,6 +42,7 @@
               </tr> 
           </table>
           <input type="hidden" name="table" value="qnaboard">
+          <input type="hidden" name="p_no" value="${sessionScope.p_no}">
           <center>
           <input type="button" value="등록"  onClick="checkboardRegForm('qnaboard','qna')">
     	 </center>

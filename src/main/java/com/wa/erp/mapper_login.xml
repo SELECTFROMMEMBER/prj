@@ -11,44 +11,36 @@
 	<!--=========================================================-->
 	<!-- 로그인 아이디와 암호의 존재를 개수를 검색하는  -->
 	<!-- select 구문을 내포한 <select> 태그 선언하기    -->
-	<!--=========================================================-->
-	<select id="getMidPwdCnt" parameterType="java.util.HashMap" resultType="int">
-<!-- 		select count(*)  from member where mid=#{mid} and pwd=#{pwd} -->
-		select count(*)  from person_mem where pid=#{pid} and pwd=#{pwd}
+	<!--=========================================================-->	
+	<select id="getMem" parameterType="java.util.HashMap" resultType="com.wa.erp.BoardDTO">
+		select 
+			<if test="board=='person_mem'">
+			p_no
+			,nickname
+			,name
+			</if>
+			<if test="board=='company_mem'">
+			c_no
+			,name
+			</if>
+		from 
+			${board} 
+		where 
+		<if test="board=='person_mem'">
+			pid=#{mid}
+		</if>
+		<if test="board=='company_mem'">
+			cid=#{mid}
+		</if>
+
 	</select>
-	<!--	
-		~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		<select ~> 태그 안의 속성
-		~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			id="namespace값마지막의인터페이스내부의메소드명중하나"
-			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			parameterType="SQL구문에참여하는외부데이터의타입"
-			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			resultType="SQL구문의결과값을저장할수있는자바자료형"
-			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		#{mid}의미
-		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		 	  mid   는 현재 참여하고 있는 HashMap 객체의 키값을 의미한다.
-		      {mid} 는  "mid" 라는 키값에 대응하는 데이터를 표현하라는 의미
-		       #    은 표현하는 데이터가 
-								문자면 
-									표현 데이터 앞뒤에  '  를 붙이고
-		                        숫자면 
-									표현 데이터 앞뒤에  '  를 붙이지 말란 의미이다.
-		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		 #{pwd}의미
-		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		 	  pwd   는 현재 참여하고 있는 HashMap 객체의 키값을 의미한다.
-		      {pwd} 는  "pwd" 라는 키값에 대응하는 데이터를 표현하라는 의미
-		       #    은 표현하는 데이터가 
-								문자면 
-									표현 데이터 앞뒤에  '  를 붙이고
-		                        숫자면 
-									표현 데이터 앞뒤에  '  를 붙이지 말란 의미이다.
-		-->
+
+	<select id="checkpid" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from person_mem where pid=#{mid} and pwd=#{pwd}
+ 	</select>
+ 	
+ 	<select id="checkcid" parameterType="java.util.HashMap" resultType="int">
+ 		select count(*) from company_mem where cid=#{mid} and pwd=#{pwd}
+ 	</select>
 </mapper>
  

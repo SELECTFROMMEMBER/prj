@@ -72,8 +72,9 @@
 	</table>
 			<br>
           <input type="button" onClick="location.replace('/gongMo.do')" value="목록으로"> 
+          <c:if test="${boardDTO.c_no == sessionScope.c_no}">
       	  <input type="button" value="수정/삭제" onclick="document.gongMoUpDelForm.submit();">
-          
+          </c:if>
           </center>
           	<!-- 수정 삭제를 위한 히든 태그 선언 -->
 	        <form name="gongMoUpDelForm" action="/gongMoUpDelForm.do" method="post">
