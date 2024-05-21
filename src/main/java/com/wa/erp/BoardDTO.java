@@ -90,6 +90,7 @@ public class BoardDTO {
 	private String organizer;
 	private int award_no;
 
+
 		//프로젝트 공모 위한 선언//
 		private int prj_no;
 		private String project_type;
@@ -569,6 +570,7 @@ public class BoardDTO {
 			return graduation_date;
 		}
 		public void setGraduation_date(String graduation_date) {
+
 			this.graduation_date = graduation_date;
 		}
 		public String getIntroduce() {

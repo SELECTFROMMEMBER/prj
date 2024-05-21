@@ -319,6 +319,7 @@ window.onload = function() {
 
 			</c:if>
 				</form>
+
 </body>
 <%@ include file="footer.jsp"%>
 </html>

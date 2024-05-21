@@ -105,5 +105,6 @@ public interface BoardDAO {
 		int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO);
 
 		BoardDTO getcompanyWelfare(int c_no);
+
 	
 }

@@ -51,8 +51,8 @@
 	
 	</select>
 
-		<select id="getcompanyList"  parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
-select
+			<select id="getcompanyList"  parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
+		select
 			*
 		from ( select rownum "RNUM" , zxcvb.* from (
 		 select 
@@ -115,7 +115,7 @@ select
 	       	<![CDATA[
 			)zxcvb) where RNUM >= #{begin_rowNo} and RNUM <= #{end_rowNo}
 		]]>
-	       	       
+	       
 	       </select>
 <select id="getcompanyListCnt" parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
 		select count(*) from (select count(*) from
