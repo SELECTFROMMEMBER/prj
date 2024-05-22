@@ -11,7 +11,26 @@ public class BoardReviewDTO {
 	private int star;
 	private String reviewSort;
 	private int c_no;
+	private int p_no;
+	private int r_no;
 	
+
+	public int getR_no() {
+		return r_no;
+	}
+
+	public void setR_no(int r_no) {
+		this.r_no = r_no;
+	}
+
+	public int getP_no() {
+		return p_no;
+	}
+
+	public void setP_no(int p_no) {
+		this.p_no = p_no;
+	}
+
 	public int getC_no() {
 		return c_no;
 	}

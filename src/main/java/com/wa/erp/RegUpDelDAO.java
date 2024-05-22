@@ -79,4 +79,8 @@ public interface RegUpDelDAO {
 		int insertLike(BoardDTO boardDTO);
 
 		int deleteLike(BoardDTO boardDTO);
+
+		int deleteReview(BoardDTO boardDTO);
+
+		int updateReview(BoardDTO boardDTO);
 	}

@@ -342,6 +342,26 @@ public int insertGongo(BoardDTO boardDTO ) {
 		 
 		 return insertResumeCnt;
 	}
+	@Override
+	public int deleteReview(BoardDTO boardDTO) {
+	
+		//--------------------------------------
+		// 수정 실행하고 수정 적용행의 개수 얻기
+		//--------------------------------------
+		int boardDelCnt = this.regUpDelDAO.deleteReview( boardDTO );
+		//--------------------------------------
+		// 수정 적용행의 개수 리턴하기
+		//--------------------------------------
+		return boardDelCnt;
+	}
+	@Override
+	public int updateReview(BoardDTO boardDTO) {
+
+		
+		int reviewUpdateCnt = this.regUpDelDAO.updateReview(boardDTO);
+		
+		return reviewUpdateCnt;
+	}
 	
 		
 }
