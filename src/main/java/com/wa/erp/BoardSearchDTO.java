@@ -12,6 +12,7 @@ public class BoardSearchDTO {
 	private String selectedIndustry;
 	private int c_no;
 	private int b_no;
+	private int p_no;
 	private String type;
 	private String table;
 	private double avg_star;
@@ -40,6 +41,14 @@ public class BoardSearchDTO {
 		private String field_name;
 	
 	
+		
+		
+	public int getP_no() {
+			return p_no;
+		}
+		public void setP_no(int p_no) {
+			this.p_no = p_no;
+		}
 	public List<String> getDate() {
 			return date;
 		}

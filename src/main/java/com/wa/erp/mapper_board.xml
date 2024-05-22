@@ -60,6 +60,7 @@
 		 ,sal_avg 
 	     ,round(nvl(AVG(r.star),0),1) as "star_avg"	
 		 ,addr
+		 ,ci.rec_count
 	 from
 		    company_mem c
     join company_info ci on c.c_no = ci.c_no
@@ -90,7 +91,7 @@
           </if> 
 
 	        GROUP BY
-          ci.c_no,name,business_industry,sales,sal_avg,addr     
+          ci.c_no,name,business_industry,sales,sal_avg,addr,ci.rec_count     
 
 		   <if test="sort!=null and sort.length()>0">
 	         order by ${sort}	
@@ -166,6 +167,7 @@
 	<select id="getComment" parameterType="java.util.HashMap" resultType="com.wa.erp.BoardDTO">
 		select 
 				c.comment_no
+				,p.p_no
 				,p.nickname
                 , to_char(c.reg_date,'YYYY-MM-DD') as "reg_date"
                 , c.content
@@ -354,6 +356,15 @@
     	b_no=#{b_no}     
     order by
     	1 asc
+	</select>
+	
+	<select id="getLikeCompany" parameterType="int" resultType="com.wa.erp.BoardDTO">
+		select
+			c_no
+		from 
+			like_company
+		where
+			p_no = #{p_no}
 	</select>
 	<!--	
 		~~~~~~~~~~~~~~~~~~~~~~~~~~~~

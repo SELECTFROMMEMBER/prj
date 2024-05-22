@@ -408,4 +408,10 @@ public class BoardServiceImpl implements BoardService{
 			
 			return getCommentLike;
 		}
+		
+		public List<BoardDTO> getlikeCompany(int p_no){
+			List<BoardDTO> getLikeCompany = this.boardDAO.getLikeCompany(p_no);
+			
+			return getLikeCompany;
+		}
 }

@@ -13,6 +13,61 @@
 </style>
 
 <script>
+function like_company(){
+	alert("정말 관심이 있느냐")
+	 var reviewUpFormObj = $("[name='reviewUpForm']");
+	
+	$.ajax(
+	         { 
+	            url    : "/likeCompanyProc.do"
+	            ,type  : "post"
+	            ,data  : reviewUpFormObj.serialize( )
+	            ,success : function(json){
+	               var result = json["result"];
+	               if(result==1){
+	                  alert("관심기업 등록했심니더.");
+	                  location.reload();
+	               }
+	               else{
+	                  alert("관심기업 등록 실패입니다. 관리자에게 문의 바람!");
+	               }
+	            }
+	            ,error : function(){
+	               alert("입력 실패! 관리자에게 문의 바람니다.");
+	            }
+	         }
+	      );
+	
+}
+
+function del_like_company(){
+	alert("왜 관심이 사라졌느냐")
+	 var reviewUpFormObj = $("[name='reviewUpForm']");
+	alert(reviewUpFormObj.serialize());
+	
+	$.ajax(
+	         { 
+	            url    : "/unlikeCompanyProc.do"
+	            ,type  : "post"
+	            ,data  : reviewUpFormObj.serialize( )
+	            ,success : function(json){
+	               var result = json["result"];
+	               if(result==1){
+	                  alert("관심기업 해제했심니더.");
+	                  location.reload();
+	               }
+	               else{
+	                  alert("관심기업 해제 실패입니다. 관리자에게 문의 바람!");
+	               }
+	            }
+	            ,error : function(){
+	               alert("입력 실패! 관리자에게 문의 바람니다.");
+	            }
+	         }
+	      );
+	
+}
+
 function search(){
    var reviewUpFormObj = $("[name='reviewUpForm']");
    $.ajax(
@@ -161,15 +216,20 @@ window.onload = function() {
 		<center>
 			<h1 style="text-align: center;">기업 정보 상세페이지</h1>
 			<br>
-
-
+				<c:if test="${sessionScope.member=='person' }">
+				 <c:choose>
+                   <c:when test="${likeNoList.contains(boardDTO.c_no)}">
+                      <button id="likecompany" onclick="del_like_company()">관심기업해제</button>
+                    </c:when>
+                    <c:otherwise>
+                     <button id="likecompany" onclick="like_company()">관심기업등록</button>
+                    </c:otherwise>
+                  </c:choose>
+				</c:if>
+				
 			<div class="table-container">
 				<table bordercolor="gray" border="1" cellpadding="7"
 					style="margin-left: auto%; margin-right: auto%;">
-
-
-
-
 
 					<tr>
 						<td>기업명 :</td>
@@ -268,13 +328,14 @@ window.onload = function() {
 						<tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
 							<td>${review.content}</td>
 							<td>${review.star}</td>
-							<td><span class="likeButton" onclick="toggleLike(this)"><i
-									class="far fa-heart"></i></span> <%--           <span class="likeCount" name="rec_count">${reviewList.rec_count}</span> --%>
+							<td>
+    									<i class="far fa-heart"></i>
+									 <%--           <span class="likeCount" name="rec_count">${reviewList.rec_count}</span> --%>
 							</td>
 						</tr>
 					</c:forEach>
 					<tr id="showMoreBtn"
-						<c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
+						<c:if test="${requestScope.reviewContent.size() <= 5}">style="display: none;"</c:if>>
 						<td colspan="3" style="text-align: center;"
 							onclick="showMoreComments()">더보기</td>
 					</tr>
@@ -303,6 +364,7 @@ window.onload = function() {
 					<input type="hidden" name="c_no" value="${boardDTO.c_no}">
 					<input type="hidden" name="star"> <input type="hidden"
 						name="reviewSort" class="reviewSort" value="">
+					<input type="hidden" name="p_no" value="${sessionScope.p_no}">
 
 				</form>
 			</c:if>

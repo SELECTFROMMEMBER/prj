@@ -79,4 +79,18 @@ public interface RegUpDelDAO {
 		int insertLike(BoardDTO boardDTO);
 
 		int deleteLike(BoardDTO boardDTO);
+
+		int insertLikeCompany(BoardDTO boardDTO);
+
+		int updateCompanyRec(BoardDTO boardDTO);
+
+		int downdateCompanyRec(BoardDTO boardDTO);
+
+		int deleteLikeCompany(BoardDTO boardDTO);
+
+		int updateComment(BoardDTO boardDTO);
+
+		int deleteComment(BoardDTO boardDTO);
+
+		int deleteLikecomment(BoardDTO boardDTO);
 	}

@@ -779,7 +779,92 @@ public class RegUpDelController {
 					return resultMap;
 				}
 				
+				//==========================================================
+				//관심 기업 등록
+				//==========================================================
+				@RequestMapping( 
+						value="/likeCompanyProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+				)
+				@ResponseBody
+				public Map<String,String> likeCompanyProc( 
+						BoardDTO boardDTO	
+				) {
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int insertLikeCnt = this.regUpDelService.insertLikeCompany(boardDTO);
+
+					resultMap.put( "result", insertLikeCnt+"" );
+					
+					return resultMap;
+				}
+
 				
+				//==========================================================
+				//관심 기업 해제
+				//==========================================================
+				@RequestMapping( 
+						value="/unlikeCompanyProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+						)
+				@ResponseBody
+				public Map<String,String> unlikeCompanyProc( 
+						BoardDTO boardDTO	
+						) {
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int deleteLikeCnt = this.regUpDelService.deleteLikeCompany(boardDTO);
+					
+					resultMap.put( "result", deleteLikeCnt+"" );
+					
+					return resultMap;
+				}
+
+				
+				//==========================================================
+				//댓글 수정
+				//==========================================================
+				@RequestMapping( 
+						value="/upCommentProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+						)
+				@ResponseBody
+				public Map<String,String> upCommentProc( 
+						BoardDTO boardDTO	
+						) {
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int upCommentCnt = this.regUpDelService.updateComment(boardDTO);
+					
+					resultMap.put( "result", upCommentCnt+"" );
+					
+					return resultMap;
+				}
+
+				
+				//==========================================================
+				//댓글 삭제
+				//==========================================================
+				@RequestMapping( 
+						value="/delCommentProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+						)
+				@ResponseBody
+				public Map<String,String> delCommentProc( 
+						BoardDTO boardDTO	
+						) {
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int delCommentCnt = this.regUpDelService.deleteComment(boardDTO);
+					
+					resultMap.put( "result", delCommentCnt+"" );
+					
+					return resultMap;
+				}
 				
 }
 	

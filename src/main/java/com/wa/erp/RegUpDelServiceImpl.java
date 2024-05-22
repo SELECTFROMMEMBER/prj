@@ -343,5 +343,44 @@ public int insertGongo(BoardDTO boardDTO ) {
 		 return insertResumeCnt;
 	}
 	
+	//관심기업 등록
+	public int insertLikeCompany(BoardDTO boardDTO) {
 		
+		int updaterec = this.regUpDelDAO.updateCompanyRec(boardDTO);
+		if(updaterec==0) {
+			return 3;
+		}
+		int insertLikeCnt = this.regUpDelDAO.insertLikeCompany(boardDTO);
+
+		return insertLikeCnt;
+	}
+
+	//관심기업 해제
+	public int deleteLikeCompany(BoardDTO boardDTO) {
+		
+		int downdaterec = this.regUpDelDAO.downdateCompanyRec(boardDTO);
+		if(downdaterec==0) {
+			return 3;
+		}
+		int deleteLikeCnt = this.regUpDelDAO.deleteLikeCompany(boardDTO);
+		
+		return deleteLikeCnt;
+	}
+	
+	//댓글 수정
+	public int updateComment(BoardDTO boardDTO) {
+		int updateComment = this.regUpDelDAO.updateComment(boardDTO);
+		
+		return updateComment;
+	}
+
+	//댓글 삭제
+	public int deleteComment(BoardDTO boardDTO) {
+		int deleteComment = this.regUpDelDAO.deleteComment(boardDTO);
+		
+		int deleteLike = this.regUpDelDAO.deleteLikecomment(boardDTO);
+		
+		return deleteComment;
+	}
+	
 }

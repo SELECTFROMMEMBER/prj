@@ -72,7 +72,10 @@
                   	 <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>
                    	 <input type="hidden" value="comment_trade" name="table" class="table"> 
                   	 <input type="hidden" value="${sessionScope.p_no }" name="p_no" class="p_no"> 
-                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">                   	 
+                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">
+                  	 <input type="hidden" name="commentSort" class="commentSort" value="">
+                  	 <input type="hidden" name="updateComment">
+                  	 <input type="hidden" name="comment_no" value=0>                             	 
                   	 <input type="button" value="등록"  onClick="checkCommentReg()">
                   </td>               
               </tr>   
@@ -109,8 +112,12 @@
            <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
             <tr class="${status.index >= 5 ? 'hidden-row' : ''}">
               <td>
-                <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}<br><br>
-                ${board.content}
+                <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}
+                &nbsp;&nbsp;<c:if test="${sessionScope.p_no==board.p_no }"><input type="button" name="" value="수정/삭제" onClick="updateForm(${board.comment_no},'${board.content}')"></c:if>
+                <br><br>
+                <div id="comment${board.comment_no}">
+                	${board.content}
+                </div>
               </td>
               <td>
                 <span class="likeButton" data-comment-no="${board.comment_no}" onclick="toggleLike(this, ${board.comment_no})">

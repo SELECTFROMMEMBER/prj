@@ -6,6 +6,12 @@
 <html>
 
 <head>
+<style>
+.fas.fa-heart {
+    color: red;
+}
+</style>
+
 <script>
 
 function search(){
@@ -184,6 +190,7 @@ function gocompanyListDetailForm(c_no){
                </select>
             </p>
             <input type="hidden" name="sort" class="sort" value="">
+            <input type="hidden" name="sort2" class="sort" value="">
          
          <br>
                   <div class="boardListDiv" id="container">
@@ -213,18 +220,6 @@ function gocompanyListDetailForm(c_no){
             <p style="cursor: pointer" onClick="searchWithSort('')">매출▲</p>
          </c:if>
 
-         <c:if
-            test="${param.sort!='AVG(r.star) asc' and param.sort!='AVG(r.star) desc'}">
-            <p style="cursor: pointer"
-               onClick="searchWithSort('AVG(r.star) desc')">별점</p>
-         </c:if>
-         <c:if test="${param.sort=='AVG(r.star) desc'}">
-            <p style="cursor: pointer"
-               onClick="searchWithSort('AVG(r.star) asc')">별점▼</p>
-         </c:if>
-         <c:if test="${param.sort=='AVG(r.star) asc'}">
-            <p style="cursor: pointer" onClick="searchWithSort('')">별점▲</p>
-         </c:if>
 </form>
 
          <br>
@@ -233,7 +228,27 @@ function gocompanyListDetailForm(c_no){
                <table
                   style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 
-
+				<tr>
+					<th>기업 정보</th>
+						<c:if test="${param.sort!='AVG(r.star) asc' and param.sort!='AVG(r.star) desc'}">
+            				<th style="cursor: pointer font-weight: bold;"onClick="searchWithSort('AVG(r.star) desc')">별점</th>
+         				</c:if>
+         				<c:if test="${param.sort=='AVG(r.star) desc'}">
+            				<th style="cursor: pointer"onClick="searchWithSort('AVG(r.star) asc')">별점▼</th>
+         				</c:if>
+         				<c:if test="${param.sort=='AVG(r.star) asc'}">
+            				<th style="cursor: pointer" onClick="searchWithSort('')">별점▲</th>
+         				</c:if> 
+						 <c:if test="${param.sort!='ci.rec_count asc' and param.sort!='ci.rec_count desc'}">
+            				<th style="cursor: pointer"onClick="searchWithSort('ci.rec_count desc')">관심수</th>
+         				</c:if>
+         				<c:if test="${param.sort=='ci.rec_count desc'}">
+            				<th style="cursor: pointer"onClick="searchWithSort('ci.rec_count asc')">관심수▼</th>
+         				</c:if>
+         				<c:if test="${param.sort=='ci.rec_count asc'}">
+            				<th style="cursor: pointer" onClick="searchWithSort('')">관심수▲</th>
+         				</c:if> 
+				</tr>
                   <c:forEach var="board" items="${requestScope.companyList }"
                      varStatus="status">
                      <tr style="cursor: pointer"
@@ -246,11 +261,21 @@ function gocompanyListDetailForm(c_no){
                               &lt연봉&gt ${board.sal_avg}<br>
                                &lt주소&gt  ${board.addr}<br>
                            </div>
-                           <div
-                              style="text-align: right; margin-top: auto; margin-bottom: auto;">평균별점
-                              ${board.star_avg}</div>
-
-                        </td>
+                          </td>
+                          <td align="center">
+                              ${board.star_avg}
+                          </td>
+                          <td>
+                              <c:choose>
+								<c:when test="${likeNoList.contains(board.c_no)}">
+									<i class="fas fa-heart"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="far fa-heart"></i>
+								</c:otherwise>
+							</c:choose>
+							${board.rec_count}
+					</td>
                      </tr>
                   </c:forEach>
 
