@@ -8,8 +8,15 @@ import java.util.List;
 //이 객체에는 검색조건이 주로 들어있다.
 public class BoardSearchDTO {
 	private String keyword;
+	private String tradetype;
 	private String boardname;
 	private String selectedIndustry;
+	public String getTradetype() {
+		return tradetype;
+	}
+	public void setTradetype(String tradetype) {
+		this.tradetype = tradetype;
+	}
 	private int c_no;
 	private int b_no;
 	private String type;

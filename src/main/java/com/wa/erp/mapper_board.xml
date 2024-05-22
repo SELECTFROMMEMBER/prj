@@ -43,6 +43,9 @@
 					upper(b.content) like upper('%${keyword}%')
 					)
 		 	</if>
+                <if test="tradetype != null and tradetype != ''">
+                    and trade_type = #{tradetype}
+                </if>
 		 	
 		 	order  by reg_date desc
 		 	<![CDATA[
@@ -64,6 +67,7 @@
 		 ,sal_avg 
 	     ,round(nvl(AVG(r.star),0),1) as "star_avg"	
 		 ,addr
+		 ,ci.rec_count
 		  from
 		    company_mem c
 		    
@@ -101,7 +105,7 @@
           </if> 
        
 	        GROUP BY
-          ci.c_no,name,business_industry,sales,sal_avg,addr     
+          ci.c_no,name,business_industry,sales,sal_avg,addr,ci.rec_count
 		<if test="welfare != null">
     having 
     <foreach collection="welfare"  item="tmp"  open=" ( " close=" ) "  separator=" and ">
@@ -351,6 +355,7 @@ group by m.c_no
 
 <select id="reviewContent"  parameterType="int" resultType="com.wa.erp.BoardDTO">
 			select
+				p_no,
 				c_no,
 				content,
 				   star,
@@ -364,6 +369,8 @@ group by m.c_no
 	
 	<select id="getreviewContent"  parameterType="int" resultType="com.wa.erp.BoardReviewDTO">
 	select
+	r_no,
+	p_no,
 		content,
 		star
 	from

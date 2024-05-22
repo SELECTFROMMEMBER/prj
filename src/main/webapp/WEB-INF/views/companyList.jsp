@@ -312,6 +312,7 @@ search();
                               &lt업종&gt ${board.indus}<br> &lt매출&gt ${board.sales}<br>
                               &lt연봉&gt ${board.sal_avg}<br>
                                &lt주소&gt  ${board.addr}<br>
+                               평점  ${board.rec_count}<br>
                            </div>
                            <div
                               style="text-align: right; margin-top: auto; margin-bottom: auto;">평균별점
