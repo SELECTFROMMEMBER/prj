@@ -57,20 +57,23 @@
                 <td>${boardDTO.rec_count }</td>                       
               </tr>
               
+                 <c:if test="${sessionScope.member == 'person' }">
               <tr>
-                  <td>댓글</td>
+                  <td >댓글</td>
                   <td>
                    <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>
-                   	 <input type="hidden" value="comment_interviewboard" name="table" class="table"> 
+                  	 <input type="button" value="등록"  onClick="checkCommentReg()">
+                  </td>                       
+              </tr> 
+                   
+                  </c:if>
+          </table>
+                   	 <input type="hidden" value="comment_free" name="table" class="table"> 
                   	 <input type="hidden" value="${sessionScope.p_no }" name="p_no" class="p_no"> 
                   	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">
                   	 <input type="hidden" name="commentSort" class="commentSort" value="">
                   	 <input type="hidden" name="updateComment">
-                  	 <input type="hidden" name="comment_no" value=0>                             	 
-                  	 <input type="button" value="등록"  onClick="checkCommentReg()">
-                  </td>                       
-              </tr> 
-          </table>
+                  	 <input type="hidden" name="comment_no" value=0>  
       </form>
           
           <center>

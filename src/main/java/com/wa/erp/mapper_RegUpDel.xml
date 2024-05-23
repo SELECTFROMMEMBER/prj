@@ -294,7 +294,7 @@
 			,r_no)
 	values
 			(
-			1
+			#{p_no}
 			,#{c_no}
 			,#{star}
 			,#{content}
@@ -594,6 +594,19 @@
     		</if>
     	)
     </insert>
+    <select id="checkLike" parameterType="com.wa.erp.BoardDTO" resultType="int">
+    select
+    	count(*)
+    from
+    	like_comment
+    where
+    	comment_no = #{comment_no}
+    	and
+    	p_no = #{p_no}
+    	and
+    	b_no=#{b_no}
+    </select>
+    
     
     <delete id="deleteLike" parameterType="com.wa.erp.BoardDTO">
     	delete from like_comment
@@ -676,6 +689,23 @@
     		b_no=#{b_no}
     </delete>
     
+    <delete id="deleteReview" parameterType="com.wa.erp.BoardDTO">
+    delete from review
+    where
+    	p_no=#{p_no}
+    	and
+    	r_no=#{r_no}
+    </delete>
+    
+    <update id="updateReview"  parameterType="com.wa.erp.RegUpDelDAO">
+		update 
+			review
+		set	
+    content     = #{content}
+		where 
+			r_no=#{r_no}
+				
+	</update>
     
 </mapper>
  

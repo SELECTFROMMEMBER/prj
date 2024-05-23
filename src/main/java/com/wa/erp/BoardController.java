@@ -318,7 +318,7 @@ public class BoardController {
 		int joongGoListCnt = this.boardService.getboardListCnt( boardSearchDTO );
 		
 		int joongGoListAllCnt = this.boardService.getboardListAllCnt(boardSearchDTO);
-		
+		System.out.print(boardSearchDTO.getTradetype());
 		Map<String,Integer> boardMap = Util.getPagingMap(
 				boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
 				,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
@@ -357,6 +357,7 @@ public class BoardController {
 			BoardSearchDTO boardSearchDTO,
 			HttpSession session
 			) {
+
 		Object p_noObj = session.getAttribute("p_no");
 		int p_no = 0;
 		if(p_noObj != null) {
@@ -374,7 +375,6 @@ public class BoardController {
 		boardSearchDTO.setRowCntPerPage((int) boardMap.get("rowCntPerPage"));
 		boardSearchDTO.setBegin_rowNo((int) boardMap.get("begin_rowNo"));
 		boardSearchDTO.setEnd_rowNo((int) boardMap.get("end_rowNo"));
-		
 		List<BoardDTO> companyList = this.boardService.getcompanyList(boardSearchDTO);
 		List<BoardDTO> like_company = this.boardService.getlikeCompany(p_no);
 		
@@ -398,6 +398,11 @@ public class BoardController {
 		mav.addObject("companyListAllCnt", companyListAllCnt);
 		mav.addObject("boardMap", boardMap);
 		mav.addObject("companyList", companyList);
+		mav.addObject("companyListCnt", companyListCnt+"");
+		
+		mav.addObject("companyListAllCnt", companyListAllCnt);
+		
+		mav.addObject("boardMap", boardMap);
 		mav.setViewName("companyList.jsp");
 		return mav;
 	}
@@ -909,6 +914,8 @@ public class BoardController {
 				boardReviewDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
 				boardReviewDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     ); 
 				BoardDTO boardDTO = this.boardService.getcompanyListDetail(c_no);
+				BoardDTO welfare = this.boardService.getcompanyWelfare(c_no);
+
 			    List<BoardReviewDTO> reviewContent = this.boardService.getreviewContent(boardReviewDTO);
 			    List<BoardDTO> like_company = this.boardService.getlikeCompany(p_no);
 				ModelAndView mav = new ModelAndView( );
@@ -926,7 +933,8 @@ public class BoardController {
 					mav.addObject("likeNoList", likeNoList);
 				}
 				mav.addObject("boardDTO", boardDTO);
-			    mav.addObject("reviewContent", reviewContent);
+			    mav.addObject("welfare", welfare);
+			    mav.addObject("reviewContent", reviewContent);			    
 				mav.setViewName("companyListDetail.jsp");
 				mav.addObject("reviewListCnt", reviewListCnt+"" );
 				mav.addObject("reviewListAllCnt", reviewListAllCnt );

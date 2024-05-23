@@ -17,17 +17,8 @@
 		<li onClick="pushboardname('qnaboard','qna')">QnA 게시판</li>
 		<li onClick="pushboardname('jobsearchboard','jobReady')">취업 게시판</li>
 		<li onClick="pushboardname('interviewboard','interview')">면접 게시판</li>
+		<li onClick="pushboardname('tradeboard','joongGo')">중고 게시판</li>
 
-		<li><input id="joongGosubmenu" type="checkbox" /> <label
-			for="joongGosubmenu">중고 게시판</label>
-			<ul class="submenu">
-				<li><a onClick="pushboardname('tradeboard','joongGo')"> -
-						전체</a></li>
-				<li><a onClick="pushboardname('tradeboard','joongGo')"> -
-						구매</a></li>
-				<li><a onClick="pushboardname('tradeboard','joongGo')"> -
-						판매</a></li>
-			</ul></li>
 	</div>
 
 

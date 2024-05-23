@@ -151,16 +151,19 @@ function toggleLike(button, comment_no) {
 		alert("로그인을 하고 이용해주세요");
 		return;
 	}
+	
     var likeButton = $(button);
     var likeIcon = likeButton.find('i');
     var isLiked = likeButton.find('i').hasClass('far');
     if (isLiked) {
+    	
     	likeButton.addClass('clicked');
     	likeIcon.removeClass('far').addClass('fas');
     	likeButton.css('color', 'red');  // 버튼 색상 변경
         likeButton.css('color', 'red !important');
         upCount(comment_no);
     } else {
+    	
     	likeButton.removeClass('clicked');
         likeIcon.removeClass('fas').addClass('far');
         downCount(comment_no);
@@ -170,9 +173,10 @@ function toggleLike(button, comment_no) {
 
 //추천수 up
 function upCount(comment_no){
+	
 	var commentObj = $("form[name='commentRegForm']");
 	commentObj.find("[name='comment_no']").val(comment_no);
-
+	
 	$.ajax(
 			{
 				url: "/recUpProc.do"
@@ -184,7 +188,11 @@ function upCount(comment_no){
 	            if (result == 1) {
 	                alert("개추요~");
 	                location.reload();
-	            } else {
+	            }
+	            else if(result==-2){
+	            	alert("이미 추천한 댓글입니다.")
+	            }
+	            else {
 	                alert("추천실패");
 	            }
 	        }
@@ -204,7 +212,7 @@ function downCount(comment_no){
 			{
 				url: "/recDownProc.do"
 				,type: "post"
-				,data: serialize
+				,data: commentObj.serialize()
 				,success: function(json) {
 	        	
 	            var result = json["result"];
@@ -227,7 +235,6 @@ function downCount(comment_no){
 
 //게시판 비동기 검색 공용함수
 	function search(community){
-		
 		var boardSearchFormObj = $("[name='boardSearchForm']");
 		
 		var keywordObj = boardSearchFormObj.find(".keyword");
@@ -241,6 +248,11 @@ function downCount(comment_no){
 
 		boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val());
 		
+		if(community=="joongGo"){
+			 var tradeType = $("input[name='tradetype']:checked").val();
+		        boardSearchFormObj.find(".tradetype").val(tradeType);	
+		        }
+	
 		$.ajax(
 			{
 				url: "/"+community+".do"
