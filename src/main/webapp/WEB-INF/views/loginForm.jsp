@@ -5,20 +5,75 @@
 <head>
     <title>로그인</title>
     <style>
-        .container {
-            text-align: center;
-        }
-        table {
-            border: 1px solid black;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
+         table {
+        width: 40%;
+        border-collapse: collapse;
+         margin: 0 auto;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 1px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+/* 전체 컨테이너 */
+.container {
+    text-align: center; /* 내용 가운데 정렬 */
+}
+
+/* 로그인 폼 테이블 */
+table {
+    border: 1px solid black;
+    margin: 20px auto; /* 좌우 중앙 정렬 */
+}
+
+/* 탭 컨텐츠 */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 로그인 폼 */
+form {
+    width: 300px; /* 폼의 너비를 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    text-align: center; /* 입력 필드의 가운데 정렬 */
+}
+
+/* 라벨 */
+label {
+    display: block; /* 블록 레벨 요소로 설정하여 위아래로 정렬 */
+    text-align: center; /* 텍스트를 왼쪽 정렬 */
+    margin-bottom: 5px; /* 라벨 아래 여백 추가 */
+}
+
+/* 입력 필드 */
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 50px); /* 너비 조정 및 패딩 포함하여 너비 조절 */
+    padding: 8px; /* 패딩 추가 */
+    margin-bottom: 10px; /* 아래 여백 추가 */
+    border: 1px solid #ccc; /* 테두리 설정 */
+    border-radius: 5px; /* 모서리 둥글게 만듦 */
+    box-sizing: border-box; /* 패딩과 보더를 포함한 크기로 요소 크기 계산 */
+}
+        
     </style>
 </head>
 <body>
@@ -117,6 +172,14 @@
                 else if (data == 2) {
                     alert('로그인 성공(기업회원)');
                     location.replace('/12Wa.do');                
+                }
+                else if(data == 3){
+                	alert("이력서를 등록하고 이용해주시기 바랍니다.")
+                	location.replace("/resumRegForm.do");
+                }
+                else if(data == 4){
+                	alert("기업정보를 등록하고 이용해주시기 바랍니다.")
+                	location.replace("/companyUpdelForm.do");
                 }
                 else {
                     alert('로그인 실패');

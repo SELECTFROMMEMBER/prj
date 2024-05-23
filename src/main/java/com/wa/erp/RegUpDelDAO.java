@@ -93,4 +93,9 @@ public interface RegUpDelDAO {
 		int deleteComment(BoardDTO boardDTO);
 
 		int deleteLikecomment(BoardDTO boardDTO);
+		int deleteReview(BoardDTO boardDTO);
+
+		int updateReview(BoardDTO boardDTO);
+
+		int checkLike(BoardDTO boardDTO);
 	}

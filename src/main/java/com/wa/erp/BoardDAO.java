@@ -100,6 +100,14 @@ public interface BoardDAO {
 
 		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
 
+
 		List<BoardDTO> getLikeCompany(int p_no);
+
+		int getcompanyListCnt(BoardSearchDTO boardSearchDTO);
+
+		int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO);
+
+		BoardDTO getcompanyWelfare(int c_no);
+
 	
 }

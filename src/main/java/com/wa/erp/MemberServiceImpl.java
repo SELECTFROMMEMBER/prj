@@ -82,11 +82,21 @@ public class MemberServiceImpl implements MemberService{
 
 		 int insertCompanyCnt = this.memberDAO.insertCompanyInfo(memberDTO);   
 		 if( memberDTO.getWelfare_code()!=null ) {
-			 insertCompanyCnt = this.memberDAO.insetCompanyWelfare( memberDTO );
+			int  insertWelfareCnt = this.memberDAO.insetCompanyWelfare( memberDTO );
 			}
 		return insertCompanyCnt;
 	}
-
-
 	/*--------------------------------------------*/
+	
+	public int get_c_no() {
+		int get_c_no = this.memberDAO.get_c_no();
+		
+		return get_c_no;
+	}
+	
+	public BoardDTO getC_mem(int c_no) {
+		BoardDTO boardDTO = this.memberDAO.getC_mem(c_no);
+		
+		return boardDTO;
+	}
 }

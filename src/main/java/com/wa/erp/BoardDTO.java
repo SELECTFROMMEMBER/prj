@@ -72,8 +72,8 @@ public class BoardDTO {
 	private String license_name5;
 	private String education;
 	private String school_name;
-	private Date enter_date;
-	private Date graduation_date;
+	private String enter_date;
+	private String graduation_date;
 	private String introduce;
 	private String is_offer;
 	private String hope_salary;
@@ -82,6 +82,15 @@ public class BoardDTO {
 	private String comment_table;
 	private int like_no;
 	private String updateComment;
+	private int age;
+	private String sex;
+	private String is_job;
+	private String skills;
+	private String welfare;
+    private String type;
+	private String organizer;
+	private int award_no;
+	private int mem_p_no;
 		//프로젝트 공모 위한 선언//
 		private int prj_no;
 		private String project_type;
@@ -90,6 +99,54 @@ public class BoardDTO {
 		private String code_field;
 		private int comp_pk;
 		private String skill_name;
+		public String getSkills() {
+		return skills;
+	}
+	public void setSkills(String skills) {
+		this.skills = skills;
+	}
+	public String getWelfare() {
+		return welfare;
+	}
+	public void setWelfare(String welfare) {
+		this.welfare = welfare;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getOrganizer() {
+		return organizer;
+	}
+	public void setOrganizer(String organizer) {
+		this.organizer = organizer;
+	}
+	public int getAward_no() {
+		return award_no;
+	}
+	public void setAward_no(int award_no) {
+		this.award_no = award_no;
+	}
+		public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public String getIs_job() {
+		return is_job;
+	}
+	public void setIs_job(String is_job) {
+		this.is_job = is_job;
+	}
+		public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
 		public int getComp_pk() {
 			return comp_pk;
 		}
@@ -501,16 +558,19 @@ public class BoardDTO {
 		public void setSchool_name(String school_name) {
 			this.school_name = school_name;
 		}
-		public Date getEnter_date() {
+
+
+		public String getEnter_date() {
 			return enter_date;
 		}
-		public void setEnter_date(Date enter_date) {
+		public void setEnter_date(String enter_date) {
 			this.enter_date = enter_date;
 		}
-		public Date getGraduation_date() {
+		public String getGraduation_date() {
 			return graduation_date;
 		}
-		public void setGraduation_date(Date graduation_date) {
+		public void setGraduation_date(String graduation_date) {
+
 			this.graduation_date = graduation_date;
 		}
 		public String getIntroduce() {
@@ -599,6 +659,12 @@ public class BoardDTO {
 		}
 		public void setUpdateComment(String updateComment) {
 			this.updateComment = updateComment;
+		}
+		public int getMem_p_no() {
+			return mem_p_no;
+		}
+		public void setMem_p_no(int mem_p_no) {
+			this.mem_p_no = mem_p_no;
 		}
 	
 	

@@ -95,7 +95,7 @@
 		            var result = json["result"];
 		            
 		            if(result==1){
-		               alert("회원가입 입력 성공입니다.");
+		               alert("이력서 입력 성공입니다.");
 		               location.replace("12Wa.do")
 		            }
 		            else {
@@ -245,12 +245,11 @@
                <input type="text" id="hope_salary" class="hope_salary" name="hope_salary">
             </td>
             </tr>
-   
         
       </table>
+   				<input type="hidden" name="mem_p_no" value="${sessionScope.p_no}" >
 
       </form>
-       <input type="button"  value="이전"onclick="location.replace('personalRegForm.do')">
       <input type="button"  value="등록"onclick="checkresumeRegForm()">
       </div>
 </body>

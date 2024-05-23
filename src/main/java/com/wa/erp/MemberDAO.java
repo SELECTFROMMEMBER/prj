@@ -20,5 +20,9 @@ public interface MemberDAO {
 
 	int insetCompanyWelfare(MemberDTO companyDTO);
 	/*-------------------------------------------*/
+
+	int get_c_no();
+
+	BoardDTO getC_mem(int c_no);
 	
 	}

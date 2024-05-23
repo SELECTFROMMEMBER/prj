@@ -8,6 +8,7 @@ import java.util.List;
 //이 객체에는 검색조건이 주로 들어있다.
 public class BoardSearchDTO {
 	private String keyword;
+	private String tradetype;
 	private String boardname;
 	private String selectedIndustry;
 	private int c_no;
@@ -18,22 +19,32 @@ public class BoardSearchDTO {
 	private double avg_star;
 	private String sido;
 	private String gugun;
-//	private String keyword2;
-//	private String orand;
-//	private List<String> checkdate;
-//	private String sort;
-//	private String minYear;
-//	private String minMonth;
-//	private String maxYear;
-//	private String maxMonth;
-//
 	private String sort;
 	private int selectPageNo;		// 선택한 페이지 번호 관련 파값 저장 변수
 	private int rowCntPerPage;		// 페이지 당 보여줄 행의 개수 관련 파값 저장 변수
 	private int begin_rowNo;		// 테이블 검색 시 시작행 번호 저장 변수 선언.
 	private int end_rowNo;			// 테이블 검색 시 끝행 번호 저장 변수 선언.
 //	
-	
+	//기업정보, 이력서 관련 //
+	private String tmp;
+	private String sex;
+	private String age;
+	private String start_age;
+	private String age2;
+	private String age3;
+	private String age4;
+	private String end_age;
+	private String education;
+	private String hope_salary;
+	private String field_code;
+	private String career;
+	 private String[] skill_name; 
+	 
+	 
+	 
+		private int resume_no;
+		private  String[] welfare;
+		/////////////////////////////
 		//프로젝트/공모전 게시판을 위한 선언//
 		private List<String> date;
 		private String ing;
@@ -43,11 +54,106 @@ public class BoardSearchDTO {
 	
 		
 		
+		public String getTradetype() {
+			return tradetype;
+		}
+		public void setTradetype(String tradetype) {
+			this.tradetype = tradetype;
+		}
 	public int getP_no() {
 			return p_no;
 		}
 		public void setP_no(int p_no) {
 			this.p_no = p_no;
+		}
+//		private String keyword2;
+//		private String orand;
+//		private List<String> checkdate;
+//		private String sort;
+//		private String minYear;
+//		private String minMonth;
+//		private String maxYear;
+//		private String maxMonth;
+	//	
+		public String getTmp() {
+			return tmp;
+		}
+		public void setTmp(String tmp) {
+			this.tmp = tmp;
+		}
+		public String getSex() {
+			return sex;
+		}
+		public void setSex(String sex) {
+			this.sex = sex;
+		}
+		public String getAge() {
+			return age;
+		}
+		public void setAge(String age) {
+			this.age = age;
+		}
+		public String getStart_age() {
+			return start_age;
+		}
+		public void setStart_age(String start_age) {
+			this.start_age = start_age;
+		}
+		public String getAge2() {
+			return age2;
+		}
+		public void setAge2(String age2) {
+			this.age2 = age2;
+		}
+		public String getAge3() {
+			return age3;
+		}
+		public void setAge3(String age3) {
+			this.age3 = age3;
+		}
+		public String getAge4() {
+			return age4;
+		}
+		public void setAge4(String age4) {
+			this.age4 = age4;
+		}
+		public String getEnd_age() {
+			return end_age;
+		}
+		public void setEnd_age(String end_age) {
+			this.end_age = end_age;
+		}
+		public String getEducation() {
+			return education;
+		}
+		
+		public void setEducation(String education) {
+			this.education = education;
+			
+		}
+		public String getHope_salary() {
+			return hope_salary;
+		}
+		public void setHope_salary(String hope_salary) {
+			this.hope_salary = hope_salary;
+		}
+		public String getField_code() {
+			return field_code;
+		}
+		public void setField_code(String field_code) {
+			this.field_code = field_code;
+		}
+		public String getCareer() {
+			return career;
+		}
+		public void setCareer(String career) {
+			this.career = career;
+		}
+		public String[] getSkill_name() {
+			return skill_name;
+		}
+		public void setSkill_name(String[] skill_name) {
+			this.skill_name = skill_name;
 		}
 	public List<String> getDate() {
 			return date;
@@ -189,6 +295,20 @@ public class BoardSearchDTO {
 	public void setEnd_rowNo(int end_rowNo) {
 		this.end_rowNo = end_rowNo;
 	}
+	public int getResume_no() {
+		return resume_no;
+	}
+	public void setResume_no(int resume_no) {
+		this.resume_no = resume_no;
+	}
+	public String[] getWelfare() {
+		return welfare;
+	}
+	public void setWelfare(String[] welfare) {
+		this.welfare = welfare;
+	}
+	
+	
 //	public String getMinYear() {
 //		return minYear;
 //	}

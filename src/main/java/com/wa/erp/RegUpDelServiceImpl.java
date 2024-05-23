@@ -45,15 +45,18 @@ public class RegUpDelServiceImpl implements RegUpDelService{
 	//================================================================
 	@Override
 	public int updateRec(BoardDTO boardDTO) {
-		int updateRecCnt = this.regUpDelDAO.updateRec(boardDTO);
-		
-		
 		System.out.println("1:"+boardDTO.getComment_no());
 		System.out.println("1:"+boardDTO.getTable());
 		System.out.println("1:"+boardDTO.getP_no());
 		System.out.println("1:"+boardDTO.getB_no());
+		int checkLike = this.regUpDelDAO.checkLike(boardDTO);
+		if(checkLike==1) {
+			return -2;
+		}
 		int insertLikeCnt = this.regUpDelDAO.insertLike(boardDTO);
 		if(insertLikeCnt==0) {return -1;}
+
+		int updateRecCnt = this.regUpDelDAO.updateRec(boardDTO);
 		
 		return updateRecCnt;
 	}
@@ -62,10 +65,11 @@ public class RegUpDelServiceImpl implements RegUpDelService{
 	//================================================================
 	@Override
 	public int downdateRec(BoardDTO boardDTO) {
-		int downdateRecCnt = this.regUpDelDAO.downdateRec(boardDTO);
 		
 		int deleteLikeCnt = this.regUpDelDAO.deleteLike(boardDTO);
 		if(deleteLikeCnt==0) {return -1;}
+
+		int downdateRecCnt = this.regUpDelDAO.downdateRec(boardDTO);
 		
 		return downdateRecCnt;
 	}
@@ -341,6 +345,26 @@ public int insertGongo(BoardDTO boardDTO ) {
 		 	if(insertSkillCnt==0) {return -5;}
 		 
 		 return insertResumeCnt;
+	}
+	@Override
+	public int deleteReview(BoardDTO boardDTO) {
+	
+		//--------------------------------------
+		// 수정 실행하고 수정 적용행의 개수 얻기
+		//--------------------------------------
+		int boardDelCnt = this.regUpDelDAO.deleteReview( boardDTO );
+		//--------------------------------------
+		// 수정 적용행의 개수 리턴하기
+		//--------------------------------------
+		return boardDelCnt;
+	}
+	@Override
+	public int updateReview(BoardDTO boardDTO) {
+
+		
+		int reviewUpdateCnt = this.regUpDelDAO.updateReview(boardDTO);
+		
+		return reviewUpdateCnt;
 	}
 	
 	//관심기업 등록

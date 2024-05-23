@@ -66,8 +66,22 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/companyUpdelForm.do")
-	public ModelAndView companyUpdelForm() {
+	public ModelAndView companyUpdelForm(
+			HttpSession session
+			) {
+		Object c_noObj = session.getAttribute("c_no");
+		int c_no = 0;
+		if(c_noObj != null) {
+			c_no = Integer.parseInt(c_noObj.toString());
+		}
+		
+		System.out.print(":"+c_no);
+		
+		BoardDTO boardDTO = this.memberService.getC_mem(c_no);
+		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("boardDTO", boardDTO);
 		mav.setViewName("companyUpdelForm.jsp");
 		return mav;
 	}
@@ -153,7 +167,9 @@ public class MemberController {
 	public Map<String,String> comInfoProc (  
 			MemberDTO  companyDTO
 	){
-
+		
+		System.out.print(companyDTO.getMem_c_no());
+		
 		Map<String,String> resultMap = new HashMap<String,String>();
 
 		int companyInfoCnt = this.memberService.insertCompanyInfo(companyDTO);
