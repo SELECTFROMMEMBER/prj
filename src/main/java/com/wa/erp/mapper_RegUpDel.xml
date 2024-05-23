@@ -7,7 +7,8 @@
 <!-- [원하는 인터페이스 저장 패키지 경로]하고 일치해야한다. -->
 <!--***************************************************-->
 <mapper namespace="com.wa.erp.RegUpDelDAO">
-	<select id="getBoard" parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
+
+	<select id="getBoard" parameterType="com.wa.erp.BoardSearchDTO"  resultType="com.wa.erp.BoardDTO">
 		select
 			b.b_no
 			,p.nickname
@@ -55,7 +56,7 @@
 	        #{pwd},
 	        0,
 	        sysdate,
-	        1,
+	        #{p_no},
 	        <if test="table!='tradeboard'">
 	        0
 	        </if>
@@ -77,6 +78,8 @@
 			,price = #{price}
 			</if>
 		where
+			p_no =#{p_no}
+			and
 			b_no = #{b_no}
 			and
 			pwd= #{pwd}
@@ -86,6 +89,8 @@
 		delete from 
 			${table}
 		where 
+			p_no=#{p_no}
+			and
 			b_no=#{b_no}
 			and
 			pwd=#{pwd}	
@@ -94,189 +99,6 @@
 	<select  id="getboardCnt" parameterType="com.wa.erp.BoardDTO"  resultType="int">
 		select count(*) from ${table} where b_no=#{b_no}
 	</select>
-	
-	<!-- 프리랜서 비밀번호 개수 -->
-	<select id="getboardPwdCnt" parameterType="com.wa.erp.BoardDTO"  resultType="int">	
-		select count(*) from ${table} where b_no=#{b_no} and pwd=#{pwd}			
-	</select>
-	
-	<!--  프리랜서 등록 (p_no 1임의로 들어가있음 수정)-->
-	<insert id="inserttimeShare" parameterType="com.wa.erp.RegUpDelDAO">
-	    insert into freelancer(
-	        b_no
-	        ,p_no
-	        ,preferred_work
-	        ,start_time
-	        ,end_time
-	        ,content
-	        ,reg_date
-	        ,pwd    
-	    )values(
-	       (select nvl(max(b_no),0)+1 from freelancer)
-	        ,3
-	        ,#{preferred_work}
-	        ,#{start_time}
-	        ,#{end_time}
-	        ,#{content}
-	        ,sysdate
-	        ,#{pwd}
-	    )
-	</insert>
-	
-	<!-- 프리랜서 상세 -->
-	<select id="gettimeShareForUpDel"  resultType="com.wa.erp.BoardDTO">
-		select
-	        f.b_no
-	        ,p.p_no
-	        ,p.name
-	        ,p.phone
-	        ,p.addr
-	        ,c.career
-	        ,f.pwd
-	        ,f.preferred_work
-	        ,f.start_time
-	        ,f.end_time
-	        ,f.content
-	        ,to_char(f.reg_date, 'YYYY-MM-DDI')  as "reg_date"
-	    from
-	    person_mem  p, freelancer f, career c
-	    where
-	      f.b_no=#{f.b_no}
-	    and
-	       f.p_no=p.p_no
-	     and 
-	       f.p_no=c.p_no
-	</select>
-	
-	<select  id="gettimeShareCnt" parameterType="int"  resultType="int">
-		select count(*) from freelancer where b_no=#{b_no} 
-	</select>
-	
-	<!-- 프리랜서 비밀번호 개수 -->
-	<select id="gettimeSharePwdCnt" parameterType="com.wa.erp.BoardDTO"  resultType="int">	
-		select count(*) from freelancer where b_no=#{b_no} and pwd=#{pwd}			
-	</select>
-	
-	<!-- 프리랜서 수정 -->
-	<update id="updatetimeShare"  parameterType="com.wa.erp.RegUpDelDAO">
-	update 
-		freelancer
-	set	
-		preferred_work   =  #{preferred_work}
-		,start_time      =  #{start_time}
-		,end_time        =  #{end_time}
-		,content		 =  #{content}
-	where 
-		b_no=#{b_no}
-		and
-		pwd=#{pwd}	
-	</update>
-	
-	<!--  프리랜서 삭제 -->
-	<delete id="deletetimeShare"  parameterType="com.wa.erp.RegUpDelDAO">
-		delete from 
-			freelancer
-		where 
-			b_no=#{b_no}
-			and
-			pwd=#{pwd}			
-	</delete>
-	
-	
-	
-	<!--  부업 등록 삭제 수정 -->
-	<!-- 부업 수정 들어갈때 값 들고들어오기 -->
-	<select id="getbuupForUpDel" parameterType="int" resultType="com.wa.erp.BoardDTO">
-    select
-    	b_no 
-   		,p.p_no
-        ,p.name
-		,p.phone
-		,p.addr
-		,c.career
-		,t.pwd
-		,t.hope_work
-		,t.start_time
-        ,t.end_time
-        ,t.content
-        ,to_char(t.reg_date, 'YYYY-MM-DD HH24:MI')  as "reg_date"
-
-      from person_mem p , part_time t , career c
-         where 
-       	   t.b_no=#{t.b_no}
-         and 
-         	t.p_no=p.p_no 
-         and
-            t.p_no=c.p_no        
-	</select>
-	<!--  	부업 글 개수   -->
-	<select  id="getbuupCnt" parameterType="int"  resultType="int">
-		select count(*) from part_time where b_no=#{b_no} 
-	</select>
-	
-<!--     부업 비밀번호 개수  -->
-	<select id="getbuupPwdCnt" parameterType="com.wa.erp.BoardDTO"  resultType="int">	
-		select count(*) from part_time where b_no=#{b_no} and pwd=#{pwd}			
-	</select>	
-
-<!-- 부업 등록 (p_no 1임의로 들어가있음 수정)-->	
-	<insert id="insertbuup" parameterType="com.wa.erp.RegUpDelDAO">
-	insert into part_time(
-	    b_no
-		,p_no
-	    ,hope_work
-	    ,start_time
-	    ,end_time
-	    ,content
-	    ,reg_date
-	    ,pwd
-	)
-	values(
-	    (select nvl(max(b_no),0)+1 from part_time)
-	    ,1
-	    ,#{hope_work}
-	    ,#{start_time}
-	    ,#{end_time}
-	    ,#{content}
-	    ,sysdate
-	    ,#{pwd}
-	)
-	</insert>
-	
-	<update id="updatebuup"  parameterType="com.wa.erp.RegUpDelDAO">
-		update 
-			part_time
-		set	
-			hope_work    = #{hope_work}
-			,start_time  = #{start_time}
-			,end_time    = #{end_time}
-			,content     = #{content}
-		where 
-			b_no=#{b_no}
-			and
-			pwd=#{pwd}	
-	</update>
-	
-   
-	<update id="updatebuupEmpty" parameterType="com.wa.erp.RegUpDelDAO">
-		update 
-			part_time
-		set	
-			content = '삭제됨'
-		where 
-			b_no = #{b_no}
-	</update>
-	
-		
-<!-- 	부업 게시글 삭제  -->
-	<delete id="deletebuup"  parameterType="com.wa.erp.RegUpDelDAO">
-		delete from 
-			part_time
-		where 
-			b_no=#{b_no}
-			and
-			pwd=#{pwd}	
-	</delete>
 	
 	<!-- 기업 리뷰 등록 -->
 	<insert id="upReview" parameterType="com.wa.erp.BoardDTO">
@@ -300,10 +122,13 @@
 			)
 	</insert>
 	
-	<!-- 이력서 -->
-    <insert id="insertResume" parameterType="com.wa.erp.BoardDTO" >
+	 <!-- 이력서 -->
+    <insert id="insertResume" parameterType="com.wa.erp.BoardDTO" useGeneratedKeys="true" keyProperty="resume_no">
+	    <selectKey keyProperty="resume_no" resultType="int" order="BEFORE">
+	        SELECT NVL(MAX(resume_no), 0) + 1 FROM resume
+	    </selectKey>
         insert into resume(
-        	resume_no
+           resume_no
             ,p_no
             ,married
             ,military
@@ -311,8 +136,8 @@
             ,is_offer
             ,hope_salary 
         ) values (
-        (select nvl(max(resume_no),0)+1 from resume)           
-             ,1
+         	#{resume_no}          
+             ,5
              ,#{married}
             ,#{military}
             ,#{introduce}
@@ -320,45 +145,135 @@
             ,#{hope_salary}
         )
     </insert>
-    
+
     <!-- 수상경력 -->
     <insert id="insertAwards" parameterType="com.wa.erp.BoardDTO" >
         insert into awards(
-            p_no
-            ,name
-            ,organizer
-            ,type
-            ,award_no
+        resume_no
+            
+            ,name1
+            ,organizer1
+            ,type1
+            ,award_no1
+             <if test="name2 != null and name2 != ''">
+              ,name2
+                 </if>
+                  <if test="organizer2 != null and organizer2 != ''">
+              ,organizer2
+                 </if>
+                  <if test="type2 != null and type2 != ''">
+              ,type2
+                 </if>
+                 ,award_no2
+                 
+                  <if test="name3 != null and name3 != ''">
+              ,name3
+                 </if>
+                  <if test="organizer3 != null and organizer3 != ''">
+              ,organizer3
+                 </if>
+                  <if test="type3 != null and type3 != ''">
+              ,type3
+                 </if>
+                 ,award_no3
+                 
+                  <if test="name4 != null and name4 != ''">
+              ,name4
+                 </if>
+                  <if test="organizer4 != null and organizer4 != ''">
+              ,organizer4
+                 </if>
+                  <if test="type4 != null and type4 != ''">
+              ,type4
+                 </if>
+                 ,award_no4
         ) values (
-            1
-            ,#{name}
-            ,#{organizer}
-            ,#{type}
-            ,#{award_no}
+        #{resume_no}    
+            
+            ,#{name1}
+            ,#{organizer1}
+            ,#{type1}
+            ,#{award_no1}
+            <if test="name2 != null and name2 != ''">
+        ,#{name2}
+        </if>
+            <if test="organizer2 != null and organizer2 != ''">
+        ,#{organizer2}
+        </if>
+        <if test="type2 != null and type2 != ''">
+        ,#{type2}
+        </if>       
+         <choose>
+          <when test="award_no2 == 0">
+             ,null
+          </when>
+          <otherwise>
+             ,#{award_no2}
+          </otherwise>  
+       </choose>
+       
+        <if test="name3 != null and name3 != ''">
+        ,#{name3}
+        </if>
+            <if test="organizer3 != null and organizer3 != ''">
+        ,#{organizer3}
+        </if>
+        <if test="type3 != null and type3 != ''">
+        ,#{type3}
+        </if>      
+         <choose>
+          <when test="award_no3 == 0">
+             ,null
+          </when>
+          <otherwise>
+             ,#{award_no3}
+          </otherwise>  
+       </choose>
+       
+        <if test="name4 != null and name4 != ''">
+        ,#{name4}
+        </if>
+            <if test="organizer4 != null and organizer4 != ''">
+        ,#{organizer4}
+        </if>
+        <if test="type4 != null and type4 != ''">
+        ,#{type4}
+        </if>      
+         <choose>
+          <when test="award_no4 == 0">
+             ,null
+          </when>
+          <otherwise>
+             ,#{award_no4}
+          </otherwise>  
+       </choose>
+        
         )
     </insert>
     
+    
+
     <!-- 최종학력 -->
     <insert id="insertEducation" parameterType="com.wa.erp.BoardDTO" >
         insert into education(
-            p_no
+            resume_no
             ,school_name
             ,education
             ,enter_date
             ,graduation_date
         ) values (
-            1
+            #{resume_no}    
             ,#{school_name}
             ,#{education}
             ,#{enter_date}
             ,#{graduation_date}
         )
     </insert>
-    
+
     <!-- 경력 -->
     <insert id="insertCareer" parameterType="com.wa.erp.BoardDTO" >
         insert into career(
-            p_no
+            resume_no
             ,career1
             <if test="career2 != null and career2 != ''">
               ,career2
@@ -374,7 +289,7 @@
                  </if>
          
         ) values (
-            1
+          #{resume_no}    
             ,#{career1}
             <if test="career2 != null and career2 != ''">
         ,#{career2}
@@ -391,11 +306,10 @@
         )
     </insert>
 
-    
-    <!-- 개인보유자격증	  -->
+   <!-- 개인보유자격증     -->
     <insert id="insertPerson_license" parameterType="com.wa.erp.BoardDTO" >
-         insert into person_license(
-            p_no
+        insert into person_license(
+            resume_no
             ,license_name1
              <if test="license_name2 != null and license_name2 != ''">
               ,license_name2
@@ -410,7 +324,7 @@
               ,license_name5
                  </if>
         ) values (
-           1                          
+           #{resume_no}                         
             ,#{license_name1} 
               <if test="license_name2 != null and license_name2 != ''">
         ,#{license_name2}
@@ -426,17 +340,18 @@
         </if>
         )
     </insert> 
-    
+
     <!-- 개인보유스킬 -->
      <insert id="insertSkill_Code" parameterType="com.wa.erp.BoardDTO" >
-        insert into person_skill 
-        <foreach collection="skill_code"  item="tmp"  open=" ( " close=" ) "  separator=" union ">
+        INSERT INTO person_skill (resume_no, skill_code)
+     <foreach collection="skill_code"  item="tmp"  open=" ( " close=" ) "  separator=" union all ">
             select 
-				1
-                , #{tmp}
+            	#{resume_no}     
+                ,#{tmp}
             from dual
         </foreach>
-    </insert> 
+</insert>
+
     
     <insert id="insertComment" parameterType="com.wa.erp.BoardDTO">
     	insert into ${table}
@@ -462,7 +377,117 @@
     	where
     		comment_no = #{comment_no}
     </update>
+
+    <update id="downdateRec" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		${table}
+    	set
+    		rec_count = rec_count-1
+    	where
+    		comment_no = #{comment_no}
+    </update>
     
+    <insert id="insertLike" parameterType="com.wa.erp.BoardDTO">
+    	insert into	like_comment
+    	(
+    		comment_table
+    		,comment_no
+    		<if test="p_no != 0">
+    		,p_no
+    		</if>
+    		,b_no
+    		<if test="c_no !=0">
+    		,c_no    		
+    		</if>
+    	)
+    	values(
+    		#{table}
+    		,#{comment_no}
+    		<if test="p_no != 0">
+    		,#{p_no}
+    		</if>
+    		,#{b_no}
+    		<if test="c_no !=0">
+    		#{c_no}
+    		</if>
+    	)
+    </insert>
+    
+    <delete id="deleteLike" parameterType="com.wa.erp.BoardDTO">
+    	delete from like_comment
+    	where
+    		comment_no=#{comment_no}
+    		and
+    		comment_table=#{table}
+    		and
+    		p_no=#{p_no}
+    		and
+    		b_no=#{b_no}
+    </delete>
+    
+    
+    
+    
+    
+   <!--  회원정보 수정 -->
+   <update id="updatePrivacy" parameterType="com.wa.erp.RegUpDelDAO">
+    update 
+            person_mem
+    set 
+
+        pwd           = #{pwd},
+        phone       = #{phone},
+        email          = #{email1} || '' || #{email2},
+        field_code = ${field_code},
+        is_job        = #{is_job},
+        nickname  = #{nickname},
+        addr            = #{addr1} || '' || #{addr2} || '' || #{addr3}
+     
+       
+    where 
+            p_no = #{p_no}
+       and
+          pwd= #{pwd}
+</update>
+
+   
+    
+    <select id="getPrivacy" parameterType="int"   resultType="com.wa.erp.MypageDTO">
+         SELECT
+           p_no,
+           name,
+           pid,
+           pwd,
+           sex,
+           jumin_num,
+           phone,
+           is_job,
+           nickname,
+           addr,
+            email ,
+           field_code
+        FROM
+           person_mem
+        WHERE
+           p_no = #{p_no}
+    </select>
+    
+<!--      	회원정보 개수   -->
+	<select  id="getPrivacyCnt"  parameterType="int"  resultType="int">
+		select count(*) from person_mem  where p_no=#{p_no} 
+	</select>
+	
+		
+<!--    비밀번호 개수  -->
+	<select id="getPrivacyPwdCnt" parameterType="com.wa.erp.MypageDTO"  resultType="int">	
+		select count(*) from person_mem  
+		
+		where 
+			 p_no=#{p_no} 
+		and 
+			 pwd=#{pwd}			
+	</select>	
+	
     
 </mapper>
  

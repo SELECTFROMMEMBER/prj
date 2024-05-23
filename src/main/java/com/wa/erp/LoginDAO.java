@@ -7,5 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LoginDAO {
 	
-	public int getMidPwdCnt( Map<String,String> midPwd);
+	public BoardDTO getMem(Map<String,String> midPwd);
+	
+	public int checkpid(Map<String,String> midPwd);
+	
+	public int checkcid(Map<String,String> midPwd);
 	}

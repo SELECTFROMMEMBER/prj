@@ -56,9 +56,12 @@
 						alert("암호가 틀립니다.")
 						pwdObj.val("")
 					}
-					else if(result==0){
+					else if(result==-2){
 						alert("삭제된 게시판 입니다.")
 						location.replace("/prj.do")
+					}
+					else if(result==0){
+						alert("수정 실패입니다.");
 					}
 					else{
 						alert("수정 성공입니다.")

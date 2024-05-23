@@ -152,11 +152,12 @@
                         </td>
                     </tr>
                 </table>
+                <input type="hidden" value="${sessionScope.p_no}" name="p_no">
                 <br>
                 <input type="button" value="등록" onClick="checkprjRegForm()" style="font-size: 20px; padding: 5px 10px;">
             </div>
-        </center>
         </form>
+        </center>
     </div>
        
     <%@ include file="footer.jsp" %>

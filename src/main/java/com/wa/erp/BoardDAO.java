@@ -22,10 +22,6 @@ public interface BoardDAO {
 
 	List<BoardDTO> getgongGoList();
 
-	List<BoardDTO> gettimeShareList();
-
-	List<BoardDTO> getbuupList();
-
 	List<BoardDTO> getprjList();
 
 	List<BoardDTO> getgongMoList();
@@ -36,13 +32,6 @@ public interface BoardDAO {
 	
 	int updateReadCount(Map<String,Object> paramMap);
 
-	// (부업)
-	BoardDTO getbuup(int b_no);
-	
-	// (프리랜서)	
-	BoardDTO gettimeShare(int b_no);
-	
-	
 //	게시판 검색 개수 구하는 getBoardListCnt 메소드 선언하기
 	int getboardListCnt(BoardSearchDTO boardSearchDTO);
 
@@ -97,5 +86,7 @@ public interface BoardDAO {
 		int getGongMoListAllCnt();
 
 		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
+
+		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
 	
 }

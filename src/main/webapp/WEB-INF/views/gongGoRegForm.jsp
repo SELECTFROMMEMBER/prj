@@ -285,7 +285,7 @@ function gonGoRegForm(){
   
     <br>
 
-    <form name="gongGoUpdate">
+    <form name="gongGo">
     <div class="container">
       <h1 style="text-align: center; font-size:2em;">모집공고</h1><br>
       <form action="submit.php" method="POST" name='gongGo'>

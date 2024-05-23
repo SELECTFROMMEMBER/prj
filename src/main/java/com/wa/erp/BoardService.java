@@ -20,10 +20,6 @@ public interface BoardService {
 	List<BoardReviewDTO> getreviewContent(int c_no);
 
 	List<BoardDTO> getgongGoList();
-	
-	List<BoardDTO> gettimeShareList();
-
-	List<BoardDTO> getbuupList();
 
 	List<BoardDTO> getprjList();
 
@@ -32,14 +28,6 @@ public interface BoardService {
 	BoardDTO getBoard(Map<String,Object> paramMap);
 
 	List<BoardDTO> getComment(Map<String,Object> paramMap);
-	
-	//***************************************************************//	
-		//(부업)
-		BoardDTO getbuup(int b_no);
-
-		//(프리랜서)
-		BoardDTO gettimeShare(int b_no);
-	//***************************************************************//	
 	
 	int getboardListCnt(BoardSearchDTO boardSearchDTO );
 
@@ -88,4 +76,6 @@ public interface BoardService {
 		int getGongMoListAllCnt();
 
 		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
+
+		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
 }

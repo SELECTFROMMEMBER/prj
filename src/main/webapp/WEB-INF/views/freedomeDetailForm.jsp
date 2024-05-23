@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <%@ page import="java.util.List, java.util.ArrayList" %>
+    <%@ page import= "com.wa.erp.BoardDTO"%>
+  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,9 +13,15 @@
     .hidden-row {
         display: none;
     }
+    
+    .likeButton.clicked i {
+        color: #007bff; /* 좋아요 버튼 클릭 시 색상 */
+    }
 </style>
   
 <script>
+
+
 function searchWithSort(sort){
 // 	   $("[name='reviewUpForm']").find("[name='reviewSort']").val(sort);
 	   search();
@@ -122,7 +130,8 @@ function search(){
 
 			  <tr>
                 <td>추천수</td>
-                <td>${boardDTO.rec_count }</td>                       
+                <td>${boardDTO.rec_count }</td>   
+                        
               </tr>
               
               <tr>
@@ -130,7 +139,7 @@ function search(){
                   <td>
                    <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>
                    	 <input type="hidden" value="comment_free" name="table" class="table"> 
-                  	 <input type="hidden" value="${boardDTO.p_no }" name="p_no" class="p_no"> 
+                  	 <input type="hidden" value="${sessionScope.p_no }" name="p_no" class="p_no"> 
                   	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">
                   	 <input type="hidden" name="commentSort" class="commentSort" value="">                    	 
                   	 <input type="button" value="등록"  onClick="checkCommentReg()">
@@ -141,8 +150,10 @@ function search(){
           
           <center>
          <span onClick="pushboardname('freeboard','freedome')">[목록으로]</span>
+         <c:if test="${sessionScope.p_no==boardDTO.p_no}">
          <input type="button" value="수정/삭제"
 							onclick="goUpDelForm(${boardDTO.b_no},'freedome','freeboard');">
+		 </c:if>
      </center>
       </form>
       
@@ -163,20 +174,33 @@ function search(){
              <c:if test="${param.comment_sort=='rec_count asc'}">
               <th  style="width: 10%; text-align: center; cursor:pointer; "onCLick= "goBoardDetailForm(${boardDTO.b_no},'freedome', 'freeboard','free','');">좋아요▲</th>
               </c:if>
-      		
       	</tr>
-      	 <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
-        <tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
-            <td>
+      	
+      	<!-- ==================================================================================================== -->
+				
+<!--           기존 반복문을 수정하여 좋아요 상태 표시 -->
+          <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
+            <tr class="${status.index >= 5 ? 'hidden-row' : ''}">
+              <td>
                 <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}<br><br>
                 ${board.content}
-            </td>
-            <td>
-                <span class="likeButton" onclick="toggleLike(this,${board.comment_no})"><i  class="far fa-thumbs-up"></i></span>
-                ${board.rec_count}
-            </td>
-        </tr>
-    </c:forEach>
+              </td>
+              <td>
+                <span class="likeButton" data-comment-no="${board.comment_no}" onclick="toggleLike(this, ${board.comment_no})">
+                 <c:choose>
+                   <c:when test="${likeNoList.contains(board.comment_no)}">
+                     <i class="fas fa-thumbs-up"></i>
+                    </c:when>
+                    <c:otherwise>
+                      <i class="far fa-thumbs-up"></i>
+                    </c:otherwise>
+                  </c:choose>
+                </span>
+                <span id="likeCount${board.comment_no}">${board.rec_count}</span>
+              </td>
+            </tr>
+          </c:forEach>
+    	
     <tr id="showMoreBtn" <c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
     	<td colspan="2" style="text-align: center;" onclick="showMoreComments()">
         	더보기
@@ -190,11 +214,13 @@ function search(){
         </tr>
     </c:if>
       	
-      	
+      	 <input type="hidden" name="b_no" class="b_no">
+      	 
       </table>
       </div>
       
                   <input type="hidden" name="commentSort" class="commentSort" value="">
+  </div>
   </div>
 </body>
 <%@include file="/WEB-INF/views/common.jsp"%>  
