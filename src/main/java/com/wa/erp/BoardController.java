@@ -355,9 +355,28 @@ public class BoardController {
 	public ModelAndView companyList(
 			BoardSearchDTO boardSearchDTO
 			) {
+int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
+		
+		int companyListAllCnt = this.boardService.getcompanyListAllCnt(boardSearchDTO);
+		Map<String,Integer> boardMap = Util.getPagingMap(
+				boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
+				,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
+				,companyListCnt			//검색결과 개수
+				);
+		boardSearchDTO.setSelectPageNo(  (int)boardMap.get("selectPageNo")  ); 
+		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
+		boardSearchDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
+		boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
 		List<BoardDTO> companyList = this.boardService.getcompanyList(boardSearchDTO);
+		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("companyList", companyList);
+		mav.addObject("companyListCnt", companyListCnt+"");
+		
+		mav.addObject("companyListAllCnt", companyListAllCnt);
+		
+		mav.addObject("boardMap", boardMap);
 		mav.setViewName("companyList.jsp");
 		return mav;
 	}
@@ -751,10 +770,13 @@ public class BoardController {
 				boardReviewDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
 				boardReviewDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     ); 
 				BoardDTO boardDTO = this.boardService.getcompanyListDetail(c_no);
+				BoardDTO welfare = this.boardService.getcompanyWelfare(c_no);
+
 			    List<BoardReviewDTO> reviewContent = this.boardService.getreviewContent(boardReviewDTO);
 				ModelAndView mav = new ModelAndView( );
 				mav.addObject("boardDTO", boardDTO);
-			    mav.addObject("reviewContent", reviewContent);
+			    mav.addObject("welfare", welfare);
+			    mav.addObject("reviewContent", reviewContent);			    
 				mav.setViewName("companyListDetail.jsp");
 				mav.addObject("reviewListCnt", reviewListCnt+"" );
 				mav.addObject("reviewListAllCnt", reviewListAllCnt );

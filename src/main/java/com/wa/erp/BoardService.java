@@ -40,6 +40,15 @@ public interface BoardService {
 	List<BoardReviewDTO> getreviewContent(BoardReviewDTO boardReviewDTO);
 
 	BoardDTO getcompanyListDetail(int c_no);
+	//기업정보관련
+
+	int getcompanyListCnt(BoardSearchDTO boardSearchDTO);
+
+	int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO);
+	
+	BoardDTO getcompanyWelfare(int c_no);
+
+	
 	
 		//프로젝트를 위한 선언
 		List<BoardDTO> getPrjList(BoardSearchDTO boardSearchDTO);
@@ -57,7 +66,7 @@ public interface BoardService {
 		int getPrjListAllCnt();
 
 		int getPrjListCnt(BoardSearchDTO boardSearchDTO);
-
+	
 		
 		
 		// 공모전 관련

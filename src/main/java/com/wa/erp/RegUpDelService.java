@@ -38,9 +38,12 @@ public interface RegUpDelService {
 		
 		//리뷰 등록
 		int upReview(BoardDTO boardDTO);
+		//리뷰 삭제
+		int deleteReview(BoardDTO boardDTO);
 		
 		//이력서 등록
 		int insertResume(BoardDTO boardDTO);
+
 
 		
 		
@@ -50,4 +53,9 @@ public interface RegUpDelService {
 
 		MypageDTO getPrivacyForUpDel(int p_no);		
 		
+
+		int updateReview(BoardDTO boardDTO);
+		
+
+
 	}

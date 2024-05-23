@@ -279,6 +279,7 @@ function searchWithSort(sort){
 			<c:if test="${requestScope.boardMap.selectPageNo==pageNo}">
 				${pageNo}
 			</c:if>
+<<<<<<< HEAD
 			<!--------------------------------------------->
 			<!--  만약에 [선택한 페이지 번호]와 [화면에 출력할 페이지 번호]가 다르면  -->
 			<!--------------------------------------------->
@@ -322,6 +323,22 @@ function searchWithSort(sort){
     </form>
  </div>
        
+=======
+			<c:if test="${sessionScope.member=='person'}">
+				<center>
+					<input type="button" value="등록"
+						onCLick="location.replace('/timeShareRegForm.do')">
+				</center>
+			</c:if>
+			</form>
+		</div>
+		<form name="timeShareDetailForm" action="/timeShareDetailForm.do"
+			method="post">
+			<input type="hidden" name="b_no" class="b_no">
+		</form>
+	</div>
+
+>>>>>>> refs/heads/develop
 </body>
 <%@ include file="footer.jsp" %> 
 </html>

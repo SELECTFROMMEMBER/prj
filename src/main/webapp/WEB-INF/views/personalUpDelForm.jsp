@@ -178,7 +178,7 @@ function checkPrivacyDelForm(){
 <tr>
     <td>email:</td>
     <td>
-        <input type="text" id="email" name="email"  
+        <input type="text" id="email1" name="email1"  
                value="${fn:substringBefore(requestScope.mypageDTO.email, '@')}">@
         <select name="email2">
             <option value="naver.com" <c:if test="${requestScope.mypageDTO.email2 == 'naver.com'}">selected</c:if>>naver.com</option>

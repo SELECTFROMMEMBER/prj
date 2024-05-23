@@ -354,4 +354,33 @@ public class BoardServiceImpl implements BoardService{
 			
 			return getCommentLike;
 		}
+
+/// 기업정보관련 추가///////////////
+		@Override
+		public int getcompanyListCnt(BoardSearchDTO boardSearchDTO) {
+			int companyListCnt = this.boardDAO.getcompanyListCnt(boardSearchDTO);
+			
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return companyListCnt;
+		}
+
+		@Override
+		public int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO) {
+			int companyAllListCnt = this.boardDAO.getcompanyListAllCnt(boardSearchDTO);
+			
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return companyAllListCnt;
+		}
+
+		@Override
+		public BoardDTO getcompanyWelfare(int c_no) {
+			BoardDTO welfare = this.boardDAO.getcompanyWelfare(c_no);
+
+			return welfare;
+		}
+
 }

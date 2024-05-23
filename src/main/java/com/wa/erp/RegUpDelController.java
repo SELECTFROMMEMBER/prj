@@ -730,7 +730,41 @@ public class RegUpDelController {
 
 					return resultMap;
 					 }
-				
+		// 리뷰 삭제
+				@RequestMapping( 
+						value="/reviewDelProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+				)
+				@ResponseBody
+				public Map<String,String> reviewDelProc( 
+						BoardDTO boardDTO	
+				) {
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int reviewDelCnt = this.regUpDelService.deleteReview(boardDTO);
+
+					resultMap.put( "result", reviewDelCnt+"" );
+					
+					return resultMap;
+				}
+				@RequestMapping( 
+						value="/reviewUpdateProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+				)
+				@ResponseBody
+				public Map<String,String> reviewUpdateProc( 
+						BoardDTO boardDTO	
+				) {
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int reviewDelCnt = this.regUpDelService.updateReview(boardDTO);
+
+					resultMap.put( "result", reviewDelCnt+"" );
+					
+					return resultMap;
+				}
 				//============================================================
 				// 이력서 등록
 	 			//============================================================
@@ -797,6 +831,8 @@ public class RegUpDelController {
 					
 					return resultMap;
 				}
+
+				
 				
 				
 				

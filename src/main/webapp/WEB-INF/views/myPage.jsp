@@ -23,14 +23,13 @@
 <script>
  
  
- 
     function gotimeShareDetail(b_no){
     	$("[name='timeShareDetail']").find("[name='b_no']").val(b_no);
     	  document.timeShareDetail.submit();
     	}
     
-    function gorResumDetail(resum_no){
-    	$("[name='ResumDetail']").find("[name='resum_no']").val(resum_no);
+    function gorResumDetail(resume_no){
+    	$("[name='ResumDetail']").find("[name='resume_no']").val(resume_no);
     	  document.ResumDetail.submit();
     	}
     
@@ -296,7 +295,8 @@
 	     <input type="hidden" name="b_no" class="b_no">
     </form>
     
-    <form name="ResumDetail" action="/timeShareDetailForm.do" method="post">
+    <form name="ResumDetail" action="/resumeListDetail.do" method="post">
+     <input type="hidden" name="p_no" value="${sessionScope.p_no}">  
 	     <input type="hidden" name="resume_no" class="resume_no">
     </form>
 

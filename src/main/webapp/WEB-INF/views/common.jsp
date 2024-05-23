@@ -229,7 +229,6 @@ function downCount(comment_no){
 
 //게시판 비동기 검색 공용함수
 	function search(community){
-		
 		var boardSearchFormObj = $("[name='boardSearchForm']");
 		
 		var keywordObj = boardSearchFormObj.find(".keyword");
@@ -243,6 +242,10 @@ function downCount(comment_no){
 
 		boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val());
 		
+		if(community=="joongGo"){
+			 var tradeType = $("input[name='tradetype']:checked").val();
+		        boardSearchFormObj.find(".tradetype").val(tradeType);	
+		        }
 		$.ajax(
 			{
 				url: "/"+community+".do"

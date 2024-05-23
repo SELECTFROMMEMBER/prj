@@ -98,6 +98,7 @@
 			<c:if test="${sessionScope.member=='company'}">
 				<a href="javascript:location.replace('/myCompany.do')" id="myPageButton">기업마이페이지</a>
 			</c:if>
+
 			
 			<c:if test="${sessionScope.member == 'person'}">
                  <a href="#" onclick="document.MyPageForm.submit();" id="myPageButton">개인마이페이지</a>
