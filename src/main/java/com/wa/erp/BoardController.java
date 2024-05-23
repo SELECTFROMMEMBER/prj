@@ -392,28 +392,8 @@ int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
 		return mav;
 	}
 	
-	@RequestMapping( value ="/timeShare.do")
-	public ModelAndView timeShare(
-			BoardSearchDTO boardSearchDTO
-			) {
-		List<BoardDTO> timeShareList = this.boardService.gettimeShareList();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("timeShareList", timeShareList);
-		mav.setViewName("timeShare.jsp");
-		return mav;
-	}
-	
-	@RequestMapping( value ="/buupList.do")
-	public ModelAndView buupList(
-			BoardSearchDTO boardSearchDTO
-			) {
-		List<BoardDTO> buupList = this.boardService.getbuupList();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("buupList", buupList);
-		mav.setViewName("buupList.jsp");
-		return mav;
-	}
-	
+
+
 	
 	//--------------------------------------------------------------------------------------
 	// 자유게시판 상세보기
@@ -761,96 +741,8 @@ int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
 		
 	}
 	
-	
-	
-	
-	//**************************************************************************//
-	
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			// URL 주소 /timeShareDetailForm.do 로 접근하면 호출되는 메소드 선언
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			@RequestMapping( value="/timeShareDetailForm.do")
-			public ModelAndView timeShareDetailForm( 
-					//--------------------------------------
-					// "b_no" 라는 파라미터명에 해당하는 파라미터값을 꺼내서 
-					// 매개변수 b_no 에 저장하고 들어온다.
-					// 즉 게시판 고유 번호가 매개변수 b_no 로 들어온다.
-					//--------------------------------------
-					@RequestParam(value="b_no") int b_no	
-			){	
-				//--------------------------------
-				// BoardServiceImpl 객체의 gettimeShare 메소드를 호출하여
-				// 상세보기 화면에서 필요한 [1개의 게시판 글]을 가져오기
-				//--------------------------------
-				BoardDTO boardDTO = this.boardService.gettimeShare(b_no);
-				//--------------------------------
-				// [ModelAndView 객체] 생성하기
-				//--------------------------------
-				ModelAndView mav = new ModelAndView( );
-				//--------------------------------
-				// [ModelAndView 객체]에
-				// 키값  "boardDTO" 에
-				// 1행m열의 검색 데이터가 저장된 BoardDTO 객체 붙여 저장하기
-				// ModelAndView 객체에 저장된 객체는
-				// HttpServletRequest 객체에도 저장된다.
-				//--------------------------------
-				mav.addObject("boardDTO", boardDTO);
-				//--------------------------------
-				// [ModelAndView 객체]의 setViewName 메소드 호출하여  
-				// [호출할 JSP 페이지명]을 문자로 저장하기
-				//--------------------------------
-				mav.setViewName("timeShareDetailForm.jsp");
-				//--------------------------------
-				// [ModelAndView 객체] 리턴하기
-				// [ModelAndView 객체]를 리턴한 후에 스프링프레임워크가 JSP 페이지를 호출한다
-				//--------------------------------
-				return mav;
-			}
-	//----------------------------------------------------------------------------//
-			
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			// URL 주소 /buupListDetailForm.do 로 접근하면 호출되는 메소드 선언
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			@RequestMapping( value="/buupListDetailForm.do")
-			public ModelAndView buupListDetailForm( 
-					//--------------------------------------
-					// "b_no" 라는 파라미터명에 해당하는 파라미터값을 꺼내서 
-					// 매개변수 b_no 에 저장하고 들어온다.
-					// 즉 게시판 고유 번호가 매개변수 b_no 로 들어온다.
-					//--------------------------------------
-					@RequestParam(value="b_no") int b_no	
-			){	
-				//--------------------------------
-				// BoardServiceImpl 객체의 getbuup 메소드를 호출하여
-				// 상세보기 화면에서 필요한 [1개의 부업 글]을 가져오기
-				//--------------------------------
-				BoardDTO boardDTO = this.boardService.getbuup(b_no);
-				
-				//--------------------------------
-				// [ModelAndView 객체] 생성하기
-				//--------------------------------
-				ModelAndView mav = new ModelAndView( );
-				//--------------------------------
-				// [ModelAndView 객체]에
-				// 키값  "boardDTO" 에
-				// 1행m열의 검색 데이터가 저장된 BoardDTO 객체 붙여 저장하기
-				// ModelAndView 객체에 저장된 객체는
-				// HttpServletRequest 객체에도 저장된다.
-				//--------------------------------
-				mav.addObject("boardDTO", boardDTO);
-				//--------------------------------
-				// [ModelAndView 객체]의 setViewName 메소드 호출하여  
-				// [호출할 JSP 페이지명]을 문자로 저장하기
-				//--------------------------------
-				mav.setViewName("buupListDetailForm.jsp");
-				//--------------------------------
-				// [ModelAndView 객체] 리턴하기
-				// [ModelAndView 객체]를 리턴한 후에 스프링프레임워크가 JSP 페이지를 호출한다
-				//--------------------------------
-				return mav;
-			}		
-			
-	//**************************************************************************//	
+
+		
 	
 			//--------------------------------------------------------------------------------------
 			// 기업정보 상세보기

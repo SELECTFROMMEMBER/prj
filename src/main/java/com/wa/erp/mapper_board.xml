@@ -207,6 +207,7 @@
 		 		f.p_no = p.p_no
 	</select>
 
+
 	<select id="getprjList"  resultType="com.wa.erp.BoardDTO">
 		 select  subject, c.field_name, reg_date from project b, competition_project_field_code c, person_mem p where  p.p_no = b.p_no and b.field_code = c.code_field
 	</select>
@@ -267,56 +268,6 @@
         </choose>
        	
 	</select>
-	
-	<!-- 부업 상세 -->	
- 	<select id="getbuup" parameterType="int" resultType="com.wa.erp.BoardDTO">
-    select
-    	b_no 
-   		,p.p_no
-        ,p.name
-		,p.phone
-		,p.addr
-		,c.career
-		,t.pwd
-		,t.hope_work
-		,t.start_time
-        ,t.end_time
-        ,t.content
-        ,to_char(t.reg_date, 'YYYY-MM-DD')  as "reg_date"
-
-      from person_mem p , part_time t , career c
-         where 
-       	   t.b_no=#{t.b_no}
-         and 
-         	t.p_no=p.p_no 
-         and
-            t.p_no=c.p_no        
-	</select>
-	
-	<!-- 프리랜서 상세 -->
-	<select id="gettimeShare"  parameterType="int" resultType="com.wa.erp.BoardDTO">
-		select
-	        f.b_no
-	        ,p.p_no
-	        ,p.name
-	        ,p.phone
-	        ,p.addr
-	        ,c.career
-	        ,f.pwd
-	        ,f.preferred_work
-	        ,f.start_time
-	        ,f.end_time
-	        ,f.content
-	        ,to_char(f.reg_date, 'YYYY-MM-DD HH24:MI')  as "reg_date"
-	    from
-	    person_mem  p, freelancer f, career c
-	    where
-	      f.b_no=#{f.b_no}
-	    and
-	       f.p_no=p.p_no
-	     and 
-	       f.p_no=c.p_no
-	</select>	
 	
 	<select id="getcompanyDetail" parameterType="int" resultType="com.wa.erp.BoardDTO">
 		select

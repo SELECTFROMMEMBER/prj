@@ -270,6 +270,8 @@ function reviewEdit(r_no){
 		<center>
 			<h1 style="text-align: center;">기업 정보 상세페이지</h1>
 			<br>
+<<<<<<< HEAD
+=======
 
 
 			<div class="table-container">
@@ -342,7 +344,154 @@ function reviewEdit(r_no){
 					<td>등록된 복지 내역이 없습니다.</td>
 					</c:if> 					                    
                 </tr>
+>>>>>>> refs/heads/develop
 
+<<<<<<< HEAD
+
+			<div class="table-container">
+				<table bordercolor="gray" border="1" cellpadding="7"
+					style="margin-left: auto%; margin-right: auto%;">
+
+
+
+
+
+					<tr>
+						<td>기업명 :</td>
+						<td>${boardDTO.name}</td>
+
+					</tr>
+					<tr>
+
+						<td>홈페이지 :</td>
+						<td>${boardDTO.url}</td>
+
+
+					</tr>
+					<tr>
+
+						<td>기업 이메일 :</td>
+						<td>${boardDTO.email}</td>
+					</tr>
+					<tr>
+
+						<td>기업 형태 :</td>
+						<td>${boardDTO.volume}</td>
+					</tr>
+					<tr>
+
+						<td>매출 액 :</td>
+						<td>${boardDTO.sales}만원</td>
+
+					</tr>
+					<tr>
+						<td>사원 수 :</td>
+						<td>${boardDTO.emp_no}명</td>
+					</tr>
+
+					<tr>
+						<td>설립일 :</td>
+						<td>${boardDTO.birth}</td>
+					</tr>
+					<tr>
+						<td>대표자명 :</td>
+						<td>${boardDTO.ceo_name}</td>
+
+					</tr>
+					<tr>
+						<td>회사 연락처 :</td>
+						<td>${boardDTO.call}</td>
+
+					</tr>
+					<tr>
+						<td>평균 연봉 :</td>
+						<td>${boardDTO.sal_avg}만원</td>
+
+					</tr>
+
+				</table>
+			</div>
+
+
+
+
+
+
+
+			<input type="button" value="뒤로가기"
+				onClick="location.replace('/companyList.do')"> <br> <br>
+			<center>[${boardDTO.name}]에 ${requestScope.reviewListCnt}개의
+				리뷰가 있습니다!</center>
+
+			<div class="reviewListDiv">
+				<table name="review" class="review"
+					style="display: inline-block; vertical-align: top;">
+
+					<tr>
+						<th style="width: 60%; height: 40%; text-align: center;">리뷰</th>
+						<c:if
+							test="${param.reviewSort!='star asc' and param.reviewSort!='star desc'}">
+							<th style="width: 10%; text-align: center; cursor: pointer;"
+								onClick="searchWithSort('star desc')">별점</th>
+						</c:if>
+
+						<c:if test="${param.reviewSort=='star desc'}">
+							<th style="width: 10%; text-align: center; cursor: pointer;"
+								onClick="searchWithSort('star asc')">별점▼</th>
+						</c:if>
+
+						<c:if test="${param.reviewSort=='star asc'}">
+							<th style="width: 10%; text-align: center; cursor: pointer;"
+								onClick="searchWithSort('')">별점▲</th>
+						</c:if>
+
+
+						<th style="width: 10%; text-align: center;">좋아요</th>
+					</tr>
+
+					<c:forEach var="review" items="${requestScope.reviewContent}" varStatus="status">
+						<tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
+							<td>${review.content}</td>
+							<td>${review.star}</td>
+							<td><span class="likeButton" onclick="toggleLike(this)"><i
+									class="far fa-heart"></i></span> <%--           <span class="likeCount" name="rec_count">${reviewList.rec_count}</span> --%>
+							</td>
+						</tr>
+					</c:forEach>
+					<tr id="showMoreBtn"
+						<c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
+						<td colspan="3" style="text-align: center;"
+							onclick="showMoreComments()">더보기</td>
+					</tr>
+				</table>
+
+			</div>
+			<br>
+			<c:if test="${sessionScope.member=='person'}">
+				<form class="reviewUpForm" name="reviewUpForm"
+					style="display: inline-block; vertical-align: top;">
+					<br> <br> <br> <br>
+					<div>
+						리뷰를 작성해 주세요
+						<div class="rating" name="rating" value="0">
+							<span class="star" onclick="rate(1)" data-value="1">&#9733;</span>
+							<span class="star" onclick="rate(2)" data-value="2">&#9733;</span>
+							<span class="star" onclick="rate(3)" data-value="3">&#9733;</span>
+							<span class="star" onclick="rate(4)" data-value="4">&#9733;</span>
+							<span class="star" onclick="rate(5)" data-value="5">&#9733;</span>
+						</div>
+						<textarea id="content" placeholder="20자 이내로 입력해주세요" name="content"
+							class="content"></textarea>
+						<input type="button" onclick="upReview()" value="리뷰 제출">
+					</div>
+					<!-- 클릭한 행의 게시판 고유번호가 저장될 히든태그 선언 -->
+					<input type="hidden" name="c_no" value="${boardDTO.c_no}">
+					<input type="hidden" name="star"> <input type="hidden"
+						name="reviewSort" class="reviewSort" value="">
+
+				</form>
+			</c:if>
+=======
 				</table>
 			</div>
 
@@ -444,6 +593,7 @@ function reviewEdit(r_no){
 			</c:if>
 				</form>
 		
+>>>>>>> refs/heads/develop
 </body>
 <%@ include file="footer.jsp"%>
 </html>

@@ -77,7 +77,7 @@ public class ResumeController {
 					@RequestParam(value="p_no") int p_no	
 					,@RequestParam(value="resume_no") int resume_no	
 
-			){	
+			   ){	
 				BoardDTO boardDTO = this.resumeService.getResume(p_no);
 				List<BoardDTO> skillList = this.resumeService.getSkillList(resume_no);
 				ModelAndView mav = new ModelAndView( );

@@ -214,7 +214,8 @@ function search(){
         </tr>
     </c:if>
       	
-      	
+      	 <input type="hidden" name="b_no" class="b_no">
+      	 
       </table>
       </div>
       

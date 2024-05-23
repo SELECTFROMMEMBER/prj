@@ -98,14 +98,22 @@
 			<c:if test="${sessionScope.member=='company'}">
 				<a href="javascript:location.replace('/myCompany.do')" id="myPageButton">기업마이페이지</a>
 			</c:if>
-			<c:if test="${sessionScope.member=='person'}">
-				<a href="javascript:location.replace('/myPage.do')" id="myPageButton">개인마이페이지</a>
-			</c:if>
+
+			
+			<c:if test="${sessionScope.member == 'person'}">
+                 <a href="#" onclick="document.MyPageForm.submit();" id="myPageButton">개인마이페이지</a>
+           </c:if>
+  <input type="hidden" name="p_no" value="${sessionScope.p_no}">
+			
   </header>
   </div>
   
-  <form name="freedome" action="/freedome.do"
-						method="post">
+     <form name="MyPageForm"  action="/myPage.do"  method="post">
+             <input type="hidden" name="p_no" value="${sessionScope.p_no}">
+             <input type="hidden" name="b_no" value="${requestScope.b_no}">
+      </form>
+
+  <form name="freedome" action="/freedome.do" method="post">
    		 <input type="hidden" name="boardname" class="boardname">
     </form>
     
