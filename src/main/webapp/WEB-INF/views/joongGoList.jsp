@@ -16,7 +16,12 @@
 		search("joongGo");
 		
 	}
-
+// function tradeTypeSearch( tradetype ){
+// 	var boardSearchFormObj = $("[name='boardSearchForm']");
+// 	var tradetypeObj = $("[name='boardSearchForm']").find(".tradetype").val(tradetype);
+	
+	
+  
 </script>
 
 </head>
@@ -40,6 +45,9 @@
             <input type="hidden" name="SelectPageNo" class="SelectPageNo" value="1">
 			<input type="hidden" name="rowCntPerPage" class="rowCntPerPage">
 			<input type="hidden" name="boardname" class="boardname" value="tradeboard">
+			<input type="radio" value="" name="tradetype" onclick="search('joongGo')">전체
+       		<input type="radio" value="buy" name="tradetype"   onclick="search('joongGo')">구매 
+    		<input type="radio" value="sell" name="tradetype"  onclick="search('joongGo')">판매	
         </div>
      </form>
       
@@ -135,7 +143,12 @@
            </center>  
       </form>
   </div>
-       
+               <form name="trade_type" action="joongGoList.do"
+						method="post">
+						<!-- 클릭한 행의 게시판 고유번호가 저장될 히든태그 선언 -->
+						<input type="hidden" name="tradetype" value="">
+						
+					</form>
 </body>
 <%@ include file="footer.jsp" %>
 </html>

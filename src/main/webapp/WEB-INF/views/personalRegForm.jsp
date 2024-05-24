@@ -27,8 +27,9 @@ function checkmemberRegForm(){
 	            
 	            
 	            if(result==1){
-	               alert(" 입력 성공입니다.");
-	               location.replace("/resumRegForm.do")
+	               alert("가입 성공입니다.");
+	               alert("로그인 후 이력서 등록 후 사용바랍니다.")
+	               location.replace("/loginForm.do")
 	            }
 	            else if(result==2){
 	               alert("아이디가 중복 됩니다. 재 입력 바람.")
@@ -59,7 +60,7 @@ function checkmemberRegForm(){
       
           <table style="margin: 0 auto;">
               
-                  <tr>
+       <tr>
              <th>항목</th>
              <th>등록 사항</th>
          </tr>
@@ -146,7 +147,7 @@ function checkmemberRegForm(){
           </table>
 
 		<center>
-          <input type="button" value="다음" onClick="checkmemberRegForm()">
+          <input type="button" value="가입하기" onClick="checkmemberRegForm()">
 		</center>
           
       </form>

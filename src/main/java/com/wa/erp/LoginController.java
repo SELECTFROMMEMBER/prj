@@ -153,12 +153,16 @@ public class LoginController {
 					session.setAttribute("member", "person" );
 					session.setAttribute("p_no", getMem.getP_no());
 					session.setAttribute("nickname", getMem.getNickname());
+					int is_resume = this.loginService.getIs_resume(map);
+					if(is_resume == 1) {return 3;}
 				}
 				else if(checkpercom==2) {
 					//기업
 					session.setAttribute("member", "company");
 					session.setAttribute("c_no", getMem.getC_no());
 					session.setAttribute("name", getMem.getName());
+					int is_info = this.loginService.getIs_info(map);
+					if(is_info==1) {return 4;}
 				}
 				else {
 					return checkpercom;

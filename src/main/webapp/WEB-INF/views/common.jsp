@@ -151,16 +151,21 @@ function toggleLike(button, comment_no) {
 		alert("로그인을 하고 이용해주세요");
 		return;
 	}
+	
     var likeButton = $(button);
+    var likeIcon = likeButton.find('i');
     var isLiked = likeButton.find('i').hasClass('far');
-    alert(isLiked);
     if (isLiked) {
+    	
     	likeButton.addClass('clicked');
-        likeButton.find('i').removeClass('far').addClass('fas');
+    	likeIcon.removeClass('far').addClass('fas');
+    	likeButton.css('color', 'red');  // 버튼 색상 변경
+        likeButton.css('color', 'red !important');
         upCount(comment_no);
     } else {
+    	
     	likeButton.removeClass('clicked');
-        likeButton.find('i').removeClass('fas').addClass('far');
+        likeIcon.removeClass('fas').addClass('far');
         downCount(comment_no);
     }
 }
@@ -168,23 +173,26 @@ function toggleLike(button, comment_no) {
 
 //추천수 up
 function upCount(comment_no){
-	var commentObj = $("form[name='commentRegForm']");
-	var serialize = commentObj.serialize();
 	
-	serialize = serialize+"&comment_no="+comment_no;
-
+	var commentObj = $("form[name='commentRegForm']");
+	commentObj.find("[name='comment_no']").val(comment_no);
+	
 	$.ajax(
 			{
 				url: "/recUpProc.do"
 				,type: "post"
-				,data: serialize
+				,data: commentObj.serialize()
 				,success: function(json) {
 	        	
 	            var result = json["result"];
 	            if (result == 1) {
 	                alert("개추요~");
 	                location.reload();
-	            } else {
+	            }
+	            else if(result==-2){
+	            	alert("이미 추천한 댓글입니다.")
+	            }
+	            else {
 	                alert("추천실패");
 	            }
 	        }
@@ -198,15 +206,13 @@ function upCount(comment_no){
 //추천수 down
 function downCount(comment_no){
 	var commentObj = $("form[name='commentRegForm']");
-	var serialize = commentObj.serialize();
-	
-	serialize = serialize+"&comment_no="+comment_no;
+	commentObj.find("[name='comment_no']").val(comment_no);
 	
 	$.ajax(
 			{
 				url: "/recDownProc.do"
 				,type: "post"
-				,data: serialize
+				,data: commentObj.serialize()
 				,success: function(json) {
 	        	
 	            var result = json["result"];
@@ -229,7 +235,6 @@ function downCount(comment_no){
 
 //게시판 비동기 검색 공용함수
 	function search(community){
-		
 		var boardSearchFormObj = $("[name='boardSearchForm']");
 		
 		var keywordObj = boardSearchFormObj.find(".keyword");
@@ -243,6 +248,11 @@ function downCount(comment_no){
 
 		boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val());
 		
+		if(community=="joongGo"){
+			 var tradeType = $("input[name='tradetype']:checked").val();
+		        boardSearchFormObj.find(".tradetype").val(tradeType);	
+		        }
+	
 		$.ajax(
 			{
 				url: "/"+community+".do"
@@ -483,4 +493,90 @@ function checkboardRegForm(boardname,boardurl) {
 		//showMoreBtn을 id로 가지는 요소를 숨긴다.
 	    $("#showMoreBtn").hide();
 	}
+	
+	
+	//댓글 삭제
+	function del_comment(comment_no){
+		 	var commentObj = $("form[name='commentRegForm']");
+		 	
+		 	commentObj.find("[name='comment_no']").val(comment_no);
+		 	
+		 	if( confirm("정말 삭제할것임까~?")==false ){ return; }
+		 	
+			$.ajax(
+					{ 
+						url    : "/delCommentProc.do"
+						,type  : "post"
+						,data  : commentObj.serialize( )
+						,success : function(json){
+							var result = json["result"];
+							if(result==1){
+								alert("댓글 삭제 성공입니다.");
+								location.reload(); 
+							}
+							
+							else{
+								alert(result)
+								alert("댓글 삭제 실패입니다. 관리자에게 문의 바람!");
+							}
+						}
+						,error : function(){
+							alert("입력 실패! 관리자에게 문의 바람니다.");
+						}
+					}
+				);
+		}
+	
+	
+	//댓글 수정
+	function up_comment(comment_no){
+		 	var commentObj = $("form[name='commentRegForm']");
+		 	var updatecomment = $("textarea[name='updateContent']").val();
+		 	
+		 	commentObj.find("[name='updateComment']").val(updatecomment);
+		 	commentObj.find("[name='comment_no']").val(comment_no);
+		 	
+		 	
+// 		 	if( 
+// 		 			updatecomment.val().trim().length==0 
+// 		 			||
+// 		 			updatecomment.val().trim().length>20 
+// 		 	){
+// 		 		alert("댓글은 임의 문자 1~20자 입력해야합니다.");
+// 		 		return;
+// 		 	}
+		 	if( confirm("정말 수정할것임까~?")==false ){ return; }
+			$.ajax(
+					{ 
+						url    : "/upCommentProc.do"
+						,type  : "post"
+						,data  : commentObj.serialize( )
+						,success : function(json){
+							var result = json["result"];
+							if(result==1){
+								alert("댓글 수정 성공입니다.");
+								location.reload(); 
+							}
+							
+							else{
+								alert("댓글 수정 실패입니다. 관리자에게 문의 바람!");
+							}
+						}
+						,error : function(){
+							alert("입력 실패! 관리자에게 문의 바람니다.");
+						}
+					}
+				);
+		}
+	
+	//댓글 수정 시 textarea 추가
+	function updateForm(comment_no,content){
+			$("#comment"+comment_no).html(
+					"<textarea  style='width:100%; height:50%;' rows='3'  name='updateContent' class='content'>"
+					+content+
+					"</textarea><input type='button' value='수정' onClick='up_comment("+comment_no+")'>"+
+					"<input type='button' value='삭제' onClick='del_comment("+comment_no+")'>")
+		}
+	
+	
 </script>

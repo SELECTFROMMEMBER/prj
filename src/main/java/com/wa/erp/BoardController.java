@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -318,7 +319,7 @@ public class BoardController {
 		int joongGoListCnt = this.boardService.getboardListCnt( boardSearchDTO );
 		
 		int joongGoListAllCnt = this.boardService.getboardListAllCnt(boardSearchDTO);
-		
+		System.out.print(boardSearchDTO.getTradetype());
 		Map<String,Integer> boardMap = Util.getPagingMap(
 				boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
 				,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
@@ -354,14 +355,61 @@ public class BoardController {
 	//=================================================
 	@RequestMapping( value ="/companyList.do")
 	public ModelAndView companyList(
-			BoardSearchDTO boardSearchDTO
+			BoardSearchDTO boardSearchDTO,
+			HttpSession session
 			) {
+
+		Object p_noObj = session.getAttribute("p_no");
+		int p_no = 0;
+		if(p_noObj != null) {
+			p_no = Integer.parseInt(p_noObj.toString());
+		}
+		
+		int companyListCnt = this.boardService.getcompanyListCnt(boardSearchDTO);
+		int companyListAllCnt = this.boardService.getcompanyListAllCnt(boardSearchDTO);
+		
+		Map<String, Integer> boardMap = Util.getPagingMap(boardSearchDTO.getSelectPageNo() // 선택한 페이지 번호
+				, boardSearchDTO.getRowCntPerPage() // 페이지 당 보여줄 검색 행의 개수
+				, companyListCnt // 검색결과 개수
+		);
+		boardSearchDTO.setSelectPageNo((int) boardMap.get("selectPageNo"));
+		boardSearchDTO.setRowCntPerPage((int) boardMap.get("rowCntPerPage"));
+		boardSearchDTO.setBegin_rowNo((int) boardMap.get("begin_rowNo"));
+		boardSearchDTO.setEnd_rowNo((int) boardMap.get("end_rowNo"));
 		List<BoardDTO> companyList = this.boardService.getcompanyList(boardSearchDTO);
+		List<BoardDTO> like_company = this.boardService.getlikeCompany(p_no);
+		
 		ModelAndView mav = new ModelAndView();
+		
+		if(like_company.size()!=0) {
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (like_company != null) {
+				    for (int i = 0; i < like_company.size(); i++) {
+				        BoardDTO likeDTO = like_company.get(i);
+				        int likeNo = likeDTO.getC_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
+		
+		mav.addObject("companyListCnt", companyListCnt + "");
+		mav.addObject("companyListAllCnt", companyListAllCnt);
+		mav.addObject("boardMap", boardMap);
 		mav.addObject("companyList", companyList);
+		mav.addObject("companyListCnt", companyListCnt+"");
+		
+		mav.addObject("companyListAllCnt", companyListAllCnt);
+		
+		mav.addObject("boardMap", boardMap);
 		mav.setViewName("companyList.jsp");
 		return mav;
 	}
+	
+	
+	
 	
 	@RequestMapping( value ="/gongGoList.do")
 	public ModelAndView gongGoList(
@@ -374,28 +422,8 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping( value ="/timeShare.do")
-	public ModelAndView timeShare(
-			BoardSearchDTO boardSearchDTO
-			) {
-		List<BoardDTO> timeShareList = this.boardService.gettimeShareList();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("timeShareList", timeShareList);
-		mav.setViewName("timeShare.jsp");
-		return mav;
-	}
-	
-	@RequestMapping( value ="/buupList.do")
-	public ModelAndView buupList(
-			BoardSearchDTO boardSearchDTO
-			) {
-		List<BoardDTO> buupList = this.boardService.getbuupList();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("buupList", buupList);
-		mav.setViewName("buupList.jsp");
-		return mav;
-	}
-	
+
+
 	
 	//--------------------------------------------------------------------------------------
 	// 자유게시판 상세보기
@@ -743,96 +771,8 @@ public class BoardController {
 		
 	}
 	
-	
-	
-	
-	//**************************************************************************//
-	
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			// URL 주소 /timeShareDetailForm.do 로 접근하면 호출되는 메소드 선언
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			@RequestMapping( value="/timeShareDetailForm.do")
-			public ModelAndView timeShareDetailForm( 
-					//--------------------------------------
-					// "b_no" 라는 파라미터명에 해당하는 파라미터값을 꺼내서 
-					// 매개변수 b_no 에 저장하고 들어온다.
-					// 즉 게시판 고유 번호가 매개변수 b_no 로 들어온다.
-					//--------------------------------------
-					@RequestParam(value="b_no") int b_no	
-			){	
-				//--------------------------------
-				// BoardServiceImpl 객체의 gettimeShare 메소드를 호출하여
-				// 상세보기 화면에서 필요한 [1개의 게시판 글]을 가져오기
-				//--------------------------------
-				BoardDTO boardDTO = this.boardService.gettimeShare(b_no);
-				//--------------------------------
-				// [ModelAndView 객체] 생성하기
-				//--------------------------------
-				ModelAndView mav = new ModelAndView( );
-				//--------------------------------
-				// [ModelAndView 객체]에
-				// 키값  "boardDTO" 에
-				// 1행m열의 검색 데이터가 저장된 BoardDTO 객체 붙여 저장하기
-				// ModelAndView 객체에 저장된 객체는
-				// HttpServletRequest 객체에도 저장된다.
-				//--------------------------------
-				mav.addObject("boardDTO", boardDTO);
-				//--------------------------------
-				// [ModelAndView 객체]의 setViewName 메소드 호출하여  
-				// [호출할 JSP 페이지명]을 문자로 저장하기
-				//--------------------------------
-				mav.setViewName("timeShareDetailForm.jsp");
-				//--------------------------------
-				// [ModelAndView 객체] 리턴하기
-				// [ModelAndView 객체]를 리턴한 후에 스프링프레임워크가 JSP 페이지를 호출한다
-				//--------------------------------
-				return mav;
-			}
-	//----------------------------------------------------------------------------//
-			
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			// URL 주소 /buupListDetailForm.do 로 접근하면 호출되는 메소드 선언
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			@RequestMapping( value="/buupListDetailForm.do")
-			public ModelAndView buupListDetailForm( 
-					//--------------------------------------
-					// "b_no" 라는 파라미터명에 해당하는 파라미터값을 꺼내서 
-					// 매개변수 b_no 에 저장하고 들어온다.
-					// 즉 게시판 고유 번호가 매개변수 b_no 로 들어온다.
-					//--------------------------------------
-					@RequestParam(value="b_no") int b_no	
-			){	
-				//--------------------------------
-				// BoardServiceImpl 객체의 getbuup 메소드를 호출하여
-				// 상세보기 화면에서 필요한 [1개의 부업 글]을 가져오기
-				//--------------------------------
-				BoardDTO boardDTO = this.boardService.getbuup(b_no);
-				
-				//--------------------------------
-				// [ModelAndView 객체] 생성하기
-				//--------------------------------
-				ModelAndView mav = new ModelAndView( );
-				//--------------------------------
-				// [ModelAndView 객체]에
-				// 키값  "boardDTO" 에
-				// 1행m열의 검색 데이터가 저장된 BoardDTO 객체 붙여 저장하기
-				// ModelAndView 객체에 저장된 객체는
-				// HttpServletRequest 객체에도 저장된다.
-				//--------------------------------
-				mav.addObject("boardDTO", boardDTO);
-				//--------------------------------
-				// [ModelAndView 객체]의 setViewName 메소드 호출하여  
-				// [호출할 JSP 페이지명]을 문자로 저장하기
-				//--------------------------------
-				mav.setViewName("buupListDetailForm.jsp");
-				//--------------------------------
-				// [ModelAndView 객체] 리턴하기
-				// [ModelAndView 객체]를 리턴한 후에 스프링프레임워크가 JSP 페이지를 호출한다
-				//--------------------------------
-				return mav;
-			}		
-			
-	//**************************************************************************//	
+
+		
 	
 			//--------------------------------------------------------------------------------------
 			// 기업정보 상세보기
@@ -841,10 +781,17 @@ public class BoardController {
 			public ModelAndView companyListDetailForm( 
 					
 					@RequestParam(value="c_no") int c_no	,
-					BoardReviewDTO boardReviewDTO
+					BoardReviewDTO boardReviewDTO,
+					HttpSession session
 
 
 			){	
+				Object p_noObj = session.getAttribute("p_no");
+				int p_no = 0;
+				if(p_noObj != null) {
+					p_no = Integer.parseInt(p_noObj.toString());
+				}
+				
 				int reviewListAllCnt =  this.boardService.getReviewListAllCnt( );
 				int reviewListCnt =  this.boardService.getReviewListCnt( boardReviewDTO );
 				if(boardReviewDTO.getReviewSort()==""){
@@ -860,10 +807,27 @@ public class BoardController {
 				boardReviewDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
 				boardReviewDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     ); 
 				BoardDTO boardDTO = this.boardService.getcompanyListDetail(c_no);
+				BoardDTO welfare = this.boardService.getcompanyWelfare(c_no);
+
 			    List<BoardReviewDTO> reviewContent = this.boardService.getreviewContent(boardReviewDTO);
+			    List<BoardDTO> like_company = this.boardService.getlikeCompany(p_no);
 				ModelAndView mav = new ModelAndView( );
+				if(like_company.size()!=0) {
+					   List<Integer> likeNoList = new ArrayList<>();
+					   if (like_company != null) {
+						    for (int i = 0; i < like_company.size(); i++) {
+						        BoardDTO likeDTO = like_company.get(i);
+						        int likeNo = likeDTO.getC_no();
+						        if (likeNo != 0) {
+						            likeNoList.add(likeNo);
+						        }   
+						    }
+					   }
+					mav.addObject("likeNoList", likeNoList);
+				}
 				mav.addObject("boardDTO", boardDTO);
-			    mav.addObject("reviewContent", reviewContent);
+			    mav.addObject("welfare", welfare);
+			    mav.addObject("reviewContent", reviewContent);			    
 				mav.setViewName("companyListDetail.jsp");
 				mav.addObject("reviewListCnt", reviewListCnt+"" );
 				mav.addObject("reviewListAllCnt", reviewListAllCnt );
@@ -871,6 +835,5 @@ public class BoardController {
 				return mav;
 			}
 			
-
 
 }

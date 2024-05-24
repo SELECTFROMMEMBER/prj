@@ -25,4 +25,8 @@ public interface MemberDAO {
 
 	int  getUpWelfare_code();
 	
+	int get_c_no();
+
+	BoardDTO getC_mem(int c_no);
+	
 	}

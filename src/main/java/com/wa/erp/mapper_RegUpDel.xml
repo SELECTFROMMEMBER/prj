@@ -7,7 +7,8 @@
 <!-- [원하는 인터페이스 저장 패키지 경로]하고 일치해야한다. -->
 <!--***************************************************-->
 <mapper namespace="com.wa.erp.RegUpDelDAO">
-	<select id="getBoard" parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
+
+	<select id="getBoard" parameterType="com.wa.erp.BoardSearchDTO"  resultType="com.wa.erp.BoardDTO">
 		select
 			b.b_no
 			,p.nickname
@@ -99,189 +100,6 @@
 		select count(*) from ${table} where b_no=#{b_no}
 	</select>
 	
-	<!-- 프리랜서 비밀번호 개수 -->
-	<select id="getboardPwdCnt" parameterType="com.wa.erp.BoardDTO"  resultType="int">	
-		select count(*) from ${table} where b_no=#{b_no} and pwd=#{pwd}			
-	</select>
-	
-	<!--  프리랜서 등록 (p_no 1임의로 들어가있음 수정)-->
-	<insert id="inserttimeShare" parameterType="com.wa.erp.RegUpDelDAO">
-	    insert into freelancer(
-	        b_no
-	        ,p_no
-	        ,preferred_work
-	        ,start_time
-	        ,end_time
-	        ,content
-	        ,reg_date
-	        ,pwd    
-	    )values(
-	       (select nvl(max(b_no),0)+1 from freelancer)
-	        ,3
-	        ,#{preferred_work}
-	        ,#{start_time}
-	        ,#{end_time}
-	        ,#{content}
-	        ,sysdate
-	        ,#{pwd}
-	    )
-	</insert>
-	
-	<!-- 프리랜서 상세 -->
-	<select id="gettimeShareForUpDel"  resultType="com.wa.erp.BoardDTO">
-		select
-	        f.b_no
-	        ,p.p_no
-	        ,p.name
-	        ,p.phone
-	        ,p.addr
-	        ,c.career
-	        ,f.pwd
-	        ,f.preferred_work
-	        ,f.start_time
-	        ,f.end_time
-	        ,f.content
-	        ,to_char(f.reg_date, 'YYYY-MM-DDI')  as "reg_date"
-	    from
-	    person_mem  p, freelancer f, career c
-	    where
-	      f.b_no=#{f.b_no}
-	    and
-	       f.p_no=p.p_no
-	     and 
-	       f.p_no=c.p_no
-	</select>
-	
-	<select  id="gettimeShareCnt" parameterType="int"  resultType="int">
-		select count(*) from freelancer where b_no=#{b_no} 
-	</select>
-	
-	<!-- 프리랜서 비밀번호 개수 -->
-	<select id="gettimeSharePwdCnt" parameterType="com.wa.erp.BoardDTO"  resultType="int">	
-		select count(*) from freelancer where b_no=#{b_no} and pwd=#{pwd}			
-	</select>
-	
-	<!-- 프리랜서 수정 -->
-	<update id="updatetimeShare"  parameterType="com.wa.erp.RegUpDelDAO">
-	update 
-		freelancer
-	set	
-		preferred_work   =  #{preferred_work}
-		,start_time      =  #{start_time}
-		,end_time        =  #{end_time}
-		,content		 =  #{content}
-	where 
-		b_no=#{b_no}
-		and
-		pwd=#{pwd}	
-	</update>
-	
-	<!--  프리랜서 삭제 -->
-	<delete id="deletetimeShare"  parameterType="com.wa.erp.RegUpDelDAO">
-		delete from 
-			freelancer
-		where 
-			b_no=#{b_no}
-			and
-			pwd=#{pwd}			
-	</delete>
-	
-	
-	
-	<!--  부업 등록 삭제 수정 -->
-	<!-- 부업 수정 들어갈때 값 들고들어오기 -->
-	<select id="getbuupForUpDel" parameterType="int" resultType="com.wa.erp.BoardDTO">
-    select
-    	b_no 
-   		,p.p_no
-        ,p.name
-		,p.phone
-		,p.addr
-		,c.career
-		,t.pwd
-		,t.hope_work
-		,t.start_time
-        ,t.end_time
-        ,t.content
-        ,to_char(t.reg_date, 'YYYY-MM-DD HH24:MI')  as "reg_date"
-
-      from person_mem p , part_time t , career c
-         where 
-       	   t.b_no=#{t.b_no}
-         and 
-         	t.p_no=p.p_no 
-         and
-            t.p_no=c.p_no        
-	</select>
-	<!--  	부업 글 개수   -->
-	<select  id="getbuupCnt" parameterType="int"  resultType="int">
-		select count(*) from part_time where b_no=#{b_no} 
-	</select>
-	
-<!--     부업 비밀번호 개수  -->
-	<select id="getbuupPwdCnt" parameterType="com.wa.erp.BoardDTO"  resultType="int">	
-		select count(*) from part_time where b_no=#{b_no} and pwd=#{pwd}			
-	</select>	
-
-<!-- 부업 등록 (p_no 1임의로 들어가있음 수정)-->	
-	<insert id="insertbuup" parameterType="com.wa.erp.RegUpDelDAO">
-	insert into part_time(
-	    b_no
-		,p_no
-	    ,hope_work
-	    ,start_time
-	    ,end_time
-	    ,content
-	    ,reg_date
-	    ,pwd
-	)
-	values(
-	    (select nvl(max(b_no),0)+1 from part_time)
-	    ,1
-	    ,#{hope_work}
-	    ,#{start_time}
-	    ,#{end_time}
-	    ,#{content}
-	    ,sysdate
-	    ,#{pwd}
-	)
-	</insert>
-	
-	<update id="updatebuup"  parameterType="com.wa.erp.RegUpDelDAO">
-		update 
-			part_time
-		set	
-			hope_work    = #{hope_work}
-			,start_time  = #{start_time}
-			,end_time    = #{end_time}
-			,content     = #{content}
-		where 
-			b_no=#{b_no}
-			and
-			pwd=#{pwd}	
-	</update>
-	
-   
-	<update id="updatebuupEmpty" parameterType="com.wa.erp.RegUpDelDAO">
-		update 
-			part_time
-		set	
-			content = '삭제됨'
-		where 
-			b_no = #{b_no}
-	</update>
-	
-		
-<!-- 	부업 게시글 삭제  -->
-	<delete id="deletebuup"  parameterType="com.wa.erp.RegUpDelDAO">
-		delete from 
-			part_time
-		where 
-			b_no=#{b_no}
-			and
-			pwd=#{pwd}	
-	</delete>
-	
 	<!-- 기업 리뷰 등록 -->
 	<insert id="upReview" parameterType="com.wa.erp.BoardDTO">
 	insert into review
@@ -294,7 +112,7 @@
 			,r_no)
 	values
 			(
-			1
+			#{p_no}
 			,#{c_no}
 			,#{star}
 			,#{content}
@@ -319,7 +137,7 @@
             ,hope_salary 
         ) values (
          	#{resume_no}          
-             ,5
+             ,#{mem_p_no}
              ,#{married}
             ,#{military}
             ,#{introduce}
@@ -594,6 +412,19 @@
     		</if>
     	)
     </insert>
+    <select id="checkLike" parameterType="com.wa.erp.BoardDTO" resultType="int">
+    select
+    	count(*)
+    from
+    	like_comment
+    where
+    	comment_no = #{comment_no}
+    	and
+    	p_no = #{p_no}
+    	and
+    	b_no=#{b_no}
+    </select>
+    
     
     <delete id="deleteLike" parameterType="com.wa.erp.BoardDTO">
     	delete from like_comment
@@ -606,5 +437,153 @@
     		and
     		b_no=#{b_no}
     </delete>
+    
+    <insert id="insertLikeCompany" parameterType="com.wa.erp.BoardDTO">
+    	insert into like_company
+    	values(
+    		#{c_no}
+    		,#{p_no}
+    	)
+    </insert>
+    
+    <update id="updateCompanyRec" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		company_info
+    	set
+    		rec_count = rec_count+1
+    	where
+    		c_no=#{c_no}
+    </update>
+
+    <update id="downdateCompanyRec" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		company_info
+    	set
+    		rec_count = rec_count-1
+    	where
+    		c_no=#{c_no}
+    </update>
+    
+    <delete id="deleteLikeCompany" parameterType="com.wa.erp.BoardDTO">
+    	delete from like_company
+    	where
+    		c_no=#{c_no}
+    		and
+    		p_no=#{p_no}
+    </delete>
+    
+    <update id="updateComment" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		${table}
+    	set
+    		content = #{updateComment}
+    	where
+    		p_no=#{p_no}
+    		and
+    		b_no=#{b_no}
+    		and
+    		comment_no = #{comment_no}
+    </update>
+    
+    <delete id="deleteComment" parameterType="com.wa.erp.BoardDTO">
+    	delete from
+    		${table}
+    	where
+    		p_no=#{p_no}
+    		and
+    		b_no=#{b_no}
+    		and
+    		comment_no = #{comment_no}
+    </delete>
+    
+    <delete id="deleteLikecomment" parameterType="com.wa.erp.BoardDTO">
+    	delete from
+    		like_comment
+    	where
+    		comment_table=#{table}
+    		and
+    		comment_no=#{comment_no}
+    		and
+    		b_no=#{b_no}
+    </delete>
+    
+    
+   <!--  회원정보 수정 -->
+   <update id="updatePrivacy" parameterType="com.wa.erp.RegUpDelDAO">
+    update 
+            person_mem
+    set 
+
+        pwd           = #{pwd},
+        phone       = #{phone},
+        email          = #{email1} || '' || #{email2},
+        field_code = ${field_code},
+        is_job        = #{is_job},
+        nickname  = #{nickname},
+        addr            = #{addr1} || '' || #{addr2} || '' || #{addr3}
+     
+       
+    where 
+            p_no = #{p_no}
+       and
+          pwd= #{pwd}
+</update>
+
+   
+    
+    <select id="getPrivacy" parameterType="int"   resultType="com.wa.erp.MypageDTO">
+         SELECT
+           p_no,
+           name,
+           pid,
+           pwd,
+           sex,
+           jumin_num,
+           phone,
+           is_job,
+           nickname,
+           addr,
+            email ,
+           field_code
+        FROM
+           person_mem
+        WHERE
+           p_no = #{p_no}
+    </select>
+    
+<!--      	회원정보 개수   -->
+	<select  id="getPrivacyCnt"  parameterType="int"  resultType="int">
+		select count(*) from person_mem  where p_no=#{p_no} 
+	</select>
+	
+		
+<!--    비밀번호 개수  -->
+	<select id="getPrivacyPwdCnt" parameterType="com.wa.erp.MypageDTO"  resultType="int">	
+		select count(*) from person_mem  
+		
+		where 
+			 p_no=#{p_no} 
+		and 
+			 pwd=#{pwd}			
+	</select>	
+	
+    <delete id="deleteReview" parameterType="com.wa.erp.BoardDTO">
+    delete from review
+    where
+    	p_no=#{p_no}
+    	and
+    	r_no=#{r_no}
+    </delete>
+    
+    <update id="updateReview"  parameterType="com.wa.erp.RegUpDelDAO">
+		update 
+			review
+		set	
+    content     = #{content}
+		where 
+			r_no=#{r_no}
+				
+	</update>
+    
 </mapper>
  

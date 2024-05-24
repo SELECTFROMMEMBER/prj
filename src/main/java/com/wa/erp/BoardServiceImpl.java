@@ -56,17 +56,6 @@ public class BoardServiceImpl implements BoardService{
 		return gongGoList;
 	}
 
-	@Override
-	public List<BoardDTO> gettimeShareList() {
-		List<BoardDTO> timeShareList = this.boardDAO.gettimeShareList();
-		return timeShareList;
-	}
-
-	@Override
-	public List<BoardDTO> getbuupList() {
-		List<BoardDTO> buupList = this.boardDAO.getbuupList();
-		return buupList;
-	}
 
 	@Override
 	public List<BoardDTO> getprjList() {
@@ -111,51 +100,8 @@ public class BoardServiceImpl implements BoardService{
 	
 	// *********************************************************************//
 	
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			// 부업글 상세보기 화면에서 필요한 
-			// [1개 게시판 글]을 검색 해 리턴하는 메소드 선언.
-			// 매개변수로 검색할 게시판의 고유 번호가 들어온다.
-			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-	@Override
-			public BoardDTO getbuup(int b_no) {
-				//-------------------------------------------
-				// [BoardDAOImpl 객체]의 updateReadcount 메소드를 호출하여
-				// [조회수 증가]하고 수정한 행의 개수를 얻는다
-				//-------------------------------------------
-			    //int updateCount    = this.boardDAO.updateReadcount(b_no);
-				//------------------------------------------
-				// [BoardDAOImpl 객체]의  getBoard 메소드를 호출하여
-				// [1개 게시판 글]을 얻는다
-				//------------------------------------------
-				BoardDTO boardDTO  = this.boardDAO.getbuup(b_no);
-				//------------------------------------------
-				// [1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
-				//------------------------------------------
-				return boardDTO;
-				}
-			
-		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-		// 프리랜서 글 상세보기 화면에서 필요한 
-		// [1개 게시판 글]을 검색 해 리턴하는 메소드 선언.
-		// 매개변수로 검색할 게시판의 고유 번호가 들어온다.
-		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-	@Override
-		public BoardDTO gettimeShare(int b_no) {
-			//-------------------------------------------
-			// [BoardDAOImpl 객체]의 updateReadcount 메소드를 호출하여
-			// [조회수 증가]하고 수정한 행의 개수를 얻는다
-			//-------------------------------------------
-			// int updateCount    = this.boardDAO.updateReadcount(b_no);
-			//------------------------------------------
-			// [BoardDAOImpl 객체]의  getBoard 메소드를 호출하여
-			// [1개 게시판 글]을 얻는다
-			//------------------------------------------
-			BoardDTO boardDTO  = this.boardDAO.gettimeShare(b_no);
-			//------------------------------------------
-			// [1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
-			//------------------------------------------
-			return boardDTO;
-			}
+	
+	
 
 	
 		@Override
@@ -415,6 +361,22 @@ public class BoardServiceImpl implements BoardService{
 			return getCommentLike;
 		}
 		
+		public List<BoardDTO> getlikeCompany(int p_no){
+			List<BoardDTO> getLikeCompany = this.boardDAO.getLikeCompany(p_no);
+			
+			return getLikeCompany;
+		}
+/// 기업정보관련 추가///////////////
+		@Override
+		public int getcompanyListCnt(BoardSearchDTO boardSearchDTO) {
+			int companyListCnt = this.boardDAO.getcompanyListCnt(boardSearchDTO);
+			
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return companyListCnt;
+		}
+		
 		//기업마이페이지
 		@Override
 		public List<BoardDTO> getMyGongMoList(int c_no) {
@@ -499,5 +461,21 @@ public class BoardServiceImpl implements BoardService{
 			// 수정 적용행의 개수 리턴히기
 			return comMemUpCnt;
 		}
-		
+
+		@Override
+		public int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO) {
+			int companyAllListCnt = this.boardDAO.getcompanyListAllCnt(boardSearchDTO);
+			
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return companyAllListCnt;
+		}
+
+		@Override
+		public BoardDTO getcompanyWelfare(int c_no) {
+			BoardDTO welfare = this.boardDAO.getcompanyWelfare(c_no);
+
+			return welfare;
+		}
 }

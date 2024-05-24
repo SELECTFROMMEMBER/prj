@@ -66,6 +66,7 @@
 			,addr
 			,emp_no
 			,sal_avg
+			,rec_count
 		) values (
 			#{mem_c_no}
 			,#{url}
@@ -76,6 +77,7 @@
 			,#{addr1}||#{addr2}||#{addr3}
 			,#{emp_no}
 			,#{sal_avg}
+			,0
 			)
 	</insert>
 
@@ -134,7 +136,20 @@
 
    </insert>
    
-   
+   <select id="get_c_no" resultType="int">
+   	select
+   		max(c_no)
+   	from
+   		company_mem
+   </select>
 	
+	<select id="getC_mem" parameterType="int" resultType="com.wa.erp.BoardDTO">
+ 	select
+ 		*
+ 	from
+ 		company_mem
+ 	where
+ 		c_no = #{c_no}
+ 	</select>
 </mapper>
  

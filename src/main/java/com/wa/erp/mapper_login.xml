@@ -42,5 +42,28 @@
  	<select id="checkcid" parameterType="java.util.HashMap" resultType="int">
  		select count(*) from company_mem where cid=#{mid} and pwd=#{pwd}
  	</select>
+ 	
+ 	<select id="getIs_resume" parameterType="java.util.HashMap" resultType="int">
+ 		select
+ 			count(*)
+ 		from
+ 			person_mem
+ 		where
+ 			p_no not in (select p_no from resume)
+ 			and
+ 			pid=#{mid}
+ 	</select>
+
+ 	<select id="getIs_info" parameterType="java.util.HashMap" resultType="int">
+ 		select
+ 			count(*)
+ 		from
+ 			company_mem
+ 		where
+ 			c_no not in (select c_no from company_info)
+ 			and
+ 			cid=#{mid}
+ 	</select>
+ 	
 </mapper>
  

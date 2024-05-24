@@ -13,4 +13,8 @@ public interface MemberService {
 	/*-------------------------------------------*/
 
 	int getMem_c_no();
+	
+	public int get_c_no();
+
+	public BoardDTO getC_mem(int c_no);
 	}

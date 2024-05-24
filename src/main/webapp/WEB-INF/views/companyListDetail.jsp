@@ -13,8 +13,63 @@
 </style>
 
 <script>
+function like_company(){
+	alert("정말 관심이 있느냐")
+	 var reviewUpFormObj = $("[name='reviewUpForm']");
+	
+	$.ajax(
+	         { 
+	            url    : "/likeCompanyProc.do"
+	            ,type  : "post"
+	            ,data  : reviewUpFormObj.serialize( )
+	            ,success : function(json){
+	               var result = json["result"];
+	               if(result==1){
+	                  alert("관심기업 등록했심니더.");
+	                  location.reload();
+	               }
+	               else{
+	                  alert("관심기업 등록 실패입니다. 관리자에게 문의 바람!");
+	               }
+	            }
+	            ,error : function(){
+	               alert("입력 실패! 관리자에게 문의 바람니다.");
+	            }
+	         }
+	      );
+	
+}
+
+function del_like_company(){
+	alert("왜 관심이 사라졌느냐")
+	 var reviewUpFormObj = $("[name='reviewUpForm']");
+	alert(reviewUpFormObj.serialize());
+	
+	$.ajax(
+	         { 
+	            url    : "/unlikeCompanyProc.do"
+	            ,type  : "post"
+	            ,data  : reviewUpFormObj.serialize( )
+	            ,success : function(json){
+	               var result = json["result"];
+	               if(result==1){
+	                  alert("관심기업 해제했심니더.");
+	                  location.reload();
+	               }
+	               else{
+	                  alert("관심기업 해제 실패입니다. 관리자에게 문의 바람!");
+	               }
+	            }
+	            ,error : function(){
+	               alert("입력 실패! 관리자에게 문의 바람니다.");
+	            }
+	         }
+	      );
+	
+}
+
 function search(){
-   var reviewUpFormObj = $("[name='reviewUpForm']");
+   var reviewUpFormObj = $("[name='reviewUpForm']");  
    $.ajax(
          {
             //-------------------------------
@@ -77,8 +132,10 @@ function searchWithSort(sort){
 function upReview(){
     var formObj = $("[name='reviewUpForm']");
     var starObj =  formObj.find(".rating");
+
     if( starObj == null ){ starObj = 0 };
     var contentObj = formObj.find(".content");
+    var p_noObj = formObj.find(".p_no");
 
     if( 
           contentObj.val().trim().length==0 
@@ -146,6 +203,113 @@ window.onload = function() {
     // 페이지 로드 시 별점을 1점으로 디폴트 설정
     rate(1);
 };
+
+function reviewDel(r_no){
+	  var formObj = $("[name='reviewUpForm']");
+	    var p_noObj = formObj.find(".p_no");
+	   var r_noObj= formObj.find("[name='r_no']").val(r_no);
+
+    if( confirm("리뷰를 삭제하시겠습니까?")==false ){ return; }
+    $.ajax(
+          { 
+             //--------------------------------------
+             // WAS 에 접속할 URL 주소 지정
+             //--------------------------------------
+             url    : "/reviewDelProc.do"
+             //--------------------------------------
+             // 파라미터값을 보내는 방법 지정
+             //--------------------------------------
+             ,type  : "post"
+             //--------------------------------------
+             // WAS 에 보낼 파명과 파값을 설정하기. "파명=파값&파명=파값~"
+             //--------------------------------------
+             ,data  : formObj.serialize( )
+             //----------------------------------------------------------
+             // WAS 의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+             // 이때 익명함수의 매개변수로 WAS 의 응답물이 들어 온다.
+             //----------------------------------------------------------
+             ,success : function(json){
+                var result = json["result"];
+                if(result==1){
+                   alert("리뷰가 삭제 되었습니다.");
+                   location.reload(); 
+                }
+                
+                else{
+                	alert(formObj.serialize( ));
+                   alert("삭제 실패입니다.");
+                }
+             }
+             //----------------------------------------------------------
+             // WAS 의 응답이 실패했을 실행할 익명함수 설정.
+             //----------------------------------------------------------
+             ,error : function(){
+                alert("WAS오류");
+             }
+          }
+       );
+}
+
+function reviewUpdate(r_no,content){
+	
+
+   $("#reviewNo"+r_no).html("<textarea class=xxx style='width: 100%; height: 100%;'>"+ content +"</textarea>"+
+   	"<input type='button' value='등록하기' onClick='reviewEdit(" + r_no + ")'>"
+   );
+}
+function reviewEdit(r_no){
+	var formObj = $("[name='reviewUpForm']");
+	 var r_noObj= formObj.find("[name='r_no']").val(r_no);
+	var content = $(".xxx").val();
+	if(content==''){
+		alert("뒤질래?")
+		return;
+	}
+
+	if( confirm("리뷰를 수정하시겠습니까?")==false ){ return; }
+    $.ajax(
+            { 
+               //--------------------------------------
+               // WAS 에 접속할 URL 주소 지정
+               //--------------------------------------
+               url    : "/reviewUpdateProc.do"
+               //--------------------------------------
+               // 파라미터값을 보내는 방법 지정
+               //--------------------------------------
+               ,type  : "post"
+               //--------------------------------------
+               // WAS 에 보낼 파명과 파값을 설정하기. "파명=파값&파명=파값~"
+               //--------------------------------------
+               ,data  : formObj.serialize() + content
+               //----------------------------------------------------------
+               // WAS 의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+               // 이때 익명함수의 매개변수로 WAS 의 응답물이 들어 온다.
+               //----------------------------------------------------------
+               ,success : function(json){
+                 	alert(formObj.serialize( )+content);
+
+                  var result = json["result"];
+                  if(result==1){
+                     alert("리뷰가 수정 되었습니다.");
+                     location.reload(); 
+                  }
+                  
+                  else{
+                  	alert(formObj.serialize( )+content);
+                     alert("수정 실패입니다.");
+                  }
+               }
+               //----------------------------------------------------------
+               // WAS 의 응답이 실패했을 실행할 익명함수 설정.
+               //----------------------------------------------------------
+               ,error : function(){
+                  alert("WAS오류");
+               }
+            }
+         );
+	};
+
+
 </script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -161,15 +325,21 @@ window.onload = function() {
 		<center>
 			<h1 style="text-align: center;">기업 정보 상세페이지</h1>
 			<br>
+				<c:if test="${sessionScope.member=='person' }">
+				 <c:choose>
+                   <c:when test="${likeNoList.contains(boardDTO.c_no)}">
+                      <button id="likecompany" onclick="del_like_company()">관심기업해제</button>
+                    </c:when>
+                    <c:otherwise>
+                     <button id="likecompany" onclick="like_company()">관심기업등록</button>
+                    </c:otherwise>
+                  </c:choose>
+				</c:if>
 
 
 			<div class="table-container">
 				<table bordercolor="gray" border="1" cellpadding="7"
 					style="margin-left: auto%; margin-right: auto%;">
-
-
-
-
 
 					<tr>
 						<td>기업명 :</td>
@@ -223,6 +393,16 @@ window.onload = function() {
 						<td>${boardDTO.sal_avg}만원</td>
 
 					</tr>
+					   <tr>
+                    <td> 사내 복지 :</td>
+                    
+                   <c:if test='${not empty welfare.welfare}'>
+                    <td>${welfare.welfare} </td> 
+					</c:if>
+					 <c:if test='${empty welfare.welfare}'>
+					<td>등록된 복지 내역이 없습니다.</td>
+					</c:if> 					                    
+                </tr>
 
 				</table>
 			</div>
@@ -237,7 +417,7 @@ window.onload = function() {
 				onClick="location.replace('/companyList.do')"> <br> <br>
 			<center>[${boardDTO.name}]에 ${requestScope.reviewListCnt}개의
 				리뷰가 있습니다!</center>
-
+			
 			<div class="reviewListDiv">
 				<table name="review" class="review"
 					style="display: inline-block; vertical-align: top;">
@@ -261,20 +441,41 @@ window.onload = function() {
 						</c:if>
 
 
-						<th style="width: 10%; text-align: center;">좋아요</th>
 					</tr>
 
 					<c:forEach var="review" items="${requestScope.reviewContent}" varStatus="status">
 						<tr class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
-							<td>${review.content}</td>
-							<td>${review.star}</td>
-							<td><span class="likeButton" onclick="toggleLike(this)"><i
-									class="far fa-heart"></i></span> <%--           <span class="likeCount" name="rec_count">${reviewList.rec_count}</span> --%>
+
+<%-- 							<td>${review.content}</td> --%>
+<%-- 							<td>${review.star}</td> --%>
+<!-- 							<td> -->
+<!--     									<i class="far fa-heart"></i> -->
+									 <%--           <span class="likeCount" name="rec_count">${reviewList.rec_count}</span> --%>
+
+							<td>
+							
+							<div id = "reviewNo${review.r_no}">
+							${review.content}
+							<c:if test="${review.p_no==sessionScope.p_no}"> 
+							<div >
+							<input type="button" value="리뷰 수정" onClick="reviewUpdate(${review.r_no},'${review.content}')">						
+							<input type="button" value="리뷰 삭제" onClick="reviewDel(${review.r_no })">
+ 							</div>
+ 							</c:if> 
+ 					
+							</div>
+							
 							</td>
+							<td>${review.star}
+							
+							</td>
+						
+							
+							
 						</tr>
 					</c:forEach>
 					<tr id="showMoreBtn"
-						<c:if test="${requestScope.commentList.size() <= 5}">style="display: none;"</c:if>>
+						<c:if test="${requestScope.reviewContent.size() <= 5}">style="display: none;"</c:if>>
 						<td colspan="3" style="text-align: center;"
 							onclick="showMoreComments()">더보기</td>
 					</tr>
@@ -282,9 +483,16 @@ window.onload = function() {
 
 			</div>
 			<br>
-			<c:if test="${sessionScope.member=='person'}">
 				<form class="reviewUpForm" name="reviewUpForm"
 					style="display: inline-block; vertical-align: top;">
+				
+				    <input type="hidden" name="p_no" value=" ${sessionScope.p_no}">	
+					<input type="hidden" name="c_no" value="${boardDTO.c_no}">	
+					<input type="hidden" name="r_no" value=0>
+					<input type="hidden" name="star"> 
+					<input type="hidden" name="reviewSort" class="reviewSort" value="">
+						
+			<c:if test="${sessionScope.member=='person'}">
 					<br> <br> <br> <br>
 					<div>
 						리뷰를 작성해 주세요
@@ -300,12 +508,10 @@ window.onload = function() {
 						<input type="button" onclick="upReview()" value="리뷰 제출">
 					</div>
 					<!-- 클릭한 행의 게시판 고유번호가 저장될 히든태그 선언 -->
-					<input type="hidden" name="c_no" value="${boardDTO.c_no}">
-					<input type="hidden" name="star"> <input type="hidden"
-						name="reviewSort" class="reviewSort" value="">
 
-				</form>
+
 			</c:if>
+				</form>
 </body>
 <%@ include file="footer.jsp"%>
 </html>

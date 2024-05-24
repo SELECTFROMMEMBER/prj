@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,26 +43,26 @@
 				}
 			);
 		}
-	</script>
+   </script>
 
 </head>
 
 <body>
 
-	<div id="container">
-		<%@ include file="header.jsp"%>
+   <div id="container">
+      <%@ include file="header.jsp"%>
 
 
 
 
 
-		<div class="container">
-			<br>
-			<h1 style="text-align: center;">기업 정보 등록</h1><br>
-			<form action="submit.php" method="POST" name='comUpDel'>
-				<table
-					style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 
+      <div class="container">
+         <br>
+         <h1 style="text-align: center;">기업 정보 등록</h1><br>
+         <form action="submit.php" method="POST" name='comUpDel'>
+            <table
+               style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 					<tr>
 						<th>항목</th>
 						<th>등록 사항</th>
@@ -179,26 +179,27 @@
 
 
 
-					<tr>
-						<td>사원수</td>
-						<td><input type="text" id="emp_no" name="emp_no" required></td>
-					</tr>
-					<tr>
-						<td>평균연봉</td>
-						<td><input type="text" id="sal_avg" name="sal_avg" required></td>
-					</tr>
-					<input type="hidden" name="mem_c_no" value="${max_no}">
-					
+
+               <tr>
+                  <td>사원수</td>
+                  <td><input type="text" id="emp_no" name="emp_no" required></td>
+               </tr>
+               <tr>
+                  <td>평균연봉</td>
+                  <td><input type="text" id="sal_avg" name="sal_avg" required></td>
+               </tr>
+               <input type="hidden" name="mem_c_no" value="${sessionScope.c_no}">
 
 
-				</table>
-				<br>
-				<center>
-					 <input type="button" value="등록" onClick="comRegUpDel()">
-				</center>
-			</form>
-			<br>
-		</div>
+            </table>
+            <br>
+            <center>
+                <input type="button" value="등록" onClick="comRegUpDel()">
+            </center>
+         </form>
+         <br>
+      </div>
+      
 </body>
 <%@include file="/WEB-INF/views/common.jsp" %>
 <%@ include file="footer.jsp"%>

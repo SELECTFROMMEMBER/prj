@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@include file="/WEB-INF/views/common.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -11,46 +12,67 @@
 	//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	function checkbuupReg(){
 
-		//----------------------------------------------
-		// name='buupRegForm" 를 가진 form 태그 관리 JQuery 객체 메위주 얻기 
-		//----------------------------------------------
-		var formObj    = $("[name='buupRegForm']");
-        
+	var formObj    = $("[name='buupRegForm']");
+	
+		var subjectObj     = $("[name='subject']").val();
+		var pwdObj         = $("[name='pwd']").val();
+		var contentObj     = $("[name='content']").val();
+		var hopeworkObj    = $("[name='hope_work']").val();
+		var startTimeObj   = $("[name='start_time']").val();
+		var endTimeObj     = $("[name='end_time']").val();
+		var startDateObj   = $("[name='start_date']").val();
+		var endDateObj     = $("[name='end_date']").val();
 
-// 		   var name = $("#name").val();
-//         var phone = $("#phone").val();
-//         var addr1 = $("select[name='addr1']").val();
-//         var addr2 = $("select[name='addr2']").val();
-//         var addr3 = $("input[name='addr3']").val();
-//         var career = $("#career").val();
-
-//         var hope_work  = $("#hope_work").val();
-//         var start_time = $("select[name='start_time']").val();
-//         var end_time   = $("select[name='end_time']").val();
-//         var content    = $("textarea[name='content']").val();
-		
-		/* 유효성 (추후 수정)
 		//----------------------------------------------
 		// 제목의 문자 패턴 검사하기
 		//----------------------------------------------
-		if( new RegExp(/^.{2,30}$/).test(subjectObj.val())==false ){
-			alert("제목은 임의 문자 2~30자 입력해야합니다");
-			subjectObj.val("");
+		if (!/^.{2,30}$/.test(subjectObj)) {
+			alert("제목은 임의 문자 2~30자 입력해야 합니다.");
+			$("[name='subject']").val("").focus();
+			return;
+		}
+
+		
+		//----------------------------------------------
+		// 희망업무 문자 패턴 검사하기
+		//----------------------------------------------
+		if (hopeworkObj.trim().length < 10) {
+			alert("희망업무는 최소 10자 이상 입력해야 합니다.");
+			return;
+		}
+
+		//----------------------------------------------
+		// 희망근무 시간 선택 여부 검사하기
+		//----------------------------------------------
+		if (!startTimeObj || !endTimeObj) {
+			alert("희망 근무 시간을 선택해 주세요.");
+			return;
+		}
+
+		//----------------------------------------------
+		// 지원 기간 선택 여부 검사하기
+		//----------------------------------------------
+		if (!startDateObj || !endDateObj) {
+			alert("지원 기간을 선택해 주세요.");
+			return;
+		}
+		//----------------------------------------------
+		// 내용 문자 패턴 검사하기
+		//----------------------------------------------
+		if (contentObj.trim().length == 0 || contentObj.trim().length > 500) {
+			alert("내용은 임의 문자 1~500자 입력해야 합니다.");
 			return;
 		}
 		
 		//----------------------------------------------
-		// 내용 문자 패턴 검사하기
+		// 암호 패턴 검사하기
 		//----------------------------------------------
-		if( 
-				contentObj.val().trim().length==0 
-				||
-				contentObj.val().trim().length>500 
-		){
-			alert("내용은 임의 문자 1~500자 입력해야합니다.");
+		if (!/^\d{4}$/.test(pwdObj.trim())) {
+			alert("암호는 공백 없이 4자리 숫자여야 합니다.");
+			$("[name='pwd']").val("").focus();
 			return;
 		}
-		*/
+		
 		//----------------------------------------------
 		// 정말 등록할 건지 확인하기
 		//----------------------------------------------
@@ -101,50 +123,32 @@
 		);
 	}	
 	</script>
-  
 </head>
+
 <body>
     <div id="container">    
     
   <%@ include file="header.jsp" %>
 
- <div class="container">
-       <h1 style="text-align: center;">부업 등록</h1>
+     <h1 style="text-align: center;">부업 등록</h1>
      <form name= "buupRegForm">
       <center>
-      
           <table>
-              <tr>
-                  <th>항목</th>
-                  <th>등록 사항</th>
-              </tr>
-                
-            <tr>
-                <td>이름:</td>   
-                 <td><input type="text" id="name" name="name" required></td>
-            </tr> 
-
+          
              <tr>
-                <td>휴대폰 번호:</td>
-                <td><input type="text" id="phone" name="phone" required></td>
-            </tr> 
-            
-           <tr>
-                <td>주소</td>
-                <td><select name="addr1" id="sido1"></select>
-                    <select name="addr2" id="gugun1"></select>&nbsp; 
-                    <input type="text" name="addr3" id="detailadress" value="나머지 상세주소" 
-                        onfocus="if(this.value=='나머지 상세주소') this.value='';"></td> 
-            </tr>
-             
+                 <th>항목</th>
+                 <th>등록 사항</th>
+             </tr>
+                
+         
         <tr>
-            <td>경력</td>
-            <td>
-            <input type="text" name="career" id="career">
-             <input type="button" class="addRowButton" onclick="addRow()" value="추가">
-            </td>
-        </tr> 
-        
+          <td>제목</td>
+        <td>
+            <input type="text" id="subject" name="subject" placeholder="제목을 입력해주세요">
+        </td>
+     </tr>
+   
+       
 	     <tr>
 	        <td>희망업무</td>
 	        <td>
@@ -171,30 +175,39 @@
                 </td>
              </tr>   
     
-    
+    		 <tr>
+                 <td>지원 기간</td>
+                <td><label for="start_date">시작일:</label> 
+            <input type="date" id="start_date" name="start_date"  min="2024-01-01" max="2030-12-31" />
+                ~
+                <label for="end_date">마감일:</label> 
+            <input type="date" id="end_date" name="end_date"  min="2024-01-01" max="2030-12-31" />
+                 </td>
+             </tr>
+             
             <tr>
                <td>내용</td>
                <td>
-                  <textarea name="content" textarea style="width:100%; height:100%;" rows="4"></textarea>
+                  <textarea name="content" textarea style="width:100%; height:100%;" rows="4" placeholder="최대 500자까지 입력가능합니다."></textarea>
                </td>
             <tr>  
-            
+         
+ 
             
 	      <tr>
 	        <td>암호</td>
 	        <td>
-	            <input type="password" id="pwd" name="pwd" >
+	            <input type="password" id="pwd" name="pwd"  size="4"  maxlength="4" placeholder="최대 4자리">
 	        </td>
 	     </tr>
-     
+                     <input type="hidden" name="p_no" value="${sessionScope.p_no}">   
          </table>
           
           <input type="button" value="등록" onClick="checkbuupReg()">
      </center>
    </form>
- </div>
+ </div>     
        
 </body>
-<%@include file="/WEB-INF/views/common.jsp" %>
  <%@ include file="footer.jsp" %>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 
+<%@include file="/WEB-INF/views/common.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -154,51 +155,35 @@ function checkbuupDelForm(){
                <th style="height: 40px; width: 200px;">항목</th>
                <th>등록 사항</th>
            </tr>
-
-           <tr>     
-               <td>이름</td>
-               <td>
-					<!-------------------------------------------------------->
-					${requestScope.boardDTO.name}
-					<!-------------------------------------------------------->
-				</td>  
-			</tr>   
+           
+             <tr>
+			    <td>제목</td>
+			     <!-------------------------------------------------------->		
+			    <td><input type="text" name="subject" class="subject" value="${requestScope.buupDTO.subject}"> </td>
+			     <!-------------------------------------------------------->		 
+			</tr>
+            
+  
             
 	          <!-- select값 꺼내오기 수정중 -->           
-	          <tr>    
-	            <td>주소</td>
-	            <td>
-	                <select name="addr1" id="sido1"></select>
-	                <select name="addr2" id="gugun1"></select> 
-	                <input type="text" name="addr3" id="detailadress" value="나머지 상세주소" onfocus="if(this.value=='나머지 상세주소') this.value='';">
-	            </td>
-	         </tr>
+<!-- 	          <tr>     -->
+<!-- 	            <td>주소</td> -->
+<!-- 	            <td> -->
+<!-- 	                <select name="addr1" id="sido1"></select> -->
+<!-- 	                <select name="addr2" id="gugun1"></select>  -->
+<!-- 	                <input type="text" name="addr3" id="detailadress" value="나머지 상세주소" onfocus="if(this.value=='나머지 상세주소') this.value='';"> -->
+<!-- 	            </td> -->
+<!-- 	         </tr> -->
                    
-            <tr>     
-               <td>휴대폰 번호</td>
-               <td>
-					<!-------------------------------------------------------->
-					${requestScope.boardDTO.phone}
-					<!-------------------------------------------------------->
-				</td>  
-			</tr>
+            
 			
-			<tr>     
-                <td>경력</td>
-               <td>
-					<!-------------------------------------------------------->
-<!-- 					<input type="text" name="career" class="career" size="10" maxlength="15"  -->
-<%-- 									value="${requestScope.boardDTO.career}"> --%>
-					<!-------------------------------------------------------->
-				</td>  
-			</tr>
 			
        		  <tr>     
                 <td>희망업무</td>
                <td>
 					<!-------------------------------------------------------->
 					<input type="text" name="hope_work" class="hope_work" size="10" maxlength="15" 
-									value="${requestScope.boardDTO.hope_work}">
+									value="${requestScope.buupDTO.hope_work}">
 					<!-------------------------------------------------------->
 				</td>  
 			</tr>
@@ -209,7 +194,7 @@ function checkbuupDelForm(){
 	        <td>희망근무시간</td>   
 	         <td>    
 	             
-	         <select name="start_time" class="start_time"  value="${requestScope.boardDTO.start_time}">
+	         <select name="start_time" class="start_time"  value="${requestScope.buupDTO.start_time}">
 	          <% for (int i = 1; i <= 24; i++) { %>
 				        <option value="<%= i %>"><%= String.format("%02d", i) %></option>
 				    <% } %>
@@ -218,7 +203,7 @@ function checkbuupDelForm(){
 			      
 				</select>
 				시~
-				<select name="end_time" class="end_time"  value="${requestScope.boardDTO.end_time}">
+				<select name="end_time" class="end_time"  value="${requestScope.buupDTO.end_time}">
 				    <% for (int i = 1; i <= 24; i++) { %>
 				        <option value="<%= i %>"><%= String.format("%02d", i) %></option>
 				    <% } %>
@@ -226,14 +211,25 @@ function checkbuupDelForm(){
 				시
                 </td>
              </tr>   
-   
+   			
+   		     <tr>
+                 <td>지원 기간</td>
+                 <!-------------------------------------------------------->
+                <td><label for="start_date">시작일:</label> 
+            		<input type="date" id="start_date" name="start_date" value=${requestScope.buupDTO.start_date} min="2024-01-01" max="2030-12-31" />
+               		 ~
+                	<label for="end_date">마감일:</label> 
+           		    <input type="date" id="end_date" name="end_date" value=${requestScope.buupDTO.end_date}  min="2024-01-01" max="2030-12-31" />
+                 </td>
+                 <!-------------------------------------------------------->
+             </tr>
  
              
            <tr>
              <td>내용</td>
              <td>
               <div style="height: 100px;">
-    				<textarea name="content"  style="width:80%; height:80%;"rows="4" cols="50">${requestScope.boardDTO.content}</textarea>
+    				<textarea name="content"  style="width:80%; height:80%;"rows="4" cols="50">${requestScope.buupDTO.content}</textarea>
 
 			  </div>
              </td>
@@ -241,13 +237,13 @@ function checkbuupDelForm(){
                                
 		     <tr>
 			    <td>암호</td>
-			    <td><input type="password" name="pwd" class="pwd"  size="8"  maxlength="4"> </td> 
+			    <td><input type="password" name="pwd" class="pwd"  size="4"  maxlength="4"> </td> 
 			</tr> 
 			
+				<input type="hidden" name="b_no" value="${requestScope.buupDTO.b_no}">
+				  <input type="hidden" name="p_no" value="${sessionScope.p_no}">   
         </table>
-          
-               <input type="hidden" name="b_no" value="${requestScope.boardDTO.b_no}">
-  
+
 	              <center>
 	                 <span style= "cursor:pointer"  onClick="location.replace('/buupList.do')">[목록화면]</span>
 	                 <input type="button" value="수정" onClick= "checkbuupUpForm();">
@@ -256,7 +252,7 @@ function checkbuupDelForm(){
       </form>
     </div>
 </body>
-<%@include file="/WEB-INF/views/common.jsp" %>
+
    <%@ include file="footer.jsp" %>
    
 </html>

@@ -86,6 +86,8 @@ public class MemberServiceImpl implements MemberService{
 		 if( memberDTO.getWelfare_code()!=null ) {
 			int  insertComWelCnt = this.memberDAO.insertCompanyWelfare( memberDTO );
 			if(insertComWelCnt==0) {return 0; } }
+			int  insertWelfareCnt = this.memberDAO.insertCompanyWelfare( memberDTO );
+			
 		return insertCompanyCnt;
 	}
 
@@ -98,5 +100,16 @@ public class MemberServiceImpl implements MemberService{
 		return mem_c_no;
 	}
 	/*--------------------------------------------*/
-
+	
+	public int get_c_no() {
+		int get_c_no = this.memberDAO.get_c_no();
+		
+		return get_c_no;
+	}
+	
+	public BoardDTO getC_mem(int c_no) {
+		BoardDTO boardDTO = this.memberDAO.getC_mem(c_no);
+		
+		return boardDTO;
+	}
 }
