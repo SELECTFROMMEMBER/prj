@@ -42,6 +42,12 @@ public class MemberDTO {
 	private String is_job;
 	private String nickname;
 	private String sex;
+	private int age;
+	
+	private String rec_count;
+	
+	
+	
 	public String getPid() {
 		return pid;
 	}
@@ -240,6 +246,18 @@ public class MemberDTO {
 	}
 	public void setMem_c_no(int mem_c_no) {
 		this.mem_c_no = mem_c_no;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getRec_count() {
+		return rec_count;
+	}
+	public void setRec_count(String rec_count) {
+		this.rec_count = rec_count;
 	}
 	   
 	   

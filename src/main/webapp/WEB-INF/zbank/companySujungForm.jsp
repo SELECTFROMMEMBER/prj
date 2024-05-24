@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,14 +23,14 @@
 					
 					,success : function(json){
 						var result = json["result"];
-						alert(result);
+						alert('result')
 						
 						if(result==1){
 							alert("정보등록 성공입니다!");
 							location.replace("/loginForm.do")
 						}
 						else {
-							alert("잘못됨ㅅㄱ")
+							alert(result)
 						
 						}
 					}
@@ -43,38 +43,46 @@
 				}
 			);
 		}
-   </script>
+	</script>
 
 </head>
 
 <body>
 
-   <div id="container">
-      <%@ include file="header.jsp"%>
+	<div id="container">
+		<%@ include file="header.jsp"%>
 
 
 
 
 
+		<div class="container">
+			<br>
+			<h1 style="text-align: center;">기업 정보 등록</h1><br>
+			<form action="submit.php" method="POST" name='comUpDel'>
+				<table
+					style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 
-      <div class="container">
-         <br>
-         <h1 style="text-align: center;">기업 정보 등록</h1><br>
-         <form action="submit.php" method="POST" name='comUpDel'>
-            <table
-               style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 					<tr>
 						<th>항목</th>
 						<th>등록 사항</th>
 					</tr>
 					<tr>
+						<td>기업명</td>
+						<td></td>
+					</tr>
+					<tr>
 						<td>기업 로고 등록</td>
-						<td><input type="file" id="competition_file" name="competition_file" accept=".pdf, .doc, .docx"  ></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
 						<td><input type="text" id="url" class="url" name="url"
 							required></td>
+					</tr>
+					<tr>
+						<td>기업 이메일</td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>복리후생</td>
@@ -162,7 +170,19 @@
 						<td>설립일</td>
 						<td><input type="date" id="birth" name="birth" required></td>
 					</tr>
-					
+					<tr>
+
+						<td>대표자명</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>회사 번호</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>사업자번호</td>
+						<td></td>
+					</tr>
 
 					<tr>
 						<td>매출 액</td>
@@ -179,28 +199,26 @@
 
 
 
-
-               <tr>
-                  <td>사원수</td>
-                  <td><input type="text" id="emp_no" name="emp_no" required></td>
-               </tr>
-               <tr>
-                  <td>평균연봉</td>
-                  <td><input type="text" id="sal_avg" name="sal_avg" required></td>
-               </tr>
-               <input type="hidden" name="mem_c_no" value="${sessionScope.c_no}">
+					<tr>
+						<td>사원수</td>
+						<td><input type="text" id="emp_no" name="emp_no" required></td>
+					</tr>
+					<tr>
+						<td>평균연봉</td>
+						<td><input type="text" id="sal_avg" name="sal_avg" required></td>
+					</tr>
 
 
-            </table>
-            <br>
-            <center>
-                <input type="button" value="등록" onClick="comRegUpDel()">
-            </center>
-         </form>
-         <br>
-      </div>
-      
+				</table>
+				<br>
+				<center>
+					 <input type="button" value="등록" onClick="comRegUpDel()">
+				</center>
+			</form>
+			<br>
+		</div>
 </body>
 <%@include file="/WEB-INF/views/common.jsp" %>
 <%@ include file="footer.jsp"%>
 </html>
+ --%>

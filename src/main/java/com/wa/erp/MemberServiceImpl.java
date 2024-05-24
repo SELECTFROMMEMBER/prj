@@ -73,18 +73,31 @@ public class MemberServiceImpl implements MemberService{
 
 		int insertCompanyCnt = this.memberDAO.insertCompany( memberDTO );
 
-
+		System.out.print(memberDTO.getMem_c_no());
+		memberDTO.setMem_c_no(memberDTO.getMem_c_no());
 		return insertCompanyCnt;
 	}
 
 	/*------------ 기업정보 입력을 위한 선언-------------- */
 	public int insertCompanyInfo(MemberDTO memberDTO) {
 
+		System.out.print(memberDTO.getMem_c_no());
 		 int insertCompanyCnt = this.memberDAO.insertCompanyInfo(memberDTO);   
 		 if( memberDTO.getWelfare_code()!=null ) {
-			int  insertWelfareCnt = this.memberDAO.insetCompanyWelfare( memberDTO );
-			}
+			int  insertComWelCnt = this.memberDAO.insertCompanyWelfare( memberDTO );
+			if(insertComWelCnt==0) {return 0; } }
+			int  insertWelfareCnt = this.memberDAO.insertCompanyWelfare( memberDTO );
+			
 		return insertCompanyCnt;
+	}
+
+
+	@Override
+	public int getMem_c_no() {
+		
+		int mem_c_no = this.memberDAO.getMem_c_no();
+		
+		return mem_c_no;
 	}
 	/*--------------------------------------------*/
 	

@@ -87,6 +87,23 @@ public interface BoardService {
 		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
 
 		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
+		
+		// 기업 마이페이지
+		List<BoardDTO> getMyGongMoList(int c_no);
+
+		List<BoardDTO> getMyGongGoList(int c_no);
+
+		List<BoardDTO> getMyCompanyInfo(int c_no);
+
+		List<BoardDTO> getGonggoPertocom(int c_no);
+
+		BoardDTO getComInfoSujung(int c_no);
+
+		int updateComInfo(BoardDTO boardDTO);
+
+		int updateComMem(BoardDTO boardDTO);
+
+		int updateComWel(BoardDTO boardDTO);
 
 		List<BoardDTO> getlikeCompany(int p_no);
 }
