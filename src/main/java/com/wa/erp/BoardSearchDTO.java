@@ -11,14 +11,9 @@ public class BoardSearchDTO {
 	private String tradetype;
 	private String boardname;
 	private String selectedIndustry;
-	public String getTradetype() {
-		return tradetype;
-	}
-	public void setTradetype(String tradetype) {
-		this.tradetype = tradetype;
-	}
 	private int c_no;
 	private int b_no;
+	private int p_no;
 	private String type;
 	private String table;
 	private double avg_star;
@@ -44,25 +39,9 @@ public class BoardSearchDTO {
 	private String field_code;
 	private String career;
 	 private String[] skill_name; 
-		public int getP_no() {
-		return p_no;
-	}
-	public void setP_no(int p_no) {
-		this.p_no = p_no;
-	}
-	public int getResume_no() {
-		return resume_no;
-	}
-	public void setResume_no(int resume_no) {
-		this.resume_no = resume_no;
-	}
-	public String[] getWelfare() {
-		return welfare;
-	}
-	public void setWelfare(String[] welfare) {
-		this.welfare = welfare;
-	}
-		private int p_no;
+	 
+	 
+	 
 		private int resume_no;
 		private  String[] welfare;
 		/////////////////////////////
@@ -71,6 +50,22 @@ public class BoardSearchDTO {
 		private String ing;
 		private String project_type;
 		private String field_name;
+	
+	
+		
+		
+		public String getTradetype() {
+			return tradetype;
+		}
+		public void setTradetype(String tradetype) {
+			this.tradetype = tradetype;
+		}
+	public int getP_no() {
+			return p_no;
+		}
+		public void setP_no(int p_no) {
+			this.p_no = p_no;
+		}
 //		private String keyword2;
 //		private String orand;
 //		private List<String> checkdate;
@@ -300,6 +295,20 @@ public class BoardSearchDTO {
 	public void setEnd_rowNo(int end_rowNo) {
 		this.end_rowNo = end_rowNo;
 	}
+	public int getResume_no() {
+		return resume_no;
+	}
+	public void setResume_no(int resume_no) {
+		this.resume_no = resume_no;
+	}
+	public String[] getWelfare() {
+		return welfare;
+	}
+	public void setWelfare(String[] welfare) {
+		this.welfare = welfare;
+	}
+	
+	
 //	public String getMinYear() {
 //		return minYear;
 //	}

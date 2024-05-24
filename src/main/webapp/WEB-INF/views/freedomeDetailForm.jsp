@@ -26,7 +26,9 @@ function searchWithSort(sort){
 // 	   $("[name='reviewUpForm']").find("[name='reviewSort']").val(sort);
 	   search();
 	}
-	
+
+
+
 function search(){
 	
 	var commentFormObj = $("[name='commentRegForm']");
@@ -81,12 +83,82 @@ function search(){
 	            }
 	         }
 	      );
-	
+		}	
+		
+		function up_comment(comment_no){
+		 	var commentObj = $("form[name='commentRegForm']");
+		 	var updatecomment = $("textarea[name='updateContent']").val();
+		 	
+		 	commentObj.find("[name='updateComment']").val(updatecomment);
+		 	commentObj.find("[name='comment_no']").val(comment_no);
+		 	
+		 	
+// 		 	if( 
+// 		 			updatecomment.val().trim().length==0 
+// 		 			||
+// 		 			updatecomment.val().trim().length>20 
+// 		 	){
+// 		 		alert("댓글은 임의 문자 1~20자 입력해야합니다.");
+// 		 		return;
+// 		 	}
+// 		 	if( confirm("댓글을 입력하시겠습니까?")==false ){ return; }
+			$.ajax(
+					{ 
+						url    : "/upCommentProc.do"
+						,type  : "post"
+						,data  : commentObj.serialize( )
+						,success : function(json){
+							var result = json["result"];
+							if(result==1){
+								alert("댓글 수정 성공입니다.");
+								location.reload(); 
+							}
+							
+							else{
+								alert("댓글 수정 실패입니다. 관리자에게 문의 바람!");
+							}
+						}
+						,error : function(){
+							alert("입력 실패! 관리자에게 문의 바람니다.");
+						}
+					}
+				);
+		}
+
+		
+		function del_comment(comment_no){
+		 	var commentObj = $("form[name='commentRegForm']");
+		 	
+		 	commentObj.find("[name='comment_no']").val(comment_no);
+		 	
+			$.ajax(
+					{ 
+						url    : "/delCommentProc.do"
+						,type  : "post"
+						,data  : commentObj.serialize( )
+						,success : function(json){
+							var result = json["result"];
+							if(result==1){
+								alert("댓글 삭제 성공입니다.");
+								location.reload(); 
+							}
+							
+							else{
+								alert("댓글 삭제 실패입니다. 관리자에게 문의 바람!");
+							}
+						}
+						,error : function(){
+							alert("입력 실패! 관리자에게 문의 바람니다.");
+						}
+					}
+				);
+		}
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 
 </head>
+
   
 <body>
 
@@ -134,18 +206,23 @@ function search(){
                         
               </tr>
               
+                  <c:if test="${sessionScope.member == 'person' }">
               <tr>
                   <td >댓글</td>
                   <td>
                    <textarea  style="width:100%; height:100%;" rows="4"  name="content" class="content"></textarea>
-                   	 <input type="hidden" value="comment_free" name="table" class="table"> 
-                  	 <input type="hidden" value="${sessionScope.p_no }" name="p_no" class="p_no"> 
-                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">
-                  	 <input type="hidden" name="commentSort" class="commentSort" value="">                    	 
                   	 <input type="button" value="등록"  onClick="checkCommentReg()">
                   </td>                       
               </tr> 
+                   
+                  </c:if>
           </table>
+                   	 <input type="hidden" value="comment_free" name="table" class="table"> 
+                  	 <input type="hidden" value="${sessionScope.p_no }" name="p_no" class="p_no"> 
+                  	 <input type="hidden" value="${boardDTO.b_no }" name="b_no" class="b_no">
+                  	 <input type="hidden" name="commentSort" class="commentSort" value="">
+                  	 <input type="hidden" name="updateComment">
+                  	 <input type="hidden" name="comment_no" value=0>                   	 
           
           
           <center>
@@ -182,8 +259,12 @@ function search(){
           <c:forEach var="board" items="${requestScope.commentList}" varStatus="status">
             <tr class="${status.index >= 5 ? 'hidden-row' : ''}">
               <td>
-                <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}<br><br>
-                ${board.content}
+                <b>${board.nickname}</b> &nbsp;&nbsp;&nbsp; ${board.reg_date}
+                &nbsp;&nbsp;<c:if test="${sessionScope.p_no==board.p_no }"><input type="button" name="" value="수정/삭제" onClick="updateForm(${board.comment_no},'${board.content}')"></c:if>
+                <br><br>
+                <div id="comment${board.comment_no}">
+                	${board.content}
+                </div>
               </td>
               <td>
                 <span class="likeButton" data-comment-no="${board.comment_no}" onclick="toggleLike(this, ${board.comment_no})">
@@ -218,8 +299,6 @@ function search(){
       	 
       </table>
       </div>
-      
-                  <input type="hidden" name="commentSort" class="commentSort" value="">
   </div>
   </div>
 </body>

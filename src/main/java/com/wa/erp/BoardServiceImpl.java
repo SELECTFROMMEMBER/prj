@@ -354,7 +354,12 @@ public class BoardServiceImpl implements BoardService{
 			
 			return getCommentLike;
 		}
-
+		
+		public List<BoardDTO> getlikeCompany(int p_no){
+			List<BoardDTO> getLikeCompany = this.boardDAO.getLikeCompany(p_no);
+			
+			return getLikeCompany;
+		}
 /// 기업정보관련 추가///////////////
 		@Override
 		public int getcompanyListCnt(BoardSearchDTO boardSearchDTO) {

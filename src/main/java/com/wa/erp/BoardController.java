@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -317,7 +318,7 @@ public class BoardController {
 		int joongGoListCnt = this.boardService.getboardListCnt( boardSearchDTO );
 		
 		int joongGoListAllCnt = this.boardService.getboardListAllCnt(boardSearchDTO);
-		
+		System.out.print(boardSearchDTO.getTradetype());
 		Map<String,Integer> boardMap = Util.getPagingMap(
 				boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
 				,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
@@ -353,24 +354,49 @@ public class BoardController {
 	//=================================================
 	@RequestMapping( value ="/companyList.do")
 	public ModelAndView companyList(
-			BoardSearchDTO boardSearchDTO
+			BoardSearchDTO boardSearchDTO,
+			HttpSession session
 			) {
-int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
-		
-		int companyListAllCnt = this.boardService.getcompanyListAllCnt(boardSearchDTO);
-		Map<String,Integer> boardMap = Util.getPagingMap(
-				boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
-				,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
-				,companyListCnt			//검색결과 개수
-				);
-		boardSearchDTO.setSelectPageNo(  (int)boardMap.get("selectPageNo")  ); 
-		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
-		boardSearchDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
-		boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
-		List<BoardDTO> companyList = this.boardService.getcompanyList(boardSearchDTO);
-		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 
+		Object p_noObj = session.getAttribute("p_no");
+		int p_no = 0;
+		if(p_noObj != null) {
+			p_no = Integer.parseInt(p_noObj.toString());
+		}
+		
+		int companyListCnt = this.boardService.getcompanyListCnt(boardSearchDTO);
+		int companyListAllCnt = this.boardService.getcompanyListAllCnt(boardSearchDTO);
+		
+		Map<String, Integer> boardMap = Util.getPagingMap(boardSearchDTO.getSelectPageNo() // 선택한 페이지 번호
+				, boardSearchDTO.getRowCntPerPage() // 페이지 당 보여줄 검색 행의 개수
+				, companyListCnt // 검색결과 개수
+		);
+		boardSearchDTO.setSelectPageNo((int) boardMap.get("selectPageNo"));
+		boardSearchDTO.setRowCntPerPage((int) boardMap.get("rowCntPerPage"));
+		boardSearchDTO.setBegin_rowNo((int) boardMap.get("begin_rowNo"));
+		boardSearchDTO.setEnd_rowNo((int) boardMap.get("end_rowNo"));
+		List<BoardDTO> companyList = this.boardService.getcompanyList(boardSearchDTO);
+		List<BoardDTO> like_company = this.boardService.getlikeCompany(p_no);
+		
 		ModelAndView mav = new ModelAndView();
+		
+		if(like_company.size()!=0) {
+			   List<Integer> likeNoList = new ArrayList<>();
+			   if (like_company != null) {
+				    for (int i = 0; i < like_company.size(); i++) {
+				        BoardDTO likeDTO = like_company.get(i);
+				        int likeNo = likeDTO.getC_no();
+				        if (likeNo != 0) {
+				            likeNoList.add(likeNo);
+				        }   
+				    }
+			   }
+			mav.addObject("likeNoList", likeNoList);
+		}
+		
+		mav.addObject("companyListCnt", companyListCnt + "");
+		mav.addObject("companyListAllCnt", companyListAllCnt);
+		mav.addObject("boardMap", boardMap);
 		mav.addObject("companyList", companyList);
 		mav.addObject("companyListCnt", companyListCnt+"");
 		
@@ -380,6 +406,9 @@ int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
 		mav.setViewName("companyList.jsp");
 		return mav;
 	}
+	
+	
+	
 	
 	@RequestMapping( value ="/gongGoList.do")
 	public ModelAndView gongGoList(
@@ -751,10 +780,17 @@ int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
 			public ModelAndView companyListDetailForm( 
 					
 					@RequestParam(value="c_no") int c_no	,
-					BoardReviewDTO boardReviewDTO
+					BoardReviewDTO boardReviewDTO,
+					HttpSession session
 
 
 			){	
+				Object p_noObj = session.getAttribute("p_no");
+				int p_no = 0;
+				if(p_noObj != null) {
+					p_no = Integer.parseInt(p_noObj.toString());
+				}
+				
 				int reviewListAllCnt =  this.boardService.getReviewListAllCnt( );
 				int reviewListCnt =  this.boardService.getReviewListCnt( boardReviewDTO );
 				if(boardReviewDTO.getReviewSort()==""){
@@ -773,7 +809,21 @@ int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
 				BoardDTO welfare = this.boardService.getcompanyWelfare(c_no);
 
 			    List<BoardReviewDTO> reviewContent = this.boardService.getreviewContent(boardReviewDTO);
+			    List<BoardDTO> like_company = this.boardService.getlikeCompany(p_no);
 				ModelAndView mav = new ModelAndView( );
+				if(like_company.size()!=0) {
+					   List<Integer> likeNoList = new ArrayList<>();
+					   if (like_company != null) {
+						    for (int i = 0; i < like_company.size(); i++) {
+						        BoardDTO likeDTO = like_company.get(i);
+						        int likeNo = likeDTO.getC_no();
+						        if (likeNo != 0) {
+						            likeNoList.add(likeNo);
+						        }   
+						    }
+					   }
+					mav.addObject("likeNoList", likeNoList);
+				}
 				mav.addObject("boardDTO", boardDTO);
 			    mav.addObject("welfare", welfare);
 			    mav.addObject("reviewContent", reviewContent);			    
@@ -783,6 +833,5 @@ int companyListCnt = this.boardService.getcompanyListCnt( boardSearchDTO );
 				mav.addObject("boardMap", boardMap );
 				return mav;
 			}
-
 
 }

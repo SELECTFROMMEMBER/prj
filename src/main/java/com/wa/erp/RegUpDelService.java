@@ -43,9 +43,14 @@ public interface RegUpDelService {
 		
 		//이력서 등록
 		int insertResume(BoardDTO boardDTO);
-
-
-		
+		//관심기업 등록
+		int insertLikeCompany(BoardDTO boardDTO);
+		//관심 기업 해제
+		int deleteLikeCompany(BoardDTO boardDTO);
+		//댓글 수정
+		int updateComment(BoardDTO boardDTO);
+		//댓글 삭제
+		int deleteComment(BoardDTO boardDTO);
 		
 		// 마이페이지 회원정보 수정		
 		int  deletePrivacy(MypageDTO mypageDTO );
@@ -53,7 +58,6 @@ public interface RegUpDelService {
 
 		MypageDTO getPrivacyForUpDel(int p_no);		
 		
-
 		int updateReview(BoardDTO boardDTO);
 		
 

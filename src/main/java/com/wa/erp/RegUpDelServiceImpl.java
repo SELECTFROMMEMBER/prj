@@ -45,15 +45,18 @@ public class RegUpDelServiceImpl implements RegUpDelService{
 	//================================================================
 	@Override
 	public int updateRec(BoardDTO boardDTO) {
-		int updateRecCnt = this.regUpDelDAO.updateRec(boardDTO);
-		
-		
 		System.out.println("1:"+boardDTO.getComment_no());
 		System.out.println("1:"+boardDTO.getTable());
 		System.out.println("1:"+boardDTO.getP_no());
 		System.out.println("1:"+boardDTO.getB_no());
+		int checkLike = this.regUpDelDAO.checkLike(boardDTO);
+		if(checkLike==1) {
+			return -2;
+		}
 		int insertLikeCnt = this.regUpDelDAO.insertLike(boardDTO);
 		if(insertLikeCnt==0) {return -1;}
+
+		int updateRecCnt = this.regUpDelDAO.updateRec(boardDTO);
 		
 		return updateRecCnt;
 	}
@@ -62,10 +65,11 @@ public class RegUpDelServiceImpl implements RegUpDelService{
 	//================================================================
 	@Override
 	public int downdateRec(BoardDTO boardDTO) {
-		int downdateRecCnt = this.regUpDelDAO.downdateRec(boardDTO);
 		
 		int deleteLikeCnt = this.regUpDelDAO.deleteLike(boardDTO);
 		if(deleteLikeCnt==0) {return -1;}
+
+		int downdateRecCnt = this.regUpDelDAO.downdateRec(boardDTO);
 		
 		return downdateRecCnt;
 	}
@@ -401,7 +405,45 @@ public int updatebuup(BuupDTO buupDTO)  {
 			}
 		
 	
+	//관심기업 등록
+	public int insertLikeCompany(BoardDTO boardDTO) {
 		
+		int updaterec = this.regUpDelDAO.updateCompanyRec(boardDTO);
+		if(updaterec==0) {
+			return 3;
+		}
+		int insertLikeCnt = this.regUpDelDAO.insertLikeCompany(boardDTO);
+
+		return insertLikeCnt;
+	}
+
+	//관심기업 해제
+	public int deleteLikeCompany(BoardDTO boardDTO) {
+		
+		int downdaterec = this.regUpDelDAO.downdateCompanyRec(boardDTO);
+		if(downdaterec==0) {
+			return 3;
+		}
+		int deleteLikeCnt = this.regUpDelDAO.deleteLikeCompany(boardDTO);
+		
+		return deleteLikeCnt;
+	}
+	
+	//댓글 수정
+	public int updateComment(BoardDTO boardDTO) {
+		int updateComment = this.regUpDelDAO.updateComment(boardDTO);
+		
+		return updateComment;
+	}
+
+	//댓글 삭제
+	public int deleteComment(BoardDTO boardDTO) {
+		int deleteComment = this.regUpDelDAO.deleteComment(boardDTO);
+		
+		int deleteLike = this.regUpDelDAO.deleteLikecomment(boardDTO);
+		
+		return deleteComment;
+	}
 	//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	// [1개 게시판] 삭제 후 삭제 적용행의 개수를 리턴하는 메소드 선언
 	//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm

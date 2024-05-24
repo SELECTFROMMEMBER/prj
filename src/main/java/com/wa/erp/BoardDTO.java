@@ -81,6 +81,7 @@ public class BoardDTO {
 	private int resume_no;
 	private String comment_table;
 	private int like_no;
+	private String updateComment;
 	private int age;
 	private String sex;
 	private String is_job;
@@ -89,8 +90,7 @@ public class BoardDTO {
     private String type;
 	private String organizer;
 	private int award_no;
-
-
+	private int mem_p_no;
 		//프로젝트 공모 위한 선언//
 		private int prj_no;
 		private String project_type;
@@ -655,6 +655,18 @@ public class BoardDTO {
 		}
 		public void setLike_no(int like_no) {
 			this.like_no = like_no;
+		}
+		public String getUpdateComment() {
+			return updateComment;
+		}
+		public void setUpdateComment(String updateComment) {
+			this.updateComment = updateComment;
+		}
+		public int getMem_p_no() {
+			return mem_p_no;
+		}
+		public void setMem_p_no(int mem_p_no) {
+			this.mem_p_no = mem_p_no;
 		}
 	
 	

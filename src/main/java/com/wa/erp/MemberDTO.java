@@ -22,6 +22,7 @@ public class MemberDTO {
 	/*-------------------*/
 
 	/*------회사 정보------*/
+	private int mem_c_no;
 	private Date birth;
 	private int emp_no;
 	private int sales;
@@ -233,6 +234,12 @@ public class MemberDTO {
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+	public int getMem_c_no() {
+		return mem_c_no;
+	}
+	public void setMem_c_no(int mem_c_no) {
+		this.mem_c_no = mem_c_no;
 	}
 	   
 	   

@@ -83,6 +83,7 @@ public interface RegUpDelDAO {
 
 		int deleteLike(BoardDTO boardDTO);
 
+		int insertLikeCompany(BoardDTO boardDTO);
 		
 		
 		// 마이페이지 회원정보 수정 
@@ -95,11 +96,21 @@ public interface RegUpDelDAO {
 		MypageDTO getPrivacy(int p_no);
 	
 		MypageDTO getPrivacyForUpDel(int p_no);		
-	
 
+		int updateCompanyRec(BoardDTO boardDTO);
 
+		int downdateCompanyRec(BoardDTO boardDTO);
+
+		int deleteLikeCompany(BoardDTO boardDTO);
+
+		int updateComment(BoardDTO boardDTO);
+
+		int deleteComment(BoardDTO boardDTO);
+
+		int deleteLikecomment(BoardDTO boardDTO);
 		int deleteReview(BoardDTO boardDTO);
 
 		int updateReview(BoardDTO boardDTO);
 
+		int checkLike(BoardDTO boardDTO);
 	}

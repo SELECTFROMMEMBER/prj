@@ -20,60 +20,7 @@
 // 	var boardSearchFormObj = $("[name='boardSearchForm']");
 // 	var tradetypeObj = $("[name='boardSearchForm']").find(".tradetype").val(tradetype);
 	
-	$.ajax(
-			{
-				//-------------------------------
-				// WAS 로 접속할 주소 설정
-				//-------------------------------
-				url      : "/joongGo.do"
-				//-------------------------------
-				// WAS 로 접속하는 방법 설정. get 또는 post
-				//-------------------------------
-				,type    : "post"
-				//--------------------------------------
-				// WAS 에 보낼 파명과 파값을 설정하기. "파명=파값&파명=파값~"
-				//--------------------------------------
-				,data    : boardSearchFormObj.serialize( )
-				//----------------------------------------------------------
-				// WAS 의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
-				// 이때 익명함수의 매개변수로 WAS 의 응답물이 들어 온다.
-				// "/boardList.do" 주소의 응답물은  boardList.jsp 페이지의
-				// 실행결과인 HTML 문서 문자열이이다.
-				//----------------------------------------------------------
-				,success : function(responseHtml){
-					alert(1);
-					//-----------------------------------
-					// 매개변수로 들어오는 HTML 문자열을 관리하는 
-					// JQuery 객체 생성하여 변수 obj 에 저장하기
-					//-----------------------------------
-					var obj = $(responseHtml);
-					
-					//-----------------------------------
-					// 매개변수로 받은 HTML 문자열 중에 
-					// <div class='boardListDiv'> 태그 안의 html 문자열을
-					// 현 화면의 <div class='boardListDiv'> 태그 안에  덮어쓰기
-					//-----------------------------------boardListDiv pagingNos
-	            $(".boardListDiv").html(obj.filter(".boardListDiv").html());
-	            $(".pagingNos").html(obj.filter(".pagingNos").html());
-	         
-
-				
-
-					
-					
-//	 				$("body").append(
-//	 					"<textarea class=xxx cols=100 rows=100>"
-//	 					+ obj.filter(".pagingNos").html()
-//	 					+"</textarea>"
-//	 				)
-					
-				}
-				,error   : function(){
-					alert("검색 실패! 관리자에게 문의 바람니다.");
-				}
-			}
-		);
-}
+	
   
 </script>
 

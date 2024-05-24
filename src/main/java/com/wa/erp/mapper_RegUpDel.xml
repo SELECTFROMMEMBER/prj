@@ -137,7 +137,7 @@
             ,hope_salary 
         ) values (
          	#{resume_no}          
-             ,5
+             ,#{mem_p_no}
              ,#{married}
             ,#{military}
             ,#{introduce}
@@ -412,6 +412,19 @@
     		</if>
     	)
     </insert>
+    <select id="checkLike" parameterType="com.wa.erp.BoardDTO" resultType="int">
+    select
+    	count(*)
+    from
+    	like_comment
+    where
+    	comment_no = #{comment_no}
+    	and
+    	p_no = #{p_no}
+    	and
+    	b_no=#{b_no}
+    </select>
+    
     
     <delete id="deleteLike" parameterType="com.wa.erp.BoardDTO">
     	delete from like_comment
@@ -425,8 +438,74 @@
     		b_no=#{b_no}
     </delete>
     
+    <insert id="insertLikeCompany" parameterType="com.wa.erp.BoardDTO">
+    	insert into like_company
+    	values(
+    		#{c_no}
+    		,#{p_no}
+    	)
+    </insert>
     
+    <update id="updateCompanyRec" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		company_info
+    	set
+    		rec_count = rec_count+1
+    	where
+    		c_no=#{c_no}
+    </update>
+
+    <update id="downdateCompanyRec" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		company_info
+    	set
+    		rec_count = rec_count-1
+    	where
+    		c_no=#{c_no}
+    </update>
     
+    <delete id="deleteLikeCompany" parameterType="com.wa.erp.BoardDTO">
+    	delete from like_company
+    	where
+    		c_no=#{c_no}
+    		and
+    		p_no=#{p_no}
+    </delete>
+    
+    <update id="updateComment" parameterType="com.wa.erp.BoardDTO">
+    	update
+    		${table}
+    	set
+    		content = #{updateComment}
+    	where
+    		p_no=#{p_no}
+    		and
+    		b_no=#{b_no}
+    		and
+    		comment_no = #{comment_no}
+    </update>
+    
+    <delete id="deleteComment" parameterType="com.wa.erp.BoardDTO">
+    	delete from
+    		${table}
+    	where
+    		p_no=#{p_no}
+    		and
+    		b_no=#{b_no}
+    		and
+    		comment_no = #{comment_no}
+    </delete>
+    
+    <delete id="deleteLikecomment" parameterType="com.wa.erp.BoardDTO">
+    	delete from
+    		like_comment
+    	where
+    		comment_table=#{table}
+    		and
+    		comment_no=#{comment_no}
+    		and
+    		b_no=#{b_no}
+    </delete>
     
     
    <!--  회원정보 수정 -->
