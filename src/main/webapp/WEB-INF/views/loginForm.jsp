@@ -4,77 +4,54 @@
 <html>
 <head>
     <title>로그인</title>
+<!--     <link rel="stylesheet" type="text/css" href="path/to/style.css"> -->
     <style>
-         table {
-        width: 40%;
-        border-collapse: collapse;
-         margin: 0 auto;
-    }
+ /* 전체 컨테이너 */ 
+ .container { 
+     text-align: center; /* 내용 가운데 정렬 */
+ } */
+ /* 로그인 폼 테이블 */ 
+ table { */
+     width: 40%;
+     border: collapse;
+     margin: 0 auto; /* 좌우 중앙 정렬 */ 
+ } 
+/* 탭 컨텐츠 */ 
+   .tab-content {
+     display: none; 
+ } 
 
-    th, td {
-        border: 1px solid #ddd;
-        padding: 1px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    tr:hover {
-        background-color: #ddd;
-    }
-
-/* 전체 컨테이너 */
-.container {
-    text-align: center; /* 내용 가운데 정렬 */
-}
-
-/* 로그인 폼 테이블 */
-table {
-    border: 1px solid black;
-    margin: 20px auto; /* 좌우 중앙 정렬 */
-}
-
-/* 탭 컨텐츠 */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
+ .tab-content.active { 
+     display: block; 
+ } 
 
 /* 로그인 폼 */
-form {
-    width: 300px; /* 폼의 너비를 설정 */
-    margin: 0 auto; /* 가운데 정렬 */
-    text-align: center; /* 입력 필드의 가운데 정렬 */
-}
+ form { 
+     width: 300px; /* 폼의 너비를 설정 */
+     margin: auto; /* 가운데 정렬 */
+     text-align: center; /* 입력 필드의 가운데 정렬 */
+/* } 
 
-/* 라벨 */
-label {
-    display: block; /* 블록 레벨 요소로 설정하여 위아래로 정렬 */
-    text-align: center; /* 텍스트를 왼쪽 정렬 */
-    margin-bottom: 5px; /* 라벨 아래 여백 추가 */
-}
+ /* 라벨 */
+ label {
+     display: block; /* 블록 레벨 요소로 설정하여 위아래로 정렬 */ 
+     text-align: center; /* 텍스트를 왼쪽 정렬 */ 
+     margin-bottom: 5px; /* 라벨 아래 여백 추가 */ 
+ } 
 
-/* 입력 필드 */
-input[type="text"],
-input[type="password"] {
-    width: calc(100% - 50px); /* 너비 조정 및 패딩 포함하여 너비 조절 */
-    padding: 8px; /* 패딩 추가 */
-    margin-bottom: 10px; /* 아래 여백 추가 */
-    border: 1px solid #ccc; /* 테두리 설정 */
-    border-radius: 5px; /* 모서리 둥글게 만듦 */
-    box-sizing: border-box; /* 패딩과 보더를 포함한 크기로 요소 크기 계산 */
-}
-        
+/* /* 입력 필드 */ 
+ input[type="text"], 
+ input[type="password"] { 
+     width: calc(100% - 50px); /* 너비 조정 및 패딩 포함하여 너비 조절 */ 
+     padding: 8px; /* 패딩 추가 */ 
+     margin-bottom: 1px; /* 아래 여백 추가 */ 
+     border: 1px solid #ccc; /* 테두리 설정 */ 
+     border-radius: 5px; /* 모서리 둥글게 만듦 */ 
+     box-sizing: border-box; /* 패딩과 보더를 포함한 크기로 요소 크기 계산 */ 
+ }
+
     </style>
+    
 </head>
 <body>
     <div id="container">
@@ -85,7 +62,7 @@ input[type="password"] {
             <table>
                 <tr>
                     <th>
-                        <input type="radio" id="tab1" name="tab" checked>
+                        <input type="radio"  id="tab1" name="tab" checked>
                         <label for="tab1">개인 회원</label>
                     </th>
                     <th>
