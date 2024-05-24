@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -23,14 +23,14 @@
 					
 					,success : function(json){
 						var result = json["result"];
-						alert(result);
+						alert('result')
 						
 						if(result==1){
 							alert("정보등록 성공입니다!");
 							location.replace("/loginForm.do")
 						}
 						else {
-							alert("잘못됨ㅅㄱ")
+							alert(result)
 						
 						}
 					}
@@ -68,13 +68,21 @@
 						<th>등록 사항</th>
 					</tr>
 					<tr>
+						<td>기업명</td>
+						<td></td>
+					</tr>
+					<tr>
 						<td>기업 로고 등록</td>
-						<td><input type="file" id="competition_file" name="competition_file" accept=".pdf, .doc, .docx"  ></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
 						<td><input type="text" id="url" class="url" name="url"
 							required></td>
+					</tr>
+					<tr>
+						<td>기업 이메일</td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>복리후생</td>
@@ -162,7 +170,19 @@
 						<td>설립일</td>
 						<td><input type="date" id="birth" name="birth" required></td>
 					</tr>
-					
+					<tr>
+
+						<td>대표자명</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>회사 번호</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>사업자번호</td>
+						<td></td>
+					</tr>
 
 					<tr>
 						<td>매출 액</td>
@@ -187,8 +207,6 @@
 						<td>평균연봉</td>
 						<td><input type="text" id="sal_avg" name="sal_avg" required></td>
 					</tr>
-					<input type="hidden" name="mem_c_no" value="${max_no}">
-					
 
 
 				</table>
@@ -203,3 +221,4 @@
 <%@include file="/WEB-INF/views/common.jsp" %>
 <%@ include file="footer.jsp"%>
 </html>
+ --%>

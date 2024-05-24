@@ -11,4 +11,6 @@ public interface MemberService {
 
 	public int insertCompanyInfo(MemberDTO companyDTO);
 	/*-------------------------------------------*/
+
+	int getMem_c_no();
 	}

@@ -95,4 +95,16 @@ public interface BoardService {
 		List<BoardDTO> getMyGongMoList(int c_no);
 
 		List<BoardDTO> getMyGongGoList(int c_no);
+
+		List<BoardDTO> getMyCompanyInfo(int c_no);
+
+		List<BoardDTO> getGonggoPertocom(int c_no);
+
+		BoardDTO getComInfoSujung(int c_no);
+
+		int updateComInfo(BoardDTO boardDTO);
+
+		int updateComMem(BoardDTO boardDTO);
+
+		int updateComWel(BoardDTO boardDTO);
 }

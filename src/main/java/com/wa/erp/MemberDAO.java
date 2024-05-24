@@ -18,7 +18,11 @@ public interface MemberDAO {
 
 	int insertCompanyInfo(MemberDTO companyDTO);
 
-	int insetCompanyWelfare(MemberDTO companyDTO);
+	int insertCompanyWelfare(MemberDTO companyDTO);
 	/*-------------------------------------------*/
+
+	int getMem_c_no();
+
+	int  getUpWelfare_code();
 	
 	}

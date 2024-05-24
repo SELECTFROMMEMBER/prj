@@ -16,6 +16,12 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	private BoardDAO boardDAO;
 	
+	@Autowired
+	private MemberDAO memberDAO;
+	
+	@Autowired
+	private MemberDAO memberDTO;
+	
 //	public List<Map<String,String>> getBoardList(){
 //	
 //		List<Map<String,String>> boardList = this.boardDAO.getBoardList();
@@ -425,4 +431,73 @@ public class BoardServiceImpl implements BoardService{
 			
 			return myGongGoList;
 		}
+
+		@Override
+		public List<BoardDTO> getMyCompanyInfo(int c_no) {
+			
+			List<BoardDTO> myCompanyInfo = this.boardDAO.getMyCompanyInfo(c_no);
+			
+			return myCompanyInfo;
+		}
+
+		@Override
+		public List<BoardDTO> getGonggoPertocom(int c_no) {
+			
+			List<BoardDTO> myComPertocom = this.boardDAO.getGonggoPertocom(c_no);
+			
+			return myComPertocom;
+		}
+
+		@Override
+		public BoardDTO getComInfoSujung(int c_no) {
+			
+			BoardDTO boardDTO = this.boardDAO.getComInfoSujung(c_no);
+			
+			return boardDTO;
+		}
+
+		@Override
+		public int updateComInfo(BoardDTO boardDTO) {
+			//--------------------------------------
+			// 수정할 게시판의 존재 개수 얻기
+			// 만약 수정할 게시판의 개수가 0개면(=이미 삭제되었으면) 0리턴하기
+			//--------------------------------------
+			int comInfoCnt = this.boardDAO.getComInfoCnt( boardDTO.getC_no() );
+			if( comInfoCnt==0 ) { return comInfoCnt; }
+			// 암호의 존재 개수 얻기
+			// 만약 암호의 존개 개수가 0개면(=암호가 틀렸으면) -1 리턴하기
+			int comInfoPwdCnt = this.boardDAO.getComInfoPwdCnt(boardDTO);
+			if( comInfoPwdCnt==0 ) {return -1;}
+			// 수정 실행하고 수정 적용행의 개수 얻기
+			int comInfoUpCnt = this.boardDAO.updateComInfo(boardDTO);
+			// 수정 적용행의 개수 리턴히기
+			return comInfoUpCnt;
+		
+		}
+		
+		@Override
+		public int updateComMem(BoardDTO boardDTO) {
+			int comMemCnt = this.boardDAO.getComMemCnt( boardDTO.getC_no() );
+			if( comMemCnt==0 ) { return comMemCnt; }
+			// 수정 실행하고 수정 적용행의 개수 얻기
+			int comMemUpCnt = this.boardDAO.updateComMem(boardDTO);
+			// 수정 적용행의 개수 리턴히기
+			return comMemUpCnt;
+		}
+		
+		
+		@Override
+		public int updateComWel(BoardDTO boardDTO) {
+			
+			int comWelCnt = this.boardDAO.getComUpWelCnt( boardDTO.getC_no() );
+			if( comWelCnt==0 ) { return comWelCnt; }
+			
+			int comWelDelCnt = this.boardDAO.deldateComWel(boardDTO);
+			
+			// 수정 실행하고 수정 적용행의 개수 얻기
+			int comMemUpCnt = this.boardDAO.updateComWel(boardDTO);
+			// 수정 적용행의 개수 리턴히기
+			return comMemUpCnt;
+		}
+		
 }

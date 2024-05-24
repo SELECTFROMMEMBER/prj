@@ -96,7 +96,50 @@ public class BoardDTO {
 		private String gonggoreg_date;
 		private String opendate;
 		private String closedate;
+	    private String business_industry;
+	    private String sex;
+		private int age;
+		private String business_no;
 		
+		private String addr1;
+		private String addr2;
+		private String addr3;
+		
+		private List<String> welfare_code;
+		private String welfare_code2;
+		
+		public List<String> getWelfare_code() {
+			return welfare_code;
+		}
+		public void setWelfare_code(List<String> welfare_code) {
+			this.welfare_code = welfare_code;
+		}
+		public String getWelfare_code2() {
+			return welfare_code2;
+		}
+		public void setWelfare_code2(String welfare_code2) {
+			this.welfare_code2 = welfare_code2;
+		}
+		private String email2;
+		
+		public String getAddr1() {
+			return addr1;
+		}
+		public void setAddr1(String addr1) {
+			this.addr1 = addr1;
+		}
+		public String getAddr2() {
+			return addr2;
+		}
+		public void setAddr2(String addr2) {
+			this.addr2 = addr2;
+		}
+		public String getAddr3() {
+			return addr3;
+		}
+		public void setAddr3(String addr3) {
+			this.addr3 = addr3;
+		}
 		public int getG_no() {
 			return g_no;
 		}
@@ -625,6 +668,37 @@ public class BoardDTO {
 		public void setLike_no(int like_no) {
 			this.like_no = like_no;
 		}
+		public String getBusiness_industry() {
+			return business_industry;
+		}
+		public void setBusiness_industry(String business_industry) {
+			this.business_industry = business_industry;
+		}
+		public String getSex() {
+			return sex;
+		}
+		public void setSex(String sex) {
+			this.sex = sex;
+		}
+		public int getAge() {
+			return age;
+		}
+		public void setAge(int age) {
+			this.age = age;
+		}
+		public String getBusiness_no() {
+			return business_no;
+		}
+		public void setBusiness_no(String business_no) {
+			this.business_no = business_no;
+		}
+		public String getEmail2() {
+			return email2;
+		}
+		public void setEmail2(String email2) {
+			this.email2 = email2;
+		}
+		
 	
 	
 	

@@ -64,24 +64,26 @@
    </div>
    			<br>
                 <tr>
-                    <th colspan="2">기업 정보
-                    <input type="button"  value=" 정보 수정 "  class="button-right" onClick="location.replace('/companySujungForm.do')">
+                    <th colspan="4">기업 정보
+                    <input type="button"  value=" 정보 수정 "  class="button-right"  onClick="document.MyCompanyInfo.submit()">
                     </th>
                 </tr>
             </thead>
             <tbody>
+            <c:forEach var="MyComInfo" items="${requestScope.myCompanyInfo}"  varStatus="status">
                 <tr>
                     <th style="width: 20%;">기업명</th>
-                    <td>ABC 주식회사</td>
+                    <td>${MyComInfo.name}</td>
+                    <th style="width: 20%;">대표자명</th>
+                    <td>${MyComInfo.ceo_name}</td>
                 </tr>
                 <tr>
                     <th style="width: 20%;">업종</th>
-                    <td>IT</td>
+                    <td>${MyComInfo.business_industry}</td>
+                    <th style="width: 20%;">관심수</th>
+                    <td>${MyComInfo.rec_count}</td>
                 </tr>
-                <tr>
-                    <th style="width: 20%;">주소</th>
-                    <td>서울시 강남구</td>
-                </tr>
+                </c:forEach>
             </tbody>
         </table>
 </center>
@@ -94,24 +96,27 @@
 		   </div>
             <thead>
                 <tr>
-                    <th colspan="2">이력서
-                    <input type="button" value=" 이력서 보기 " class="button-right"  onClick="location.replace('/.do')">
+                    <th colspan="4">입사 지원한 이력서
+                    <input type="button" value=" 전체 이력서 " class="button-right"  onClick="location.replace('/.do')">
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <th style="width: 20%;">공고내용</th>
                     <th style="width: 20%;">지원자명</th>
-                    <td>홍길동</td>
-                </tr>
-                <tr>
-                    <th style="width: 20%;">직무</th>
-                    <td>개발자</td>
-                </tr>
-                <tr>
-                    <th style="width: 20%;">이메일</th>
-                    <td>example@example.com</td>
-                </tr>
+                    <th style="width: 20%;">나이(만)</th>
+                    <th style="width: 20%;">성별</th>
+                 </tr>
+                 <c:forEach var="comPertocom" items="${requestScope.gonggoPertocom}"  varStatus="status">
+		              <tr style="cursor:pointer" onClick= "resumeListDetailForm(${comPertocom.resume_no})"
+		              class="<c:if test="${status.index >= 5}">hidden-row</c:if>">
+		              	<td align="center"> ${comPertocom.content}</td>
+		              	<td align="center"> ${comPertocom.name}</td>
+		              	<td align="center"> ${comPertocom.age}세</td>
+		              	<td align="center"> ${comPertocom.sex}</td>
+		              </tr>
+             	 </c:forEach>
             </tbody>
         </table>
 </center>
@@ -196,7 +201,10 @@
 
 		
 		
-</form>        
+</form>       
+		<form name="MyCompanyInfo"  action="/companySujungForm.do"  method="post">
+				<input type="hidden" name="c_no"  value='${sessionScope.c_no}'>
+		</form>
 
 		<form name="gongMoDetailForm" action="/gongMoDetailForm.do" method="post">
 		<input type="hidden" name="comp_pk">
