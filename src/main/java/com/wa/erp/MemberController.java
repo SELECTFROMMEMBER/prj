@@ -24,12 +24,7 @@ public class MemberController {
 	private MemberService memberService;
 	
 	
-	@RequestMapping(value="/myPage.do")
-	public ModelAndView myPage() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("myPage.jsp");
-		return mav;
-	}
+
 	
 	@RequestMapping(value="/myCompany.do")
 	public ModelAndView myCompany() {

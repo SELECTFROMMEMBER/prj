@@ -60,7 +60,7 @@ function checkmemberRegForm(){
       
           <table style="margin: 0 auto;">
               
-                  <tr>
+       <tr>
              <th>항목</th>
              <th>등록 사항</th>
          </tr>

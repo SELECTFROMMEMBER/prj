@@ -99,6 +99,8 @@ public class BoardDTO {
 		private String code_field;
 		private int comp_pk;
 		private String skill_name;
+	
+		
 		public String getSkills() {
 		return skills;
 	}

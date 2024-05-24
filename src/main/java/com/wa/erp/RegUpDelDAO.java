@@ -37,28 +37,31 @@ public interface RegUpDelDAO {
 //	int insertRole_Detail(BoardDTO boardDTO);
 	/*nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn*/
 	
-	// (프리랜서)	
-    int inserttimeShare(BoardDTO boardDTO); 
-    int updatetimeShare(BoardDTO boardDTO);  
-	int deletetimeShare(BoardDTO boardDTO); 
+	// (부업)	
+	int insertbuup(BuupDTO buupDTO); 
+	int updatebuup(BuupDTO buupDTO); 
+	int deletebuup(BuupDTO buupDTO); 
 	
-	int gettimeSharePwdCnt(BoardDTO boardDTO);
+	int getbuupPwdCnt(BuupDTO buupDTO);
+	int updatebuupEmpty( BuupDTO buupDTO );
+    int getbuupCnt(int b_no);
+    
+    BuupDTO getbuup(int b_no);
+    BuupDTO getbuupForUpDel(int b_no); 
+		
+	
+	// (프리랜서)	
+    int inserttimeShare(TimeShareDTO timeShareDTO); 
+    int updatetimeShare(TimeShareDTO timeShareDTO); 
+	int deletetimeShare(TimeShareDTO timeShareDTO); 
+	
+	int gettimeSharePwdCnt(TimeShareDTO timeShareDTO);
+	int updatetimeShareEmpty(TimeShareDTO timeShareDTO );
     int gettimeShareCnt(int b_no);
   
-	BoardDTO gettimeShareForUpDel(int b_no); 
+    TimeShareDTO gettimeShare(int b_no);      
+    TimeShareDTO gettimeShareForUpDel(int b_no);  
 	
-	
-	// (부업)	
-		int insertbuup(BoardDTO boardDTO); 
-		int updatebuup(BoardDTO boardDTO); 
-		int deletebuup(BoardDTO boardDTO); 
-		
-		int getbuupPwdCnt(BoardDTO boardDTO);
-		int updatebuupEmpty( BoardDTO boardDTO );
-	    int getbuupCnt(int b_no);
-	    
-		BoardDTO getbuupForUpDel(int b_no); 
-		
 		//기업리뷰 작성
 
 		int upReview(BoardDTO boardDTO);
@@ -81,6 +84,18 @@ public interface RegUpDelDAO {
 		int deleteLike(BoardDTO boardDTO);
 
 		int insertLikeCompany(BoardDTO boardDTO);
+		
+		
+		// 마이페이지 회원정보 수정 
+		int  updatePrivacy (MypageDTO mypageDTO );
+		int  deletePrivacy (MypageDTO mypageDTO );
+		
+		int  getPrivacyPwdCnt(MypageDTO mypageDTO );
+		int  getPrivacyCnt(int p_no);
+
+		MypageDTO getPrivacy(int p_no);
+	
+		MypageDTO getPrivacyForUpDel(int p_no);		
 
 		int updateCompanyRec(BoardDTO boardDTO);
 

@@ -13,6 +13,22 @@
 .fas.fa-heart {
     color: red;
 }
+.star-container {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .star {
+      background: linear-gradient(to right, #EAB838, #EAB838 50%, #E0E2E7 50%);
+      color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    .star-container .star-grade {
+      font-weight: 700;
+    }
 </style>
 
 <script>
@@ -331,7 +347,10 @@ search();
                            </div>
                           </td>
                           <td align="center">
-                              ${board.star_avg}
+	                          <div class="star-container">
+								<p class="star">★★★★★</p><br>
+								<span class="star-grade" >${board.star_avg}</span>
+							 </div>
                           </td>
                           <td>
                               <c:choose>

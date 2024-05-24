@@ -22,19 +22,19 @@ public interface RegUpDelService {
 	public int insertGongo(BoardDTO boardDTO);
 	//////////////////////////////////////
 	
+	//(부업)
+	int insertbuup(BuupDTO buupDTO);
+	int updatebuup(BuupDTO buupDTO);
+	int deletebuup(BuupDTO buupDTO);
+	
+	BuupDTO getbuupForUpDel(int b_no);
+	
 	//(프리랜서)
-		int inserttimeShare(BoardDTO boardDTO);	
-		int updatetimeShare(BoardDTO boardDTO);
-		int deletetimeShare(BoardDTO boardDTO);
-		
-		BoardDTO gettimeShareForUpDel(int b_no);
-		
-		//(부업)
-		int insertbuup(BoardDTO boardDTO);
-		int updatebuup(BoardDTO boardDTO);
-		int deletebuup(BoardDTO boardDTO);
-		
-		BoardDTO getbuupForUpDel(int b_no);
+	int inserttimeShare(TimeShareDTO timeShareDTO);	
+	int updatetimeShare(TimeShareDTO timeShareDTO);
+	int deletetimeShare(TimeShareDTO timeShareDTO);
+	
+	TimeShareDTO gettimeShareForUpDel(int b_no);
 		
 		//리뷰 등록
 		int upReview(BoardDTO boardDTO);
@@ -52,7 +52,14 @@ public interface RegUpDelService {
 		//댓글 삭제
 		int deleteComment(BoardDTO boardDTO);
 		
+		// 마이페이지 회원정보 수정		
+		int  deletePrivacy(MypageDTO mypageDTO );
+		int  updatePrivacy(MypageDTO mypageDTO );
+
+		MypageDTO getPrivacyForUpDel(int p_no);		
+		
 		int updateReview(BoardDTO boardDTO);
 		
+
 
 	}
