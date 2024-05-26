@@ -224,8 +224,13 @@ public class MemberController {
 		
 		 mav.addObject("boardDTO", boardDTO);
 
-
-		 System.out.println(boardDTO.getWelfare_code());
+		// 주소를 공백으로 분리
+	        String[] addressParts = boardDTO.getAddr().split(" ", 3);
+	        
+	        // 주소의 각 부분을 모델에 추가
+	            mav.addObject("addr1", addressParts[0]); // 서울특별시
+	            mav.addObject("addr2", addressParts[1]); // 성북구
+	            mav.addObject("addr3", addressParts[2]); // 나머지 주소
 		 
 		mav.setViewName("companySujungForm.jsp");
 		

@@ -8,7 +8,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>12Wa~</title>
-
+<style>
+        .button-right {
+            float: right;
+        }
+     
+    .hidden-row {
+        display: none;
+  		}
+	</style>
 <script>
 				
 				//복리후생 체크박스를 받아온 리스트를 , 단위로 나누고 리스트에 담고 뺴오기
@@ -33,12 +41,31 @@
 				    checkWelfareCodes();
 				};
 					
+			function showSelect(){
+				 $(".hidden-row").css("display", "table-row");
+				 $("#showMoreBtn").hide();
+				 $("#addr1").removeAttr("name");
+				 $("#addr2").removeAttr("name");
+				 $("#addr3").removeAttr("name");
+				 $("#addr1").val("");
+				 $("#addr2").val("");
+				 $("#addr3").val("");
+			}	
+			
 		function checkComInfoUpForm(){
-		  
+			
+			if($("#addr1").val()!=""){				
+		    	$("select#sido1").removeAttr("name"); 	
+		    	$("select#gugun1").removeAttr("name"); 	
+		    	$("#addr").removeAttr("name"); 	
+				
+			}
+			
 		  var formObj = $("[name='companyInfoUpForm']");
-		  
+		  alert($("#addr1").val());
+		  alert($("#addr2").val());
+		  alert($("#addr3").val());
 		  alert(formObj.serialize());
-		  
 		  	if(confirm("정말 수정 하시겠습니까?")==false) {return;}
 			//-----------------------------------------------------
 			// JQuery 객체의 [ajax 메소드]를 호출하여
@@ -257,10 +284,11 @@
 					<tr>
 						<th>회사 주소</th>
 						
-						<td>
+						<td id="showMoreBtn">${requestScope.boardDTO.addr } &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="수정" onClick="showSelect()"></td>
+						<td class="hidden-row">
 							<select name="addr1" id="sido1"></select> <select
 							name="addr2" id="gugun1"></select>&nbsp; <input type="text"
-							name="addr3" id="addr" value="나머지 상세주소"
+							name="addr3" id="addr" 
 							onfocus="if(this.value=='나머지 상세주소') this.value='';">
 							</td>
 					</tr>
@@ -285,6 +313,10 @@
 
 				</table>
 				<br>
+						<input type="hidden" id="addr1" name="addr1" value="${addr1}">
+						<input type="hidden" id="addr2" name="addr2" value="${addr2}">
+						<input type="hidden" id="addr3" name="addr3" value="${addr3}"> 
+						
 				<center>
 					 <input type="button" value=" 수정 " onClick="checkComInfoUpForm()">
 				</center>

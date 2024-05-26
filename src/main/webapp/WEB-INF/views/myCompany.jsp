@@ -54,7 +54,7 @@
     <div id="container">    
   <%@ include file="header.jsp" %>
 
-<center>
+
  <div class="container">
  		<br>
         <h1 style="text-align: center; font-size:2em;">기업 마이페이지</h1>
@@ -86,11 +86,9 @@
                 </c:forEach>
             </tbody>
         </table>
-</center>
 
 <br>
 
-<center>
         <table>
         	<div class="right-align">
 		   </div>
@@ -119,11 +117,9 @@
              	 </c:forEach>
             </tbody>
         </table>
-</center>
 
 <br>
 
-<center>
         <table>
         	<div class="right-align">
 		   </div>
@@ -157,12 +153,10 @@
 				</tr> 
             </tbody>
         </table>
-</center>
 
 <br>
 
 
-<center>
         <table>
 		     <div class="right-align">
 		   </div>
@@ -197,7 +191,6 @@
 				</tr>
             </tbody>
         </table>
-</center>
 
 		
 		

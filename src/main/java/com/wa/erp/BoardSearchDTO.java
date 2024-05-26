@@ -50,6 +50,12 @@ public class BoardSearchDTO {
 		private String ing;
 		private String project_type;
 		private String field_name;
+		// 업종별 검색 추가
+		private String industry;
+	// 지역별 검색 추가
+		private String work_place;
+		// 진행중인 공고
+		private String gonggoStatus;
 	
 	
 		
@@ -306,6 +312,24 @@ public class BoardSearchDTO {
 	}
 	public void setWelfare(String[] welfare) {
 		this.welfare = welfare;
+	}
+	public String getIndustry() {
+		return industry;
+	}
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+	public String getWork_place() {
+		return work_place;
+	}
+	public void setWork_place(String work_place) {
+		this.work_place = work_place;
+	}
+	public String getGonggoStatus() {
+		return gonggoStatus;
+	}
+	public void setGonggoStatus(String gonggoStatus) {
+		this.gonggoStatus = gonggoStatus;
 	}
 	
 	

@@ -128,7 +128,7 @@
 				        business_industry = #{business_industry},
 				        birth = #{birth},
 				        sales = #{sales},
-				        addr = #{addr1}||#{addr2}||#{addr3},
+				        addr = #{addr1}||' '||#{addr2}||' '||#{addr3},
 				        emp_no = #{emp_no},
 				        sal_avg = #{sal_avg}
 				    where
