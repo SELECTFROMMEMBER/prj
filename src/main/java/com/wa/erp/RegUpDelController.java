@@ -25,16 +25,6 @@ public class RegUpDelController {
 	@Autowired
 	private RegUpDelService regUpDelService;
 	
-	@RequestMapping( value ="/gongGoRegForm.do")
-	public ModelAndView gongGoRegForm(
-			BoardSearchDTO boardSearchDTO
-			) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("gongGoRegForm.jsp");
-		return mav;
-	}
 
 	
 	/*mmmmmmmmmmmmmm 자유게시판 등록 mmmmmmmmmmmmmmm*/
@@ -388,38 +378,23 @@ public class RegUpDelController {
 	  /*mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm*/
 	
 	  
-	  	//공고등록 페이지
-	  	@RequestMapping( 
-				value="/gongGoReg.do" 
-				,method=RequestMethod.POST
-				,produces="application/json;charset=UTF-8"
-		)
-		@ResponseBody
-		public Map<String,String> gongGoRegProc (  
-				BoardDTO  boardDTO
-		){
-			
-			Map<String,String> resultMap = new HashMap<String,String>();
-			
-			int gongGoRegCnt = this.regUpDelService.insertGongo(boardDTO);
-			
-			resultMap.put( "result", gongGoRegCnt+"" );
-			
-			return resultMap;
-		}
+	  	
 	  	
 	  //********************************************************************//
+		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		// URL 주소 /timeShareRegForm.do 로 접근하면 호출되는 메소드 선언
 		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		@RequestMapping( value="/timeShareRegForm.do")
-		public ModelAndView timeShareRegForm( 			
-		){						
-			ModelAndView mav = new ModelAndView();		
-			mav.setViewName("timeShareRegForm.jsp");		
-			return mav;		
+		public ModelAndView timeShareRegForm(
+				
+		){
+	    ModelAndView mav = new ModelAndView(); 
+		mav.setViewName("timeShareRegForm.jsp");			
+		return mav;		
 		}
 
+		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 		// /timeShareRegForm.do 로 접근하면 호출되는 메소드 선언하기
 		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
@@ -431,10 +406,11 @@ public class RegUpDelController {
 		
 		@ResponseBody
 		public Map<String,String> timeShareRegProc(  		
-				BoardDTO boardDTO
+				TimeShareDTO timeShareDTO
 		){
+			
 			Map<String,String> resultMap = new HashMap<String,String>();	
-			int timeShareRegCnt = this.regUpDelService.inserttimeShare(boardDTO);
+			int timeShareRegCnt = this.regUpDelService.inserttimeShare(timeShareDTO);
 			resultMap.put( "result", timeShareRegCnt+"" );
 			return resultMap;
 		}
@@ -449,13 +425,14 @@ public class RegUpDelController {
 				// 매개변수 b_no 에 저장하고 들어온다.
 				// 즉 게시판 고유 번호가 매개변수 b_no 로 들어온다.
 				//--------------------------------------
-				@RequestParam(value="b_no") int b_no	
-			){	
+				@RequestParam(value="b_no") int b_no
+			
+			   ){	
 				//--------------------------------
 				// BoardServiceImpl 객체의 gettimeShareForUpDel 메소드를 호출하여
 				// 수정/삭제 화면에서 필요한 [1개의 게시판 글]을 가져오기
 				//--------------------------------
-				BoardDTO boardDTO = this.regUpDelService.gettimeShareForUpDel(b_no);
+				TimeShareDTO timeShareDTO = this.regUpDelService.gettimeShareForUpDel(b_no);
 				//--------------------------------
 				// [ModelAndView 객체] 생성하기
 				//--------------------------------
@@ -467,7 +444,7 @@ public class RegUpDelController {
 				// ModelAndView 객체에 저장된 객체는
 				// HttpServletRequest 객체에도 저장된다.
 				//--------------------------------
-				mav.addObject("boardDTO", boardDTO);
+				mav.addObject("timeShareDTO", timeShareDTO);
 				//--------------------------------
 				// [ModelAndView 객체]의 setViewName 메소드 호출하여  
 				// [호출할 JSP 페이지명]을 문자로 저장하기
@@ -479,67 +456,71 @@ public class RegUpDelController {
 				//--------------------------------
 				return mav;
 		}
+
+
+		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+		// /timeShareUpProc.do 접속 시 호출되는 메소드 선언
+		// <참고> boardUpDelForm.jsp 에서 수정 버튼 클릭했을 때 접속할 때 호출되는 메소드
+		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+			@RequestMapping( 
+					value="/timeShareUpProc.do" 
+					,method=RequestMethod.POST
+					,produces="application/json;charset=UTF-8"
+			)
+			@ResponseBody
+			public Map<String,String> timeShareUpProc( 
+					//*******************************************
+					// 파라미터값이 저장된 [BoardDTO 객체]가 들어올 매개변수 선언
+					//*******************************************
+					// [파라미터명]과 [BoardDTO 객체]의 [멤버변수명]이 같으면
+					// setter 메소드가 작동되어 [파라미터값]이 [멤버변수]에 저장된다
+					TimeShareDTO timeShareDTO
+			    ){
+				//------------------------------------------------
+				// 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
+				//------------------------------------------------
+				Map<String,String> resultMap = new HashMap<String,String>();
+
+				//-------------------------------------------
+				// [BoardServiceImpl 객체]의 updatetimeShare 메소드 호출로 
+				// 부업 글 수정하고 [수정 적용행의 개수] 얻기
+				//-------------------------------------------
+				int timeShareUpCnt = this.regUpDelService.updatetimeShare(timeShareDTO);
+
+				//-------------------------------------------
+				// HashMap 객체에 게시판 수정 행의 개수 저장하기
+				//-------------------------------------------
+				resultMap.put( "result", timeShareUpCnt+"" );
+
+				//-------------------------------------------
+				// HashMap 객체의 메위주 리턴하기
+				//-------------------------------------------
+				return resultMap;
+			    }
+			
 			
 			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-			// /timeShareUpProc.do 접속 시 호출되는 메소드 선언
-			// <참고> boardUpDelForm.jsp 에서 수정 버튼 클릭했을 때 접속할 때 호출되는 메소드
 			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-				@RequestMapping( 
-						value="/timeShareUpProc.do" 
-						,method=RequestMethod.POST
-						,produces="application/json;charset=UTF-8"
-				)
-				@ResponseBody
-				public Map<String,String> timeShareUpProc( 
-						//*******************************************
-						// 파라미터값이 저장된 [BoardDTO 객체]가 들어올 매개변수 선언
-						//*******************************************
-						// [파라미터명]과 [BoardDTO 객체]의 [멤버변수명]이 같으면
-						// setter 메소드가 작동되어 [파라미터값]이 [멤버변수]에 저장된다
-						BoardDTO boardDTO	
-				) {
-					//------------------------------------------------
-					// 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
-					//------------------------------------------------
-					Map<String,String> resultMap = new HashMap<String,String>();
-
-					//-------------------------------------------
-					// [BoardServiceImpl 객체]의 updatetimeShare 메소드 호출로 
-					// 부업 글 수정하고 [수정 적용행의 개수] 얻기
-					//-------------------------------------------
-					int timeShareUpCnt = this.regUpDelService.updatetimeShare(boardDTO);
-
-					//-------------------------------------------
-					// HashMap 객체에 게시판 수정 행의 개수 저장하기
-					//-------------------------------------------
-					resultMap.put( "result", timeShareUpCnt+"" );
-
-					//-------------------------------------------
-					// HashMap 객체의 메위주 리턴하기
-					//-------------------------------------------
-					return resultMap;
-				}
+			// /timeShareDelProc.do 접속 시 호출되는 메소드 선언
+			//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+			@RequestMapping( 
+					value="/timeShareDelProc.do" 
+					,method=RequestMethod.POST
+					,produces="application/json;charset=UTF-8"
+			)
+			@ResponseBody
+			public Map<String,String> timeShareDelProc( 
+					TimeShareDTO timeShareDTO	
+			){
+				Map<String,String> resultMap = new HashMap<String,String>();
 				
-				//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-				// /timeShareDelProc.do 접속 시 호출되는 메소드 선언
-				//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-				@RequestMapping( 
-						value="/timeShareDelProc.do" 
-						,method=RequestMethod.POST
-						,produces="application/json;charset=UTF-8"
-				)
-				@ResponseBody
-				public Map<String,String> timeShareDelProc( 
-						BoardDTO boardDTO	
-				) {
-					Map<String,String> resultMap = new HashMap<String,String>();
-					
-					int timeShareDelCnt = this.regUpDelService.deletetimeShare(boardDTO);
+				int timeShareDelCnt = this.regUpDelService.deletetimeShare(timeShareDTO);
 
-					resultMap.put( "result", timeShareDelCnt+"" );
-					
-					return resultMap;
-				}
+				resultMap.put( "result", timeShareDelCnt+"" );
+				
+				return resultMap;
+			}
 	  
 				
 				//------------------------------------------------------------------- //
@@ -549,11 +530,13 @@ public class RegUpDelController {
 				// URL 주소 /buupListRegForm.do 로 접근하면 호출되는 메소드 선언
 				//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 				@RequestMapping( value="/buupListRegForm.do")
-				public ModelAndView buupListRegForm( ){
+				public ModelAndView buupListRegForm( 
+					){
 					//----------------------------------------------------
 					// [ModelAndView 객체] 생성하기
 					// [ModelAndView 객체]에 [호출 JSP 페이지명]을 저장하기
 					//-------------------------------------------
+					
 					ModelAndView mav = new ModelAndView( );
 					mav.setViewName( "buupListRegForm.jsp");
 					//----------------------------------------------------
@@ -574,11 +557,18 @@ public class RegUpDelController {
 				
 				@ResponseBody
 				public Map<String,String> buupListRegProc(  		
-						BoardDTO  boardDTO
+						BuupDTO buupDTO
 				){
-					
+					System.out.println("제목"+buupDTO.getSubject());
+					System.out.println("희망업무"+buupDTO.getHope_work());
+					System.out.println("시간"+buupDTO.getStart_time());
+					System.out.println("시간"+buupDTO.getEnd_time());
+					System.out.println("날짜"+buupDTO.getStart_date());
+					System.out.println("날짜"+buupDTO.getEnd_date());
+					System.out.println("내용"+buupDTO.getContent());
+					System.out.println("암호"+buupDTO.getPwd());
 					Map<String,String> resultMap = new HashMap<String,String>();	
-					int buupRegCnt = this.regUpDelService.insertbuup(boardDTO);
+					int buupRegCnt = this.regUpDelService.insertbuup(buupDTO);
 					resultMap.put( "result", buupRegCnt+"" );
 					return resultMap;
 				}
@@ -604,8 +594,8 @@ public class RegUpDelController {
 						//*******************************************
 							// [파라미터명]과 [BoardDTO 객체]의 [멤버변수명]이 같으면
 							// setter 메소드가 작동되어 [파라미터값]이 [멤버변수]에 저장된다
-						BoardDTO boardDTO	
-				) {
+						BuupDTO buupDTO
+				    ){
 					//------------------------------------------------
 					// 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
 					//------------------------------------------------
@@ -615,7 +605,7 @@ public class RegUpDelController {
 					// [BoardServiceImpl 객체]의 updatebuup 메소드 호출로 
 					// 부업 글 수정하고 [수정 적용행의 개수] 얻기
 					//-------------------------------------------
-					int buupUpCnt = this.regUpDelService.updatebuup(boardDTO);
+					int buupUpCnt = this.regUpDelService.updatebuup(buupDTO);
 
 					//-------------------------------------------
 					// HashMap 객체에 게시판 수정 행의 개수 저장하기
@@ -640,11 +630,11 @@ public class RegUpDelController {
 				)
 				@ResponseBody
 				public Map<String,String> buupDelProc( 
-						BoardDTO boardDTO	
+						BuupDTO buupDTO
 				) {
 					Map<String,String> resultMap = new HashMap<String,String>();
 					
-					int buupDelCnt = this.regUpDelService.deletebuup(boardDTO);
+					int buupDelCnt = this.regUpDelService.deletebuup(buupDTO);
 
 					resultMap.put( "result", buupDelCnt+"" );
 					
@@ -661,13 +651,14 @@ public class RegUpDelController {
 					// 매개변수 b_no 에 저장하고 들어온다.
 					// 즉 게시판 고유 번호가 매개변수 b_no 로 들어온다.
 					//--------------------------------------
-					@RequestParam(value="b_no") int b_no	
+					@RequestParam(value="b_no") int b_no
 				    ){	
 					//--------------------------------
 					// BoardServiceImpl 객체의 getbuupForUpDel 메소드를 호출하여
 					// 수정/삭제 화면에서 필요한 [1개의 부업 글]을 가져오기
 					//--------------------------------
-					BoardDTO boardDTO = this.regUpDelService.getbuupForUpDel(b_no);
+
+					BuupDTO buupDTO = this.regUpDelService.getbuupForUpDel(b_no);
 					//--------------------------------
 					// [ModelAndView 객체] 생성하기
 					//--------------------------------
@@ -679,7 +670,7 @@ public class RegUpDelController {
 					// ModelAndView 객체에 저장된 객체는
 					// HttpServletRequest 객체에도 저장된다.
 					//--------------------------------
-					mav.addObject("boardDTO", boardDTO);
+					mav.addObject("buupDTO", buupDTO);
 					//--------------------------------
 					// [ModelAndView 객체]의 setViewName 메소드 호출하여  
 					// [호출할 JSP 페이지명]을 문자로 저장하기
@@ -813,6 +804,7 @@ public class RegUpDelController {
 					
 					return resultMap;
 				}
+
 				
 				//==========================================================
 				//관심 기업 등록
@@ -1035,6 +1027,101 @@ public class RegUpDelController {
 					}
 					
 					
+				
+				
+				
+				//============================================================
+				// 개인회원 정보수정, 삭제
+				//============================================================
+				@RequestMapping( value="/personalUpDelForm.do")
+				public ModelAndView personalUpDelForm( 
+
+					@RequestParam(value="p_no") int p_no
+				    ){	
+					MypageDTO mypageDTO = this.regUpDelService.getPrivacyForUpDel(p_no);
+					
+					ModelAndView mav = new ModelAndView( );
+					
+			        String[] addressParts = mypageDTO.getAddr().split(" ", 3);
+			        
+			        // 주소의 각 부분을 모델에 추가
+			            mav.addObject("addr1", addressParts[0]); // 서울특별시
+			            mav.addObject("addr2", addressParts[1]); // 성북구
+			            mav.addObject("addr3", addressParts[2]); // 나머지 주소
+				    
+					mav.addObject("mypageDTO", mypageDTO);
+			
+					mav.setViewName("personalUpDelForm.jsp");
+				
+					return mav;
+				    }
+				
+				
+				
+				//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+				//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+				// /timeShareUpProc.do 접속 시 호출되는 메소드 선언
+				// <참고> boardUpDelForm.jsp 에서 수정 버튼 클릭했을 때 접속할 때 호출되는 메소드
+				//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+					@RequestMapping( 
+							value="/PrivacyUpProc.do" 
+							,method=RequestMethod.POST
+							,produces="application/json;charset=UTF-8"
+					)
+					@ResponseBody
+					public Map<String,String> PrivacyUpProc( 
+						
+							MypageDTO mypageDTO
+					    ){
+						//------------------------------------------------
+						// 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
+						//------------------------------------------------
+						Map<String,String> resultMap = new HashMap<String,String>();
+
+						//-------------------------------------------
+						// [BoardServiceImpl 객체]의 updatetimeShare 메소드 호출로 
+						// 부업 글 수정하고 [수정 적용행의 개수] 얻기
+						//-------------------------------------------
+						int PrivacyUpCnt = this.regUpDelService.updatePrivacy(mypageDTO);
+
+						//-------------------------------------------
+						// HashMap 객체에 게시판 수정 행의 개수 저장하기
+						//-------------------------------------------
+						resultMap.put( "result", PrivacyUpCnt+"" );
+
+						//-------------------------------------------
+						// HashMap 객체의 메위주 리턴하기
+						//-------------------------------------------
+						return resultMap;
+					    }
+					
+					
+					//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+					//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+					// /timeShareDelProc.do 접속 시 호출되는 메소드 선언
+					//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+					@RequestMapping( 
+							value="/PrivacyDelProc.do" 
+							,method=RequestMethod.POST
+							,produces="application/json;charset=UTF-8"
+					)
+					@ResponseBody
+					public Map<String,String> PrivacyDelProc( 
+							MypageDTO mypageDTO
+					){
+					Map<String,String> resultMap = new HashMap<String,String>();
+					
+					int PrivacyDelCnt = this.regUpDelService.deletePrivacy(mypageDTO);
+
+					resultMap.put( "result", PrivacyDelCnt+"" );
+					
+					return resultMap;
+					}
+				
+				
+				
+
+		
 }
 	
 

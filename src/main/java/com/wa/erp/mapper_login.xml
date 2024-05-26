@@ -19,16 +19,16 @@
 			,nickname
 			,name
 			</if>
-			<if test="board=='company_mem'">
+			<if test="board=='company_mem' and mid!='admin'">
 			c_no
 			,name
 			</if>
-			<if test="mid=='admin'">
+			<if test="mid=='admin' ">
 			admin_no
 			</if>
 		from 
 			<choose>
-			<when test = "mid=='admin'" >
+			<when test = "mid=='admin' " >
 			admin
 			</when> 
 			<otherwise>
@@ -42,7 +42,7 @@
 		<if test="board=='person_mem' and mid!='admin'">
 			pid=#{mid}
 		</if>
-		<if test="board=='company_mem'">
+		<if test="board=='company_mem' and mid!='admin'">
 			cid=#{mid}
 		</if>
 		
@@ -58,6 +58,27 @@
  	</select>
  	 	<select id="checkaid" parameterType="java.util.HashMap" resultType="int">
  		select count(*) from admin where id=#{mid} and pwd=#{pwd}
+ 		</select>
+ 	<select id="getIs_resume" parameterType="java.util.HashMap" resultType="int">
+ 		select
+ 			count(*)
+ 		from
+ 			person_mem
+ 		where
+ 			p_no not in (select p_no from resume)
+ 			and
+ 			pid=#{mid}
+ 	</select>
+
+ 	<select id="getIs_info" parameterType="java.util.HashMap" resultType="int">
+ 		select
+ 			count(*)
+ 		from
+ 			company_mem
+ 		where
+ 			c_no not in (select c_no from company_info)
+ 			and
+ 			cid=#{mid}
  	</select>
  	
 </mapper>

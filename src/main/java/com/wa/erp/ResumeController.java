@@ -28,6 +28,7 @@ public class ResumeController {
 			) {	
 		int resumeListCnt = this.resumeService.getresumeListCnt( boardSearchDTO );
 		int resumeListAllCnt = this.resumeService.getresumeListAllCnt(boardSearchDTO);
+		System.out.println("컨트롤러"+resumeListCnt);
 		Map<String,Integer> boardMap = Util.getPagingMap(
 				boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
 				,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
@@ -77,7 +78,7 @@ public class ResumeController {
 					@RequestParam(value="p_no") int p_no	
 					,@RequestParam(value="resume_no") int resume_no	
 
-			){	
+			   ){	
 				BoardDTO boardDTO = this.resumeService.getResume(p_no);
 				List<BoardDTO> skillList = this.resumeService.getSkillList(resume_no);
 				ModelAndView mav = new ModelAndView( );

@@ -68,6 +68,7 @@ public class ResumeServiceImpl implements ResumeService{
 //		System.out.println("start "+boardSearchDTO.getStart_age());
 //		System.out.println("end "+boardSearchDTO.getEnd_age());
 		List<BoardDTO> resumeList = this.resumeDAO.getresumeList(boardSearchDTO);
+		System.out.println(boardSearchDTO.getEnd_rowNo());
 		return resumeList;
 	}
 

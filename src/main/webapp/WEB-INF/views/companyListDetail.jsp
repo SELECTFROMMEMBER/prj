@@ -337,7 +337,8 @@ function reviewEdit(r_no){
                     </c:otherwise>
                   </c:choose>
 				</c:if>
-				
+
+
 			<div class="table-container">
 				<table bordercolor="gray" border="1" cellpadding="7"
 					style="margin-left: auto%; margin-right: auto%;">
@@ -517,7 +518,6 @@ function reviewEdit(r_no){
 
 			</c:if>
 				</form>
-		
 </body>
 <%@ include file="footer.jsp"%>
 </html>

@@ -56,6 +56,7 @@ public class BoardSearchDTO {
 	 
 	 
 	
+	 
 		private int resume_no;
 		private  String[] welfare;
 		/////////////////////////////
@@ -84,6 +85,15 @@ public class BoardSearchDTO {
 		public void setMultisort3(String multisort3) {
 			this.multisort3 = multisort3;
 		}
+		// 업종별 검색 추가
+		private String industry;
+	// 지역별 검색 추가
+		private String work_place;
+		// 진행중인 공고
+		private String gonggoStatus;
+	
+	
+		
 		
 		public String getTradetype() {
 			return tradetype;
@@ -356,6 +366,25 @@ public class BoardSearchDTO {
 	public void setSort4(String sort4) {
 		this.sort4 = sort4;
 	}
+	public String getIndustry() {
+		return industry;
+	}
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+	public String getWork_place() {
+		return work_place;
+	}
+	public void setWork_place(String work_place) {
+		this.work_place = work_place;
+	}
+	public String getGonggoStatus() {
+		return gonggoStatus;
+	}
+	public void setGonggoStatus(String gonggoStatus) {
+		this.gonggoStatus = gonggoStatus;
+	}
+	
 	
 //	public String getMinYear() {
 //		return minYear;

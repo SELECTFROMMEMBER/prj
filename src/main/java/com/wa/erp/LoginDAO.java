@@ -14,4 +14,7 @@ public interface LoginDAO {
 	public int checkcid(Map<String,String> midPwd);
 
 	public int checkaid(Map<String, String> midPwd);
+	public int getIs_resume(Map<String, String> map);
+
+	public int getIs_info(Map<String, String> map);
 	}

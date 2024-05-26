@@ -22,10 +22,6 @@ public interface BoardDAO {
 
 	List<BoardDTO> getgongGoList();
 
-	List<BoardDTO> gettimeShareList();
-
-	List<BoardDTO> getbuupList();
-
 	List<BoardDTO> getprjList();
 
 	List<BoardDTO> getgongMoList();
@@ -36,13 +32,6 @@ public interface BoardDAO {
 	
 	int updateReadCount(Map<String,Object> paramMap);
 
-	// (부업)
-	BoardDTO getbuup(int b_no);
-	
-	// (프리랜서)	
-	BoardDTO gettimeShare(int b_no);
-	
-	
 //	게시판 검색 개수 구하는 getBoardListCnt 메소드 선언하기
 	int getboardListCnt(BoardSearchDTO boardSearchDTO);
 
@@ -99,6 +88,9 @@ public interface BoardDAO {
 		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
 
 		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
+		
+		//기업마이페이지
+		List<BoardDTO> getMyGongMoList(int c_no);
 
 
 		List<BoardDTO> getLikeCompany(int p_no);
@@ -106,6 +98,35 @@ public interface BoardDAO {
 		int getnoticeListCnt(BoardSearchDTO boardSearchDTO);
 
 		int getnoticeListAllCnt(BoardSearchDTO boardSearchDTO);
+		List<BoardDTO> getMyGongGoList(int c_no);
+
+		List<BoardDTO> getMyCompanyInfo(int c_no);
+
+		List<BoardDTO> getGonggoPertocom(int c_no);
+
+		BoardDTO getComInfoSujung(int c_no);
+
+		int getComInfoCnt(int c_no);
+		
+		int getComInfoPwdCnt( BoardDTO boardDTO );
+		 
+		int updateComInfo( BoardDTO boardDTO );
+		
+		int updateComMem( BoardDTO boardDTO );
+		
+		int getComMemCnt( int c_no );
+		
+		int getComWelCnt( int c_no );
+		
+		int deldateComWel( BoardDTO boardDTO );
+		
+		int updateComWel( BoardDTO boardDTO );
+		
+		int ComUpWelfare(BoardDTO boardDTO);
+
+		int getComUpWelCnt(int c_no);
+
+
 		int getcompanyListCnt(BoardSearchDTO boardSearchDTO);
 
 		int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO);

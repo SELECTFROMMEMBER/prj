@@ -224,9 +224,9 @@ function pageNoClick(clickPageNo){
 			<div class="fieldset-container" >
   			<fieldset>
     		<legend>성별 선택</legend>
-    		<input type="radio" id="male" name="sex" value="남성">
+    		<input type="radio" id="male" name="sex" value="남">
     		<label for="male">남성</label><br>
-    		<input type="radio" id="female" name="sex" value="여성">
+    		<input type="radio" id="female" name="sex" value="여">
     		<label for="female">여성</label><br>
     		<input type="radio" id="other-sex" name="sex" value=""  checked>
     		<label for="other-sex">무관</label>			

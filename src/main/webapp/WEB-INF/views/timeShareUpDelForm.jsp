@@ -10,6 +10,9 @@
 <script>
 
 
+
+
+
 function checktimeShareUpForm(){
 
 	var formObj  = $("[name='timeShareUpDelForm']");
@@ -196,59 +199,26 @@ function checktimeShareDelForm(){
        <form name="timeShareUpDelForm">
           <table> 
 
-
-           <tr>     
-               <td>이름</td>
-               <td>
-					<!-------------------------------------------------------->
-					<input type="text" name="name" class="name" size="10" maxlength="15" 
-									value="${requestScope.boardDTO.name}">
-					<!-------------------------------------------------------->
-				</td>  
-			</tr>   
+              <tr>
+			    <td>제목</td>
+			     <!-------------------------------------------------------->		
+			    <td><input type="text" name="subject" class="subject" value="${requestScope.timeShareDTO.subject}"> </td>
+			     <!-------------------------------------------------------->		 
+			</tr> 
           
-                      
-            <tr>     
-               <td>휴대폰 번호</td>
-               <td>
-					<!-------------------------------------------------------->
-					<input type="text" name="phone" class="phone" size="10" maxlength="15" 
-									value="${requestScope.boardDTO.phone}">
-					<!-------------------------------------------------------->
-				</td>  
-			</tr>
 			
-       		  <tr>     
-                <td>경력</td>
-               <td>
-					<!-------------------------------------------------------->
-					<input type="text" name="career" class="career" size="10" maxlength="15" 
-									value="${requestScope.boardDTO.career}">
-					<!-------------------------------------------------------->
-				</td>  
-			</tr>
-			
-				<tr>
-			        <td>선호업무</td>
-			        <td>
-			         	<input type="text" name="preferred_work" class="preferred_work" size="10" maxlength="15"  
-			             value="${requestScope.boardDTO.preferred_work}">
-			         </td>
-			    </tr>
-			
-		<!-- select값 꺼내오기 수정중 -->                  
+		<!-- select값 꺼내오기 수정중    <td>${requestScope.boardDTO.start_time} ~ ${requestScope.boardDTO.end_time}</td> -->                  
   		 <tr> 
-	        <td>근무시간</td>   
+	        <td>희망 근무시간</td>   
 	         <td>    
-	             
-	         <select name="start_time" class="start_time" >
+	          <!-------------------------------------------------------->  
+	           <select name="start_time" class="start_time" >
 	          <% for (int i = 1; i <= 24; i++) { %>
 				        <option value="<%= i %>"><%= String.format("%02d", i) %></option>
 				    <% } %>
-	        </select>
-					  
-			      
-				</select>
+	           </select>
+
+			   </select>
 				시~
 				<select name="end_time" class="end_time"  value="${requestScope.boardDTO.end_time}">
 				    <% for (int i = 1; i <= 24; i++) { %>
@@ -256,46 +226,63 @@ function checktimeShareDelForm(){
 				    <% } %>
 				</select>
 				시
-                </td>
-             </tr>   
-   
-   
-          <tr>
-            <td>주소</td>
-            <td>
-                <select name="addr1" id="sido1"></select>
-                <select name="addr2" id="gugun1"></select> 
-                <input type="text" name="addr3" id="detailadress" value="나머지 상세주소" onfocus="if(this.value=='나머지 상세주소') this.value='';">
-            </td>
-           </tr>
+				<!-------------------------------------------------------->
+              </td>
+           </tr>   	
+			
+			
+   			 <tr>
+                 <td>지원 기간</td>
+                 <!-------------------------------------------------------->
+                <td><label for="start_date">시작일:</label> 
+            		<input type="date" id="start_date" name="start_date" value="${requestScope.timeShareDTO.start_date}" min="2024-01-01" max="2030-12-31" />
+               		 ~
+                	<label for="end_date">마감일:</label> 
+           		    <input type="date" id="end_date" name="end_date" value="${requestScope.timeShareDTO.end_date}"  min="2024-01-01" max="2030-12-31" />
+                 </td>
+                 <!-------------------------------------------------------->
+             </tr>
+	
+	
+	   
+	
+		<tr>
+	        <td>선호업무</td>
+	        <!-------------------------------------------------------->
+	        <td><textarea id="Preferred_work" name="Preferred_work" style="width:300px;height:100px;" 
+	             value="${requestScope.timeShareDTO.preferred_work}"></textarea>
+	        </td>
+	        <!-------------------------------------------------------->		    
+	    </tr>
 
              
            <tr>
              <td>내용</td>
-             <td>
-              <div style="height: 100px;">
-    				<textarea name="content"  style="width:80%; height:80%;"rows="4" cols="50">${requestScope.boardDTO.content}</textarea>
-
-			  </div>
-             </td>
+              <!-------------------------------------------------------->		
+    		 <td><textarea name="content"  style="width:80%; height:80%;"rows="4" cols="50" placeholder="최대 500자 까지 입력가능합니다.">${requestScope.timeShareDTO.content}</textarea>  </td>
+    		  <!-------------------------------------------------------->		
+           </tr>
              
                                
 		     <tr>
 			    <td>암호</td>
-			    <td><input type="password" name="pwd" class="pwd"  size="8"  maxlength="4"> </td> 
+			     <!-------------------------------------------------------->		
+			    <td><input type="password" name="pwd" class="pwd"  size="4"  maxlength="4" placeholder="최대 4자리"> </td>
+			     <!-------------------------------------------------------->		 
 			</tr> 
+			
+			<input type="hidden" name="b_no" value="${requestScope.timeShareDTO.b_no}">
+			  <input type="hidden" name="p_no" value="${sessionScope.p_no}">   
           </table>
           
-               <input type="hidden" name="b_no" value="${requestScope.boardDTO.b_no}">
-          
-			      
               <center>
                  <span style= "cursor:pointer"  onClick="location.replace('/timeShare.do')">[목록화면]</span>
                  <input type="button" value="수정" onClick= "checktimeShareUpForm();">
                  <input type="button" value="삭제" onClick= "checktimeShareDelForm();">
      	     </center>
+     	     
       </form>
-  </div>
+   </div>
 </body>
 
 

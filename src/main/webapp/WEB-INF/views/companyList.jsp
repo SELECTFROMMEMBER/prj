@@ -79,6 +79,22 @@ searchWithMultiSort()  ;
 .fas.fa-heart {
     color: red;
 }
+.star-container {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .star {
+      background: linear-gradient(to right, #EAB838, #EAB838 50%, #E0E2E7 50%);
+      color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    .star-container .star-grade {
+      font-weight: 700;
+    }
 </style>
 <style>
   #firstSelect {
@@ -475,14 +491,18 @@ function searchWithMultiSort(){
                            <div style="display: flex; align-items: center;">
                               <img width="80" src="images/photo-1.jpg" style="margin-right: 10px;">
                               <input type="hidden" value="	${requestScope.boardMap.begin_serialNo_desc - status.index}">
-                                  &lt기업 이름&gt ${board.name}<br>
-                              &lt업종&gt ${board.indus}<br> &lt매출&gt ${board.sales}<br>
-                              &lt연봉&gt ${board.sal_avg}<br>
-                               &lt주소&gt  ${board.addr}<br>
+                        
+                              &nbsp;&nbsp;&nbsp; &lt업종&gt &nbsp;&nbsp;&nbsp;${board.indus}<br>
+                              &nbsp;&nbsp;&nbsp; &lt매출&gt &nbsp;&nbsp;&nbsp;${board.sales}<br>
+                              &nbsp;&nbsp;&nbsp; &lt연봉&gt &nbsp;&nbsp;&nbsp;${board.sal_avg}<br>
+                              &nbsp;&nbsp;&nbsp; &lt주소&gt &nbsp;&nbsp;&nbsp;${board.addr}<br>
                            </div>
                           </td>
                           <td align="center">
-                              ${board.star_avg}
+	                          <div class="star-container">
+								<p class="star">★★★★★</p><br>
+								<span class="star-grade" >${board.star_avg}</span>
+							 </div>
                           </td>
                           <td>
                               <c:choose>

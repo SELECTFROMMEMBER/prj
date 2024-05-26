@@ -22,6 +22,7 @@ public class MemberDTO {
 	/*-------------------*/
 
 	/*------회사 정보------*/
+	private int mem_c_no;
 	private Date birth;
 	private int emp_no;
 	private int sales;
@@ -41,6 +42,12 @@ public class MemberDTO {
 	private String is_job;
 	private String nickname;
 	private String sex;
+	private int age;
+	
+	private String rec_count;
+	
+	
+	
 	public String getPid() {
 		return pid;
 	}
@@ -233,6 +240,24 @@ public class MemberDTO {
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+	public int getMem_c_no() {
+		return mem_c_no;
+	}
+	public void setMem_c_no(int mem_c_no) {
+		this.mem_c_no = mem_c_no;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getRec_count() {
+		return rec_count;
+	}
+	public void setRec_count(String rec_count) {
+		this.rec_count = rec_count;
 	}
 	   
 	   

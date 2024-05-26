@@ -34,4 +34,16 @@ public class LoginServiceImpl implements LoginService{
 		return 0;
 	}
 	
+	public int getIs_resume(Map<String, String> map) {
+		int is_resume = this.loginDAO.getIs_resume(map);
+		
+		return is_resume;
+	}
+
+	public int getIs_info(Map<String, String> map) {
+		int is_info = this.loginDAO.getIs_info(map);
+		
+		return is_info;
+	}
+	
 }

@@ -27,7 +27,8 @@ $.ajax(
 				
 				if(result==1){
 					alert("회원가입 입력 성공입니다.");
-					location.replace("companyUpdelForm.do")
+					alert("로그인 후 기업정보등록 후 이용해주시기 바랍니다.")
+					location.replace("loginForm.do")
 				}
 				else if(result==2){
 					alert("아이디가 중복 됩니다. 재 입력 바람.")
@@ -108,7 +109,7 @@ $.ajax(
             </tr>
           </table>
           
-         <input type="button" value="다음" onClick="regCompany()">
+         <input type="button" value="가입하기" onClick="regCompany()">
      </center>
       </form>
   </div>

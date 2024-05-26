@@ -95,7 +95,7 @@
 		            var result = json["result"];
 		            
 		            if(result==1){
-		               alert("회원가입 입력 성공입니다.");
+		               alert("이력서 입력 성공입니다.");
 		               location.replace("12Wa.do")
 		            }
 		            else {
@@ -147,7 +147,7 @@
                 <td>대회이름: <input type="text" id="name1" class="name1" name="name1" required>
                      수상명: <input type="text" id="type1"   class="type1"  name="type1" required>
                   <br> 주최기관:<input type="text" id="organizer1"  class="organizer1"   name="organizer1" required>
-                     상장번호:<input type="text" id="award_no1"  class="award_no1"    name="award_no1" required>
+                     상장번호:<input type="text" id="award_no1"  class="award_no1"    name="award_no1"  value=0 required>
                  
                 </td>
             </tr>
@@ -245,12 +245,11 @@
                <input type="text" id="hope_salary" class="hope_salary" name="hope_salary">
             </td>
             </tr>
-   
         
       </table>
+   				<input type="hidden" name="mem_p_no" value="${sessionScope.p_no}" >
 
       </form>
-       <input type="button"  value="이전"onclick="location.replace('personalRegForm.do')">
       <input type="button"  value="등록"onclick="checkresumeRegForm()">
       </div>
 </body>

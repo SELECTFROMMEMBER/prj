@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,14 +23,14 @@
 					
 					,success : function(json){
 						var result = json["result"];
-						alert('result')
+						alert(result);
 						
 						if(result==1){
 							alert("정보등록 성공입니다!");
 							location.replace("/loginForm.do")
 						}
 						else {
-							alert(result)
+							alert("잘못됨ㅅㄱ")
 						
 						}
 					}
@@ -43,60 +43,78 @@
 				}
 			);
 		}
-	</script>
+   </script>
 
 </head>
 
 <body>
 
-	<div id="container">
-		<%@ include file="header.jsp"%>
+   <div id="container">
+      <%@ include file="header.jsp"%>
 
 
 
 
 
-		<div class="container">
-			<br>
-			<h1 style="text-align: center;">기업 정보 등록</h1>
-			<form action="submit.php" method="POST" name='comUpDel'>
-				<table
-					style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 
+      <div class="container">
+         <br>
+         <h1 style="text-align: center;">기업 정보 등록</h1><br>
+         <form action="submit.php" method="POST" name='comUpDel'>
+            <table
+               style="border: 1px solid black; margin-left: auto; margin-right: auto;">
 					<tr>
 						<th>항목</th>
 						<th>등록 사항</th>
 					</tr>
 					<tr>
-						<td>기업명:</td>
-						<td></td>
+						<td>기업 로고 등록</td>
+						<td><input type="file" id="competition_file" name="competition_file" accept=".pdf, .doc, .docx"  ></td>
 					</tr>
 					<tr>
-						<td>기업 로고 등록:</td>
-
-					</tr>
-					<tr>
-						<td>홈페이지:</td>
+						<td>홈페이지</td>
 						<td><input type="text" id="url" class="url" name="url"
 							required></td>
 					</tr>
 					<tr>
-						<td>기업 이메일:</td>
-						<td></td>
+						<td>복리후생</td>
+						<td><input type="checkbox" id="welfare_code"	name="welfare_code" value="1">
+						    <label for="benefits">4대보험가입</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="2">
+							<label for="benefits">연금가입</label> 
+							<input type="checkbox"  id="welfare_code" name="welfare_code" value="3">
+							<label for="benefits">보너스 및 인센티브</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="4">
+							<label for="benefits">수당제도</label><br>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="5">
+							<label for="benefits">사내동호회 운영</label> 
+							<input type="checkbox"  id="welfare_code" name="welfare_code" value="6">
+							<label for="benefits">경조사 지원</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="7">
+							<label for="benefits">사무용품 지원</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="8">
+							<label for="benefits">출산/육아 지원제도</label><br>
+							<input type="checkbox"  id="welfare_code" name="welfare_code" value="9">
+							<label for="benefits">자유복장</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="10">
+							<label for="benefits">식대제공</label> 
+							<input type="checkbox"  id="welfare_code" name="welfare_code" value="11">
+							<label for="benefits">기숙사 및 사택 제공</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="12">
+							<label for="benefits">차량유류비 지급</label><br>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="13">
+							<label for="benefits">통근버스 운행</label> 
+							<input type="checkbox"  id="welfare_code" name="welfare_code" value="14">
+							<label for="benefits">교통비 지급</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="15">
+							<label for="benefits">유연근무제</label>
+							<input type="checkbox" id="welfare_code" name="welfare_code" value="16">
+							<label for="benefits">각종 행사</label>
+							
+					</td>
 					</tr>
 					<tr>
-						<td>복리후생:</td>
-						<td><input type="checkbox" id="welfare_code"
-							name="welfare_code" value="1"> <label for="benefits">4대보험가입</label>
-							<input type="checkbox" id="welfare_code" name="welfare_code"
-							value="2"> <label for="benefits">연금가입</label> <input
-							type="checkbox" id="welfare_code" name="welfare_code" value="3">
-							<label for="benefits">보너스 및 인센티브</label> <input type="checkbox"
-							id="welfare_code" name="welfare_code" value="4"> <label
-							for="benefits">보너스 및 인센티브</label></td>
-					</tr>
-					<tr>
-						<td>기업 형태:</td>
+						<td>기업 형태</td>
 						<td><select id="volume" name="volume" required>
 								<option value=""></option>
 								<option value="대기업">대기업</option>
@@ -105,7 +123,7 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>대표 업종:</td>
+						<td>대표 업종</td>
 						<td><select id="business_industry" name="business_industry"
 							required>
 								<option value="화장품 및 뷰티 제품 제조업">화장품 및 뷰티 제품 제조업
@@ -141,25 +159,13 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>설립일:</td>
+						<td>설립일</td>
 						<td><input type="date" id="birth" name="birth" required></td>
 					</tr>
-					<tr>
-
-						<td>대표자명:</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>회사 번호:</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>사업자번호:</td>
-						<td></td>
-					</tr>
+					
 
 					<tr>
-						<td>매출 액:</td>
+						<td>매출 액</td>
 						<td><input type="text" id="sales" name="sales" required></td>
 					</tr>
 					<tr>
@@ -173,25 +179,27 @@
 
 
 
-					<tr>
-						<td>사원수:</td>
-						<td><input type="text" id="emp_no" name="emp_no" required></td>
-					</tr>
-					<tr>
-						<td>평균연봉:</td>
-						<td><input type="text" id="sal_avg" name="sal_avg" required></td>
-					</tr>
+
+               <tr>
+                  <td>사원수</td>
+                  <td><input type="text" id="emp_no" name="emp_no" required></td>
+               </tr>
+               <tr>
+                  <td>평균연봉</td>
+                  <td><input type="text" id="sal_avg" name="sal_avg" required></td>
+               </tr>
+               <input type="hidden" name="mem_c_no" value="${sessionScope.c_no}">
 
 
-				</table>
-				<center>
-					<input type="button" value="이전"
-						onClick="location.replace('/companyRegForm.do')"> <input
-						type="button" value="등록" onClick="comRegUpDel()">
-
-				</center>
-			</form>
-		</div>
+            </table>
+            <br>
+            <center>
+                <input type="button" value="등록" onClick="comRegUpDel()">
+            </center>
+         </form>
+         <br>
+      </div>
+      
 </body>
 <%@include file="/WEB-INF/views/common.jsp" %>
 <%@ include file="footer.jsp"%>

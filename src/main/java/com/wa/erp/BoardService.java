@@ -20,10 +20,6 @@ public interface BoardService {
 	List<BoardReviewDTO> getreviewContent(int c_no);
 
 	List<BoardDTO> getgongGoList();
-	
-	List<BoardDTO> gettimeShareList();
-
-	List<BoardDTO> getbuupList();
 
 	List<BoardDTO> getprjList();
 
@@ -32,14 +28,6 @@ public interface BoardService {
 	BoardDTO getBoard(Map<String,Object> paramMap);
 
 	List<BoardDTO> getComment(Map<String,Object> paramMap);
-	
-	//***************************************************************//	
-		//(부업)
-		BoardDTO getbuup(int b_no);
-
-		//(프리랜서)
-		BoardDTO gettimeShare(int b_no);
-	//***************************************************************//	
 	
 	int getboardListCnt(BoardSearchDTO boardSearchDTO );
 
@@ -99,8 +87,10 @@ public interface BoardService {
 		int getGongMoListCnt(BoardSearchDTO boardSearchDTO);
 
 		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
+		
+		// 기업 마이페이지
+		List<BoardDTO> getMyGongMoList(int c_no);
 
-		List<BoardDTO> getlikeCompany(int p_no);
 			//공지사항
 		BoardDTO getNoticeUpDel(int n_no); 
 		int getnoticeListCnt(BoardSearchDTO boardSearchDTO);
@@ -112,4 +102,19 @@ public interface BoardService {
 		BoardDTO getNotice(int n_no);
 
 		List<BoardDTO> getMainNoticeList(BoardSearchDTO boardSearchDTO);
+		List<BoardDTO> getMyGongGoList(int c_no);
+
+		List<BoardDTO> getMyCompanyInfo(int c_no);
+
+		List<BoardDTO> getGonggoPertocom(int c_no);
+
+		BoardDTO getComInfoSujung(int c_no);
+
+		int updateComInfo(BoardDTO boardDTO);
+
+		int updateComMem(BoardDTO boardDTO);
+
+		int updateComWel(BoardDTO boardDTO);
+
+		List<BoardDTO> getlikeCompany(int p_no);
 }

@@ -39,6 +39,7 @@ function handleCheckboxClick(event) {
 	     document.noticeDetailForm.submit();
 	 
 	}
+
   
 </script>
 
