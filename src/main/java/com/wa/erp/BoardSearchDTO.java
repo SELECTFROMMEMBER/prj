@@ -11,15 +11,26 @@ public class BoardSearchDTO {
 	private String tradetype;
 	private String boardname;
 	private String selectedIndustry;
+	private String category;
+
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	private int c_no;
 	private int b_no;
 	private int p_no;
 	private String type;
 	private String table;
-	private double avg_star;
+	private String avg_star;
 	private String sido;
 	private String gugun;
 	private String sort;
+	private String sort2;
+	private String sort3;
+	private String sort4;
 	private int selectPageNo;		// 선택한 페이지 번호 관련 파값 저장 변수
 	private int rowCntPerPage;		// 페이지 당 보여줄 행의 개수 관련 파값 저장 변수
 	private int begin_rowNo;		// 테이블 검색 시 시작행 번호 저장 변수 선언.
@@ -39,8 +50,12 @@ public class BoardSearchDTO {
 	private String field_code;
 	private String career;
 	 private String[] skill_name; 
+	 private String multisort1;
+	 private String multisort2;
+	 private String multisort3;
 	 
 	 
+	
 	 
 		private int resume_no;
 		private  String[] welfare;
@@ -50,6 +65,26 @@ public class BoardSearchDTO {
 		private String ing;
 		private String project_type;
 		private String field_name;
+	
+	
+		public String getMultisort1() {
+			return multisort1;
+		}
+		public void setMultisort1(String multisort1) {
+			this.multisort1 = multisort1;
+		}
+		public String getMultisort2() {
+			return multisort2;
+		}
+		public void setMultisort2(String multisort2) {
+			this.multisort2 = multisort2;
+		}
+		public String getMultisort3() {
+			return multisort3;
+		}
+		public void setMultisort3(String multisort3) {
+			this.multisort3 = multisort3;
+		}
 		// 업종별 검색 추가
 		private String industry;
 	// 지역별 검색 추가
@@ -216,10 +251,10 @@ public class BoardSearchDTO {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
-	public double getAvg_star() {
+	public String getAvg_star() {
 		return avg_star;
 	}
-	public void setAvg_star(double avg_star) {
+	public void setAvg_star(String avg_star) {
 		this.avg_star = avg_star;
 	}
 	public String getSelectedIndustry() {
@@ -312,6 +347,24 @@ public class BoardSearchDTO {
 	}
 	public void setWelfare(String[] welfare) {
 		this.welfare = welfare;
+	}
+	public String getSort2() {
+		return sort2;
+	}
+	public void setSort2(String sort2) {
+		this.sort2 = sort2;
+	}
+	public String getSort3() {
+		return sort3;
+	}
+	public void setSort3(String sort3) {
+		this.sort3 = sort3;
+	}
+	public String getSort4() {
+		return sort4;
+	}
+	public void setSort4(String sort4) {
+		this.sort4 = sort4;
 	}
 	public String getIndustry() {
 		return industry;

@@ -150,6 +150,7 @@
                     alert('로그인 성공(기업회원)');
                     location.replace('/12Wa.do');                
                 }
+        
                 else if(data == 3){
                 	alert("이력서를 등록하고 이용해주시기 바랍니다.")
                 	location.replace("/resumRegForm.do");
@@ -158,7 +159,13 @@
                 	alert("기업정보를 등록하고 이용해주시기 바랍니다.")
                 	location.replace("/companyUpdelForm.do");
                 }
+                else if (data == 5) {
+                    alert('로그인 성공(관리자)');
+                    location.replace('/12Wa.do');                
+                }
+                
                 else {
+   
                     alert('로그인 실패');
                 }
             })

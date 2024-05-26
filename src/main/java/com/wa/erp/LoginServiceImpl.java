@@ -28,6 +28,9 @@ public class LoginServiceImpl implements LoginService{
 		int checkcid = this.loginDAO.checkcid(midPwd);
 		if (checkcid==1) {return 2;}
 		
+		int checkaid = this.loginDAO.checkaid(midPwd);
+		if (checkaid==1) {return 5;}
+		
 		return 0;
 	}
 	

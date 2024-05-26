@@ -52,6 +52,13 @@ public interface RegUpDelService {
 		//댓글 삭제
 		int deleteComment(BoardDTO boardDTO);
 		
+		int insertNotice(BoardDTO boardDTO);
+		int updateNotice(BoardDTO boardDTO);
+		int deleteNotice(BoardDTO boardDTO);
+		int deleteSelectPostCnt(BoardDTO boardDTO);
+		
+		
+		
 		// 마이페이지 회원정보 수정		
 		int  deletePrivacy(MypageDTO mypageDTO );
 		int  updatePrivacy(MypageDTO mypageDTO );

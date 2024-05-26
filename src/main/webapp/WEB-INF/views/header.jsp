@@ -85,6 +85,10 @@
 		<c:if test="${sessionScope.member=='company'}">
 			${sessionScope.name}님, 환영합니다.
 		</c:if>
+				<c:if test="${sessionScope.member=='admin'}">
+			관리자님, 환영합니다.
+		</c:if>
+		
 	</div>
     <!-- Login Button -->
     <c:choose>
@@ -98,13 +102,13 @@
 			<c:if test="${sessionScope.member=='company'}">
 				<a onClick="document.MyCompanyForm.submit()" id="myPageButton">기업마이페이지</a>
 			</c:if>
-
-			
 			<c:if test="${sessionScope.member == 'person'}">
                  <a href="#" onclick="document.MyPageForm.submit();" id="myPageButton">개인마이페이지</a>
            </c:if>
   <input type="hidden" name="p_no" value="${sessionScope.p_no}">
-			
+							<c:if test="${sessionScope.member=='admin'}">
+				<a href="javascript:location.replace('/notice.do')" id="myPageButton">공지사항관리</a>
+				</c:if>  
   </header>
   </div>
   

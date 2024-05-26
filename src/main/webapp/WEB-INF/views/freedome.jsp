@@ -8,8 +8,11 @@
   <title>12Wa~</title>
 	
 	<script>
-	
-	
+	// 선택된 체크박스에 해당하는 게시글을 삭제하는 함수
+
+	function handleCheckboxClick(event) {
+	    event.stopPropagation(); // 이벤트 버블링 방지
+	}
 	
 	
 	
@@ -45,9 +48,26 @@
 		search("freedome");
 		
 	}
+
+
+	function gonoticeDetailForm(n_no){
+	    $("[name='noticeDetailForm']").find("[name='n_no']").val(n_no);
+
+	     document.noticeDetailForm.submit();
+	 
+	}
 	
 	</script>
-
+<style>
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle; /* 수직 가운데 정렬을 위한 추가 속성 */
+    margin: 0; /* 체크박스 사이의 여백 제거 */
+}
+</style>
 </head>
   
 <body>
@@ -74,36 +94,153 @@
       <div class="freedomeListDiv">
       <form action="submit.php" method="POST">
           <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+         
+    
+
               
-              <tr>
+              <tr>	
                   <th>번호</th>
                   <th>제목</th>
                   <th>닉네임</th>                
                   <th>작성일</th>
                   <th>조회수</th>
                   <th>추천수</th>
+                    <c:if test="${sessionScope.member == 'admin' }">
+                  <th>글 선택</th>
+                  </c:if>
               </tr>
 
-              <c:forEach var="board" items="${requestScope.freedomeList }"  varStatus="status">
-<%--               <c:if test="${status.index+1 >= requestScope.boardMap.begin_rowNo && status.index+1 <= requestScope.boardMap.end_rowNo}"> --%>
-								
-              <tr style="cursor:pointer" onCLick= "goBoardDetailForm(${board.b_no},'freedome', 'freeboard','free','');">
-              	<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
-              	<td align="center"> ${board.subject}</td>
-              	<td align="center"> ${board.nickname }</td>
-              	<td align="center"> ${board.reg_date }</td>
-              	<td align="center"> ${board.read_count }</td>
-              	<td align="center"> ${board.rec_count }</td>
-              	
-              </tr>
-<%--               	</c:if> --%>
-              </c:forEach>
-			              
-          </table>
+						<c:if test="${sessionScope.member == 'admin' }">
+
+							<c:if test='${requestScope.boardMap.selectPageNo==1}'>
+								<c:forEach var="board" items="${requestScope.noticeList}"
+									varStatus="status">
+									<c:if test="${board.category eq 'board'}">
+										<tr onClick="gonoticeDetailForm(${board.n_no})">
+											<td bgcolor='pink'>※</td>
+											<td bgcolor='pink'>${board.subject}</td>
+											<td bgcolor='pink'>관리자</td>
+											<td bgcolor='pink'>${board.reg_date}</td>
+											<td bgcolor='pink'>${board.read_count}</td>
+											<td bgcolor='pink'></td>
+											<td bgcolor='pink'>※</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</c:if>
+
+
+
+							<c:if test='${requestScope.boardMap.selectPageNo==1}'>
+								<c:forEach var="board" items="${requestScope.noticeList}"
+									varStatus="status">
+									<c:if test="${board.category eq 'free'}">
+										<tr onClick="gonoticeDetailForm(${board.n_no})">
+											<td bgcolor='lightblue'>※</td>
+											<td bgcolor='lightblue'>${board.subject}</td>
+											<td bgcolor='lightblue'>관리자</td>
+											<td bgcolor='lightblue'>${board.reg_date}</td>
+											<td bgcolor='lightblue'>${board.read_count}</td>
+
+											<td bgcolor='lightblue'></td>
+											<td bgcolor='lightblue'>※</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</c:if>
+
+							<c:forEach var="board" items="${requestScope.freedomeList }"
+								varStatus="status">
+								<%--               <c:if test="${status.index+1 >= requestScope.boardMap.begin_rowNo && status.index+1 <= requestScope.boardMap.end_rowNo}"> --%>
+
+								<tr style="cursor: pointer"
+									onCLick="goBoardDetailForm(${board.b_no},'freedome', 'freeboard','free','');">
+									<td align="center">
+										${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
+									<td align="center">${board.subject}</td>
+									<td align="center">${board.nickname }</td>
+									<td align="center">${board.reg_date }</td>
+									<td align="center">${board.read_count }</td>
+									<td align="center">${board.rec_count }</td>
+									<c:if test="${sessionScope.member == 'admin' }">
+										<td><input type="checkbox" value="${board.b_no }"
+											onclick="handleCheckboxClick(event)"></td>
+									</c:if>
+
+								</tr>
+								<%--               	</c:if> --%>
+							</c:forEach>
+						</c:if>
+
+												<c:if test="${sessionScope.member == 'person' || sessionScope.member == 'company'}">
+
+							<c:if test='${requestScope.boardMap.selectPageNo==1}'>
+								<c:forEach var="board" items="${requestScope.noticeList}"
+									varStatus="status">
+									<c:if test="${board.category eq 'board'}">
+										<tr onClick="gonoticeDetailForm(${board.n_no})">
+											<td bgcolor='pink'>※</td>
+											<td bgcolor='pink'>${board.subject}</td>
+											<td bgcolor='pink'>관리자</td>
+											<td bgcolor='pink'>${board.reg_date}</td>
+											<td bgcolor='pink'>${board.read_count}</td>
+											<td bgcolor='pink'>※</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</c:if>
+
+
+
+							<c:if test='${requestScope.boardMap.selectPageNo==1}'>
+								<c:forEach var="board" items="${requestScope.noticeList}"
+									varStatus="status">
+									<c:if test="${board.category eq 'free'}">
+										<tr onClick="gonoticeDetailForm(${board.n_no})">
+											<td bgcolor='lightblue'>※</td>
+											<td bgcolor='lightblue'>${board.subject}</td>
+											<td bgcolor='lightblue'>관리자</td>
+											<td bgcolor='lightblue'>${board.reg_date}</td>
+											<td bgcolor='lightblue'>${board.read_count}</td>
+
+											<td bgcolor='lightblue'>※</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</c:if>
+
+							<c:forEach var="board" items="${requestScope.freedomeList }"
+								varStatus="status">
+								<%--               <c:if test="${status.index+1 >= requestScope.boardMap.begin_rowNo && status.index+1 <= requestScope.boardMap.end_rowNo}"> --%>
+
+								<tr style="cursor: pointer"
+									onCLick="goBoardDetailForm(${board.b_no},'freedome', 'freeboard','free','');">
+									<td align="center">
+										${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
+									<td align="center">${board.subject}</td>
+									<td align="center">${board.nickname }</td>
+									<td align="center">${board.reg_date }</td>
+									<td align="center">${board.read_count }</td>
+									<td align="center">${board.rec_count }</td>
+									<c:if test="${sessionScope.member == 'admin' }">
+										<td><input type="checkbox" value="${board.b_no }"
+											onclick="handleCheckboxClick(event)"></td>
+									</c:if>
+
+								</tr>
+								<%--               	</c:if> --%>
+							</c:forEach>
+						</c:if>
+					</table>
 		 </form>
           </div>
 					
        					<center> 
+       					  <form name="noticeDetailForm" action="/noticeDetail.do"	method="post">
+						<!-- 클릭한 행의 게시판 고유번호가 저장될 히든태그 선언 -->
+						<input type="hidden" name="n_no"  value="${board.n_no}">
+												
+		       </form>  
 <!--nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-->
 <!--- 게시판 페이징 번호 출력하기.  시작   -->
 <!--nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn-->
@@ -171,6 +308,10 @@
 
 		<center>
 	          <input type="button" value="등록"  onCLick= "location.replace('/freedomeRegForm.do')">
+	                     <c:if test="${sessionScope.member == 'admin' }">
+				<td>	
+				<input type="button" value="선택 게시글 삭제" onclick="deleteSelectedPosts('freeboard')"> </td>
+                  </c:if>
      </center>
       
   </div>

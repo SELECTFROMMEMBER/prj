@@ -92,6 +92,12 @@ public interface BoardDAO {
 		//기업마이페이지
 		List<BoardDTO> getMyGongMoList(int c_no);
 
+
+		List<BoardDTO> getLikeCompany(int p_no);
+
+		int getnoticeListCnt(BoardSearchDTO boardSearchDTO);
+
+		int getnoticeListAllCnt(BoardSearchDTO boardSearchDTO);
 		List<BoardDTO> getMyGongGoList(int c_no);
 
 		List<BoardDTO> getMyCompanyInfo(int c_no);
@@ -121,12 +127,18 @@ public interface BoardDAO {
 		int getComUpWelCnt(int c_no);
 
 
-		List<BoardDTO> getLikeCompany(int p_no);
-
 		int getcompanyListCnt(BoardSearchDTO boardSearchDTO);
 
 		int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO);
-
 		BoardDTO getcompanyWelfare(int c_no);
 
+		List<BoardDTO> getNoticeList(BoardSearchDTO boardSearchDTO);
+
+		BoardDTO getNoticeDetail(int n_no);
+		int updateNoticeReadcount(int n_no);
+
+		List<BoardDTO> getMainNoticeList(BoardSearchDTO boardSearchDTO);
+
+
+	
 }

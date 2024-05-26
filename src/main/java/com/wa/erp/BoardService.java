@@ -91,6 +91,17 @@ public interface BoardService {
 		// 기업 마이페이지
 		List<BoardDTO> getMyGongMoList(int c_no);
 
+			//공지사항
+		BoardDTO getNoticeUpDel(int n_no); 
+		int getnoticeListCnt(BoardSearchDTO boardSearchDTO);
+
+		List<BoardDTO> getNoticeList(BoardSearchDTO boardSearchDTO);
+
+		int getnoticeListAllCnt(BoardSearchDTO boardSearchDTO);
+
+		BoardDTO getNotice(int n_no);
+
+		List<BoardDTO> getMainNoticeList(BoardSearchDTO boardSearchDTO);
 		List<BoardDTO> getMyGongGoList(int c_no);
 
 		List<BoardDTO> getMyCompanyInfo(int c_no);

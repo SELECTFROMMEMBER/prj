@@ -325,10 +325,10 @@ public int updatebuup(BuupDTO buupDTO)  {
 		 	
 		 int insertPerson_licenseCnt = this.regUpDelDAO.insertPerson_license(boardDTO);
 		 	if(insertPerson_licenseCnt==0) {return -4;}
-		 	
+		 	if(boardDTO.getSkill_code()!=null) {
 		 int insertSkillCnt = this.regUpDelDAO.insertSkill_Code(boardDTO);
 		 	if(insertSkillCnt==0) {return -5;}
-		 
+		 	};
 		 return insertResumeCnt;
 	}
 
@@ -444,6 +444,34 @@ public int updatebuup(BuupDTO buupDTO)  {
 		
 		return deleteComment;
 	}
+	@Override
+	public int insertNotice(BoardDTO boardDTO) {
+		int noticeRegCnt = this.regUpDelDAO.insertNotice(boardDTO);
+		
+		return noticeRegCnt;
+	}
+	@Override
+	public int updateNotice(BoardDTO boardDTO) {
+		int updateNotice = this.regUpDelDAO.updateNotice(boardDTO);
+		
+		return updateNotice;
+		
+	}
+	@Override
+	public int deleteNotice(BoardDTO boardDTO) {
+		int deleteNotice = this.regUpDelDAO.deleteNotice(boardDTO);
+		
+		
+		return deleteNotice;
+	}
+	@Override
+	public int deleteSelectPostCnt(BoardDTO boardDTO) {
+	int deleteSelectPost = this.regUpDelDAO.deleteSelectPost(boardDTO);
+		
+		
+		return deleteSelectPost;
+	}
+
 	//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	// [1개 게시판] 삭제 후 삭제 적용행의 개수를 리턴하는 메소드 선언
 	//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
