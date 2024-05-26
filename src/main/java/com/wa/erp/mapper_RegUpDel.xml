@@ -7,6 +7,7 @@
 <!-- [원하는 인터페이스 저장 패키지 경로]하고 일치해야한다. -->
 <!--***************************************************-->
 <mapper namespace="com.wa.erp.RegUpDelDAO">
+
 	<select id="getBoard" parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
 		select
 			b.b_no
@@ -706,6 +707,56 @@
 			r_no=#{r_no}
 				
 	</update>
+	
+	<insert id="insertNotice" parameterType="com.wa.erp.BoardDTO">
+	    insert into notice (
+	        admin_no,
+	        subject,
+	        content,
+	        read_count,
+	        reg_date,
+	        n_no,
+	        category
+	    ) values (
+	        1,
+	        #{subject},
+	        #{content},
+	        0,
+	        sysdate,
+	        (select nvl(max(n_no),0)+1 from notice),
+	        #{category}
+	    )
+	</insert>
+    <update id="updateNotice"  parameterType="com.wa.erp.BoardDTO">
+		update 
+			notice
+		set	
+		
+			subject =#{subject},
+    		content = #{content},
+    		category=#{category}
     
+		where 
+			n_no=#{n_no}
+				
+	</update>
+	
+	   <delete id="deleteNotice"  parameterType="com.wa.erp.BoardDTO">
+		delete 
+		FROM
+			notice
+		
+		where 
+			n_no=#{n_no}			
+	</delete>
+	<delete id="deleteSelectPost"
+		parameterType="com.wa.erp.BoardDTO">
+		DELETE FROM ${boardname}
+		WHERE b_no IN
+		<foreach item="item" collection="b_noList" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>
  

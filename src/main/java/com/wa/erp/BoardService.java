@@ -101,4 +101,15 @@ public interface BoardService {
 		List<BoardDTO> getCommentLike(Map<String, Object> paramMap);
 
 		List<BoardDTO> getlikeCompany(int p_no);
+			//공지사항
+		BoardDTO getNoticeUpDel(int n_no); 
+		int getnoticeListCnt(BoardSearchDTO boardSearchDTO);
+
+		List<BoardDTO> getNoticeList(BoardSearchDTO boardSearchDTO);
+
+		int getnoticeListAllCnt(BoardSearchDTO boardSearchDTO);
+
+		BoardDTO getNotice(int n_no);
+
+		List<BoardDTO> getMainNoticeList(BoardSearchDTO boardSearchDTO);
 }

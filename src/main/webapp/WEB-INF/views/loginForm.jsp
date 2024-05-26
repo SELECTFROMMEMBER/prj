@@ -118,7 +118,13 @@
                     alert('로그인 성공(기업회원)');
                     location.replace('/12Wa.do');                
                 }
+                else if (data == 5) {
+                    alert('로그인 성공(관리자)');
+                    location.replace('/12Wa.do');                
+                }
+                
                 else {
+   
                     alert('로그인 실패');
                 }
             })

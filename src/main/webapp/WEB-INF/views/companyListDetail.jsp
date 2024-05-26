@@ -126,6 +126,8 @@ function searchWithSort(sort){
    search();
 }
 
+
+
 </script>
 
 <script>
@@ -423,10 +425,12 @@ function reviewEdit(r_no){
 
 					<tr>
 						<th style="width: 60%; height: 40%; text-align: center;">리뷰</th>
-						<c:if
-							test="${param.reviewSort!='star asc' and param.reviewSort!='star desc'}">
+						
+						
+						<c:if	test="${param.reviewSort!='star asc' and param.reviewSort!='star desc'}">
 							<th style="width: 10%; text-align: center; cursor: pointer;"
-								onClick="searchWithSort('star desc')">별점</th>
+							  onClick="searchWithSort('star desc')">별점</th>
+							  
 						</c:if>
 
 						<c:if test="${param.reviewSort=='star desc'}">
@@ -490,6 +494,8 @@ function reviewEdit(r_no){
 					<input type="hidden" name="r_no" value=0>
 					<input type="hidden" name="star"> 
 					<input type="hidden" name="reviewSort" class="reviewSort" value="">
+
+					
 						
 			<c:if test="${sessionScope.member=='person'}">
 					<br> <br> <br> <br>

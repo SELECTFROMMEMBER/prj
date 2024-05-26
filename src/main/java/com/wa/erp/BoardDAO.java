@@ -103,11 +103,21 @@ public interface BoardDAO {
 
 		List<BoardDTO> getLikeCompany(int p_no);
 
+		int getnoticeListCnt(BoardSearchDTO boardSearchDTO);
+
+		int getnoticeListAllCnt(BoardSearchDTO boardSearchDTO);
 		int getcompanyListCnt(BoardSearchDTO boardSearchDTO);
 
 		int getcompanyListAllCnt(BoardSearchDTO boardSearchDTO);
-
 		BoardDTO getcompanyWelfare(int c_no);
+
+		List<BoardDTO> getNoticeList(BoardSearchDTO boardSearchDTO);
+
+		BoardDTO getNoticeDetail(int n_no);
+		int updateNoticeReadcount(int n_no);
+
+		List<BoardDTO> getMainNoticeList(BoardSearchDTO boardSearchDTO);
+
 
 	
 }

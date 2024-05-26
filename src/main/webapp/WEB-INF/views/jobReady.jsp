@@ -6,8 +6,21 @@
 <html>
 
 <head>
-
+<style>
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle; /* 수직 가운데 정렬을 위한 추가 속성 */
+    margin: 0; /* 체크박스 사이의 여백 제거 */
+}
+</style>
   <script>
+	function handleCheckboxClick(event) {
+	    event.stopPropagation(); // 이벤트 버블링 방지
+	}
+	
   function pageNoClick( clickPageNo ){
 
 		$("[name='boardSearchForm']").find(".selectPageNo").val(clickPageNo);
@@ -15,7 +28,12 @@
 		search("jobReady");
 		
 	}
-	
+	function gonoticeDetailForm(n_no){
+	    $("[name='noticeDetailForm']").find("[name='n_no']").val(n_no);
+
+	     document.noticeDetailForm.submit();
+	 
+	}
 //	게시판 검색하는 함수 search() 선언.
 //	[검색] 버튼 클릭 시 호출되는 함수이다.
 	function search(){
@@ -97,25 +115,117 @@
 						<th>작성일</th>
 						<th>조회수</th>
 						<th>추천수</th>
+							<c:if test="${sessionScope.member == 'admin' }">
+								<th>글 선택</th>
+							</c:if>
 					</tr>
+												<c:if test="${sessionScope.member == 'admin' }">
 					
+					   <c:if test ='${requestScope.boardMap.selectPageNo==1}'>
+     		    	<c:forEach var="board" items="${requestScope.noticeList}" varStatus="status">
+						<c:if test="${board.category eq 'board'}">
+  									<tr onClick="gonoticeDetailForm(${board.n_no})">
+										<td bgcolor='pink'>※</td>
+										<td bgcolor='pink'>${board.subject}</td>
+										<td bgcolor='pink'>관리자</td>
+										<td bgcolor='pink'>${board.reg_date}</td>
+										<td bgcolor='pink'>${board.read_count}</td>
+										<td bgcolor='pink'></td>
+										<td bgcolor='pink'>※</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</c:if>
+
+                        <c:if test ='${requestScope.boardMap.selectPageNo==1}'>
+     		    	<c:forEach var="board" items="${requestScope.noticeList}" varStatus="status">
+						<c:if test="${board.category eq 'job'}">
+          								<tr onClick="gonoticeDetailForm(${board.n_no})">
+										<td bgcolor='lightblue'>※</td>
+										<td bgcolor='lightblue'>${board.subject}</td>
+										<td bgcolor='lightblue'>관리자</td>
+										<td bgcolor='lightblue'>${board.reg_date}</td>
+										<td bgcolor='lightblue'>${board.read_count}</td>
+
+										<td bgcolor='lightblue'></td>
+										<td bgcolor='lightblue'>※</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</c:if>
+
 
 					<c:forEach var="board" items="${requestScope.jobReadyList }"
 						varStatus="status">
 						
 						<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'jobReady', 'jobsearchboard', 'jobsearch','');">
-							<td align="center"> ${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
-							<td align="center">${board.subject }</td>
-							<td align="center">${board.nickname }</td>
-							<td align="center">${board.reg_date }</td>
-							<td align="center">${board.read_count }</td>
-							<td align="center">${board.rec_count }</td>
-						</tr>
+						<td align="center">
+									${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
+								<td align="center">${board.subject }</td>
+								<td align="center">${board.nickname }</td>
+								<td align="center">${board.reg_date }</td>
+								<td align="center">${board.read_count }</td>
+								<td align="center">${board.rec_count }</td>
+								<c:if test="${sessionScope.member == 'admin' }">
+									<td><input type="checkbox" value="${board.b_no }"
+										onclick="handleCheckboxClick(event)"></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+</c:if>
 
-					</c:forEach>
+												<c:if test="${sessionScope.member == 'person' || sessionScope.member == 'company'}">
+
+					   <c:if test ='${requestScope.boardMap.selectPageNo==1}'>
+     		    	<c:forEach var="board" items="${requestScope.noticeList}" varStatus="status">
+						<c:if test="${board.category eq 'board'}">
+  									<tr onClick="gonoticeDetailForm(${board.n_no})">
+										<td bgcolor='pink'>※</td>
+										<td bgcolor='pink'>${board.subject}</td>
+										<td bgcolor='pink'>관리자</td>
+										<td bgcolor='pink'>${board.reg_date}</td>
+										<td bgcolor='pink'>${board.read_count}</td>
+										<td bgcolor='pink'>※</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</c:if>
+
+                        <c:if test ='${requestScope.boardMap.selectPageNo==1}'>
+     		    	<c:forEach var="board" items="${requestScope.noticeList}" varStatus="status">
+						<c:if test="${board.category eq 'job'}">
+          								<tr onClick="gonoticeDetailForm(${board.n_no})">
+										<td bgcolor='lightblue'>※</td>
+										<td bgcolor='lightblue'>${board.subject}</td>
+										<td bgcolor='lightblue'>관리자</td>
+										<td bgcolor='lightblue'>${board.reg_date}</td>
+										<td bgcolor='lightblue'>${board.read_count}</td>
+
+										<td bgcolor='lightblue'>※</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</c:if>
 
 
-
+					<c:forEach var="board" items="${requestScope.jobReadyList }"
+						varStatus="status">
+						
+						<tr style="cursor: pointer" onClick="goBoardDetailForm(${board.b_no},'jobReady', 'jobsearchboard', 'jobsearch','');">
+						<td align="center">
+									${requestScope.boardMap.begin_serialNo_desc - status.index}</td>
+								<td align="center">${board.subject }</td>
+								<td align="center">${board.nickname }</td>
+								<td align="center">${board.reg_date }</td>
+								<td align="center">${board.read_count }</td>
+								<td align="center">${board.rec_count }</td>
+								<c:if test="${sessionScope.member == 'admin' }">
+									<td><input type="checkbox" value="${board.b_no }"
+										onclick="handleCheckboxClick(event)"></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+</c:if>
 				</table>
 				</div>
 				<center>
@@ -162,10 +272,19 @@
           <center>
 								<input type="button" value="등록"
 									onCLick="location.replace('/jobReadyRegForm.do')">
+														<c:if test="${sessionScope.member == 'admin' }">
+						<td><input type="button" value="선택 게시글 삭제"
+							onclick="deleteSelectedPosts('jobsearchboard')"></td>
+					</c:if>
      </center>
       
 						</form>
   </div>    
+  	  <form name="noticeDetailForm" action="/noticeDetail.do"	method="post">
+						<!-- 클릭한 행의 게시판 고유번호가 저장될 히든태그 선언 -->
+						<input type="hidden" name="n_no"  value="${board.n_no}">
+												
+		       </form>  
 </body>
 <%@ include file="footer.jsp" %>
 </html>

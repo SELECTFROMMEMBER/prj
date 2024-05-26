@@ -9,7 +9,14 @@
   <title>12Wa~</title>
 
 
+<script >
+function gonoticeDetailForm(n_no){
+    $("[name='noticeDetailForm']").find("[name='n_no']").val(n_no);
 
+     document.noticeDetailForm.submit();
+ 
+}
+</script>
 </head>
 
 
@@ -39,12 +46,20 @@
         <div id="notice" class="tabContent">
           <h2>공지사항 내용입니다.</h2>
           <ul>        
-            <li>[사전안내] 개인회원 휴면해제 사전안내</li>     
-            <li>2024년 12Wa 면접교육 소개</li>
-            <li>[이벤트] 커리어 조언을 남겨주실 프로 전문가를 모집합니다✨</li>
-            <li>[참가 모집] 여름 방학 기간, 오름 체험단을 모집합니다.</li>
-            <li>[이벤트] 게-으른 이직러를 위한 포지션제안</li>        
+
+			<c:set var="mainCount" value="0" />
+			<c:forEach var="board" items="${requestScope.noticeList}" varStatus="status">
+			    <c:if test="${mainCount < 5}">
+			        <c:if test="${board.category eq 'main'}">
+			            <c:set var="mainCount" value="${mainCount + 1}" />
+			            <li style="cursor:pointer" onClick="gonoticeDetailForm(${board.n_no})">
+			                ${board.subject}
+			            </li>
+			        </c:if>
+			    </c:if>
+			</c:forEach>
           </ul>
+  
         </div>
         
         
@@ -90,6 +105,11 @@
     </div>  
 
   </div> 
+    			    <form name="noticeDetailForm" action="/noticeDetail.do"	method="post">
+						<!-- 클릭한 행의 게시판 고유번호가 저장될 히든태그 선언 -->
+						<input type="hidden" name="n_no"  value="${board.n_no}">
+												
+		       </form>  
 </body>
 <%@ include file="footer.jsp" %>
 </html>

@@ -53,6 +53,11 @@ public interface RegUpDelService {
 		int deleteComment(BoardDTO boardDTO);
 		
 		int updateReview(BoardDTO boardDTO);
+		int insertNotice(BoardDTO boardDTO);
+		int updateNotice(BoardDTO boardDTO);
+		int deleteNotice(BoardDTO boardDTO);
+		int deleteSelectPostCnt(BoardDTO boardDTO);
+		
 		
 
 	}

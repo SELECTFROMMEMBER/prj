@@ -85,6 +85,10 @@
 		<c:if test="${sessionScope.member=='company'}">
 			${sessionScope.name}님, 환영합니다.
 		</c:if>
+				<c:if test="${sessionScope.member=='admin'}">
+			관리자님, 환영합니다.
+		</c:if>
+		
 	</div>
     <!-- Login Button -->
     <c:choose>
@@ -101,6 +105,9 @@
 			<c:if test="${sessionScope.member=='person'}">
 				<a href="javascript:location.replace('/myPage.do')" id="myPageButton">개인마이페이지</a>
 			</c:if>
+				<c:if test="${sessionScope.member=='admin'}">
+				<a href="javascript:location.replace('/notice.do')" id="myPageButton">공지사항관리</a>
+				</c:if>  
   </header>
   </div>
   

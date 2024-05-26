@@ -66,14 +66,7 @@ public class LoginController {
 		//--------------------------------------------------
 		// <주의> @RequestMapping 이 붙은 메소드의 이름은 개발자 맘대로이다. 
 		//        될수 있는 대로 URL 주소의 의도를 살리는 메소드 이름을 주는 것이 좋다.
-	@RequestMapping( value ="/12Wa.do")
-	public ModelAndView Wa12(
-			) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main.jsp");
-		return mav;
-	}
-	
+
 	// --------------------------------------------------
 	@RequestMapping(value="/loginForm.do")
 	public ModelAndView loginForm(
@@ -94,6 +87,9 @@ public class LoginController {
 				session.removeAttribute("mid");
 				session.removeAttribute("pwd");
 				session.removeAttribute("member");
+				session.removeAttribute("nickname");
+				session.removeAttribute("board");
+				session.removeAttribute("admin_no");
 				session.removeAttribute("p_no");
 				session.removeAttribute("c_no");
 				
@@ -159,6 +155,11 @@ public class LoginController {
 					session.setAttribute("member", "company");
 					session.setAttribute("c_no", getMem.getC_no());
 					session.setAttribute("name", getMem.getName());
+				}
+				else if(checkpercom==5) {
+					session.setAttribute("member", "admin");
+					session.setAttribute("admin_no", getMem.getAdmin_no());
+
 				}
 				else {
 					return checkpercom;

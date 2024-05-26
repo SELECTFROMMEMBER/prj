@@ -12,4 +12,6 @@ public interface LoginDAO {
 	public int checkpid(Map<String,String> midPwd);
 	
 	public int checkcid(Map<String,String> midPwd);
+
+	public int checkaid(Map<String, String> midPwd);
 	}

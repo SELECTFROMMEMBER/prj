@@ -372,7 +372,7 @@ function scout(resume_no, c_no, p_no) {
     
     
           <input type="button" value="뒤로가기"  onClick="location.replace('/resumeList.do')">
-   		  <input type="button" value="스카우트 제안하기"  onClick="scout(${boardDTO.resume_no},${sessionScope.c_no},${boardDTO.p_no})">
+   		  <input type="button" value="스카우트 제안하기"  onClick="scout(${boardDTO.resume_no},${sessionScope.c_no},${boardDTO.p_no},${boardDTO.category })">
       <br>
       <br>
       

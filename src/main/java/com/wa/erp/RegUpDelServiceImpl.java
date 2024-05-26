@@ -406,5 +406,32 @@ public int insertGongo(BoardDTO boardDTO ) {
 		
 		return deleteComment;
 	}
+	@Override
+	public int insertNotice(BoardDTO boardDTO) {
+		int noticeRegCnt = this.regUpDelDAO.insertNotice(boardDTO);
+		
+		return noticeRegCnt;
+	}
+	@Override
+	public int updateNotice(BoardDTO boardDTO) {
+		int updateNotice = this.regUpDelDAO.updateNotice(boardDTO);
+		
+		return updateNotice;
+		
+	}
+	@Override
+	public int deleteNotice(BoardDTO boardDTO) {
+		int deleteNotice = this.regUpDelDAO.deleteNotice(boardDTO);
+		
+		
+		return deleteNotice;
+	}
+	@Override
+	public int deleteSelectPostCnt(BoardDTO boardDTO) {
+	int deleteSelectPost = this.regUpDelDAO.deleteSelectPost(boardDTO);
+		
+		
+		return deleteSelectPost;
+	}
 	
 }

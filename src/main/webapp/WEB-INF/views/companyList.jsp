@@ -9,12 +9,97 @@
 <html>
 
 <head>
+<script>
+$(document).ready(function() {
+    // 페이지 로드 시, 두 번째와 세 번째 셀렉트 박스를 비활성화
+ 
+    $('#multisort2').prop('disabled', true);
+    $('#multisort3').prop('disabled', true);
+    
+    // 첫 번째 셀렉트 박스의 값이 변경될 때
+    $('#multisort1').on('change', function() {
+        var value = $(this).val();
+        if (value) {
+            // 첫 번째 셀렉트 박스가 선택되면 두 번째 셀렉트 박스를 활성화
+            $('#multisort2').prop('disabled', false);
+            // 두 번째 셀렉트 박스의 옵션 변경
+            $('#multisort2 option[value!=""]').remove();
+            if (value !== 'sal_avg desc') {
+                $('#multisort2').append('<option value=",sal_avg desc">평균 연봉</option>');
+            }
+            if (value !== 'sales desc') {
+                $('#multisort2').append('<option value=",sales desc">매출</option>');
+            }
+            if (value !== '7 desc') {
+                $('#multisort2').append('<option value=",7 desc">별점</option>');
+            }
+        } else {
+            // 선택되지 않으면 나머지 셀렉트 박스를 비활성화하고 초기화
+            $('#multisort2').prop('disabled', true).val('');
+            $('#multisort3').prop('disabled', true).val('');
+        }
+        // 호출할 search 함수
+       searchWithMultiSort();
+    });
+
+    // 두 번째 셀렉트 박스의 값이 변경될 때
+    $('#multisort2').on('change', function() {
+        var value = $(this).val();
+        if (value) {
+            // 두 번째 셀렉트 박스가 선택되면 세 번째 셀렉트 박스를 활성화
+            $('#multisort3').prop('disabled', false);
+            // 세 번째 셀렉트 박스의 옵션 변경
+            $('#multisort3 option[value!=""]').remove();
+            if (value !== ',sal_avg desc' && $('#multisort1').val()!=='sal_avg desc') {
+                $('#multisort3').append('<option value=",sal_avg desc">평균 연봉</option>');
+            }
+            if (value !== ',sales desc' && $('#multisort1').val()!=='sales desc') {
+                $('#multisort3').append('<option value=",sales desc">매출</option>');
+            }
+            if (value !== ',7 desc' && $('#multisort1').val()!=='7 desc') {
+                $('#multisort3').append('<option value=",7 desc">별점</option>');
+            }
+        } else {
+            // 선택되지 않으면 세 번째 셀렉트 박스를 비활성화하고 초기화
+            $('#multisort3').prop('disabled', true).val('');
+        }
+        // 호출할 search 함수
+        searchWithMultiSort();
+    });
+
+    // 세 번째 셀렉트 박스의 값이 변경될 때
+    $('#multisort3').on('change', function() {
+        // 호출할 search 함수
+searchWithMultiSort()  ;
+        });
+});
+</script>
+
 <style>
 .fas.fa-heart {
     color: red;
 }
 </style>
-
+<style>
+  #firstSelect {
+    text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
+  }
+  #firstSelect option {
+    text-align: center; /* 옵션 텍스트를 수평 가운데 정렬합니다. */
+  }
+   #secondSelect {
+    text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
+  }
+  #secondSelect option {
+    text-align: center; /* 옵션 텍스트를 수평 가운데 정렬합니다. */
+  }
+   #thirdSelect {
+    text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
+  }
+  #thirdSelect option {
+    text-align: center; /* 옵션 텍스트를 수평 가운데 정렬합니다. */
+  }
+</style>
 <script>
 
 function search(){
@@ -27,17 +112,21 @@ function search(){
 	var sidoObj            = boardSearchFormObj.find(".sido").val();
 	var gugunObj           = boardSearchFormObj.find(".gugun").val();
 	var welfareObj = boardSearchFormObj.find('[name="welfare"]:checked').map(function() { return this.value; }).get();
-
 	// 검색 함수 호출
 	var keywordObj        = boardSearchFormObj.find(".keyword");
 	var keyword             = keywordObj.val();
 		if( typeof(keyword)!='string' ){ keyword = ""; }
 	keyword = $.trim(keyword);
 	keywordObj.val(keyword);
-	boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val()
-
-
-	)
+	boardSearchFormObj.find(".rowCntPerPage").val($("select").filter(".rowCntPerPage").val())
+	   if($('#multisort1').val()==''){
+		    $('#multisort2').prop('disabled', true);
+		    $('#multisort3').prop('disabled', true);
+		    };
+// 	   if($('#multisort1').val()==''){
+// 		    $('#multisort2').prop('disabled', true);
+// 		    $('#multisort3').prop('disabled', true);
+// 		    };
 	
 	//-----------------------------------------------------
 	// JQuery 객체의 [ajax 메소드]를 호출하여
@@ -128,24 +217,49 @@ function searchReset(){
     document.getElementById('14').checked = false;
     document.getElementById('15').checked = false;
     document.getElementById('16').checked = false;
+    $('#multisort1').val('');
+	$('#multisort2').val('');
+	$('#multisort3').val('');
     $(".searchBtn").click();
 }
 
+$("#1").checked = false;
+$("#2").checked = false;
+$("#3").checked = false;
+$("#4").checked = false;
+$("#5").checked = false;
+$("#6").checked = false;
+$("#7").checked = false;
+$("#8").checked = false;
+$("#9").checked = false;
+$("#10").checked = false;
+$("#11").checked = false;
+$("#12").checked = false;
+$("#13").checked = false;
+$("#14").checked = false;
+$("#15").checked = false;
+$("#16").checked = false;
 
-function searchWithSort(sort){
- 
-    $("[name='boardSearchForm']").find("[name='sort']").val(sort);
-   
-   
-    $(".searchBtn").click();
 
-}
+
+
+
 function searchWithIndustry(selectedIndustry){
     $("[name='boardSearchForm']").find("[name='selectedIndustry']").val(selectedIndustry);
    $(".searchBtn").click();
 }
 
 
+function searchWithSort(sort){
+
+	$('#multisort1').val('');
+	$('#multisort2').val('');
+	$('#multisort3').val('');
+	
+	$("[name='boardSearchForm']").find("[name='sort']").val(sort);
+    $(".searchBtn").click();
+
+}
 
 function gocompanyListDetailForm(c_no){
       $("[name='companyListDetailForm']").find("[name='c_no']").val(c_no);
@@ -166,6 +280,14 @@ function pageNoClick(clickPageNo){
 $("[name='boardSearchForm']").find(".selectPageNo").val(clickPageNo);
 search();
 }
+
+function searchWithMultiSort(){
+	$("[name='boardSearchForm']").find("[name='sort']").val('');
+	search();
+
+}
+
+
 
 </script>
 
@@ -193,7 +315,7 @@ search();
 
         
 
-
+				<br>
             <p align="center">
                업종<select name="selectedIndustry" class="selectedIndustry"
                   onChange="search()">
@@ -229,6 +351,7 @@ search();
                   <option value="패션/의류 디자인 업종">패션/의류 디자인 업종
                </select>
             </p>
+            <br>
               <p align="center">            
                 <b>사내 복지</b><br>
                    <label><input type="checkbox" name="welfare" value="4대보험가입" id="1"> 4대보험가입</label>
@@ -248,9 +371,38 @@ search();
                    <label><input type="checkbox" name="welfare" value="유연근무제" id="15"> 유연근무제</label>           
 					<label><input type="checkbox" name="welfare" value="각종 행사" id="16"> 각종 행사</label>
             </p>
+             <div>
+             <br>
+             
+		<center>다중 정렬(내림차순)</center> 	
+        <select id="multisort1"  name="multisort1"  >
+                  <option value=''> 정렬 조건  </option>
+                  <option value="sal_avg desc" >평균 연봉
+                  <option value="sales desc"  >     매출
+                  <option value="7 desc"> 별점
+        </select>
+ 
+        <!-- 두 번째 셀렉트 박스 -->
+        <select id="multisort2" name="multisort2" >
+				 <option value=''> 정렬 조건</option>		
+                  <option value=",sal_avg desc">평균 연봉
+                  <option value=",sales desc">     매출
+                  <option value=",7 desc"> 별점        </select>
+ 
+        <!-- 세 번째 셀렉트 박스 -->
+        <select id="multisort3" name="multisort3" >
+                  <option value=''> 정렬 조건 </option>
+                  <option value=",sal_avg desc">평균 연봉
+                  <option value=",sales desc">     매출
+                  <option value=",7 desc"> 별점        </select>
+    </div>
             <input type="hidden" name="selectPageNo" class="selectPageNo" value="1">
 	        <input type="hidden" name="rowCntPerPage" class="rowCntPerPage">
             <input type="hidden" name="sort" class="sort" value="">
+<!--             <input type="hidden" name="multisort1" class="multisort1" value=""> -->
+<!--             <input type="hidden" name="multisort2" class="multisort2" value=""> -->
+<!--             <input type="hidden" name="multisort3" class="multisort3" value=""> -->
+            
          
             	    </div>
          	</form>
@@ -294,13 +446,13 @@ search();
 
 				<tr>
 					<th>기업 정보</th>
-						<c:if test="${param.sort!='AVG(r.star) asc' and param.sort!='AVG(r.star) desc'}">
-            				<th style="cursor: pointer font-weight: bold;"onClick="searchWithSort('AVG(r.star) desc')">별점</th>
+						<c:if test="${param.sort!='7 asc' and param.sort!='7 desc'}">
+            				<th style="cursor: pointer font-weight: bold;"onClick="searchWithSort('7 desc')">별점</th>
          				</c:if>
-         				<c:if test="${param.sort=='AVG(r.star) desc'}">
-            				<th style="cursor: pointer"onClick="searchWithSort('AVG(r.star) asc')">별점▼</th>
+         				<c:if test="${param.sort=='7 desc'}">
+            				<th style="cursor: pointer"onClick="searchWithSort('7 asc')">별점▼</th>
          				</c:if>
-         				<c:if test="${param.sort=='AVG(r.star) asc'}">
+         				<c:if test="${param.sort=='7 asc'}">
             				<th style="cursor: pointer" onClick="searchWithSort('')">별점▲</th>
          				</c:if> 
 						 <c:if test="${param.sort!='ci.rec_count asc' and param.sort!='ci.rec_count desc'}">
@@ -327,7 +479,6 @@ search();
                               &lt업종&gt ${board.indus}<br> &lt매출&gt ${board.sales}<br>
                               &lt연봉&gt ${board.sal_avg}<br>
                                &lt주소&gt  ${board.addr}<br>
-                               평점  ${board.rec_count}<br>
                            </div>
                           </td>
                           <td align="center">
