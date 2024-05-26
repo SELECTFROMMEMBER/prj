@@ -130,7 +130,7 @@ nav {
 #loginButton {
   position: absolute; /* 절대 위치 */
   top: 10px; /* 위에서 10px 아래 */
-  right: 60px; /* 오른쪽에서 10px 왼쪽 */
+  right: 40px; /* 오른쪽에서 10px 왼쪽 */
   z-index: 1000; /* 최상단에 배치 */
   background-color: #fff; /* 버튼 배경색 */
   color: #07c; /* 버튼 글자색 */
@@ -201,25 +201,6 @@ nav {
 /*   transition: background-color 0.3s; 배경색 전환 애니메이션 */
   font-size: 14px; /* 글자 크기 */
 }
-
-#likecompany{
-  position: absolute; /* 절대 위치 */
-  top: 130px; /* 위에서 50px 아래 */
-  right: 350px; /* 오른쪽에서 80px 왼쪽 */
-  z-index: 100; /* 최상단에 배치 */
-  background-color: #FFE1E6; /* 버튼 배경색 */
-  color: #EB0000; /* 버튼 글자색 */
-  padding: 5px 10px; /* 패딩 */
-  border-radius: 5px; /* 둥근 모서리 */
-  text-decoration: none; /* 밑줄 제거 */
-  font-weight: 600; /* 글자 굵기 */
-  transition: background-color 0.3s; /* 배경색 전환 애니메이션 */
-  font-size: 18px; /* 글자 크기 */
-  width: 150px; /* 버튼 너비 */
-  height: 40px; /* 버튼 높이 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  line-height: 40px; /* 텍스트 수직 정렬 */
-}
 /********************************/
 /*   이미지 슬라이드 쇼 영역    */
 /********************************/
@@ -267,6 +248,7 @@ button:hover {
 button:focus {
   outline:0;  /* 아웃트라인 없앰 */
 }
+
 
 /**************************************/
 /*   콘텐츠 영역  - 탭 메뉴와 퀵 링크 */

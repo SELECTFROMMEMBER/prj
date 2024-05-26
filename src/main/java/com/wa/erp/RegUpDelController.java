@@ -24,16 +24,6 @@ public class RegUpDelController {
 	@Autowired
 	private RegUpDelService regUpDelService;
 	
-	@RequestMapping( value ="/gongGoRegForm.do")
-	public ModelAndView gongGoRegForm(
-			BoardSearchDTO boardSearchDTO
-			) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("gongGoRegForm.jsp");
-		return mav;
-	}
 
 	
 	/*mmmmmmmmmmmmmm 자유게시판 등록 mmmmmmmmmmmmmmm*/
@@ -387,25 +377,7 @@ public class RegUpDelController {
 	  /*mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm*/
 	
 	  
-	  	//공고등록 페이지
-	  	@RequestMapping( 
-				value="/gongGoReg.do" 
-				,method=RequestMethod.POST
-				,produces="application/json;charset=UTF-8"
-		)
-		@ResponseBody
-		public Map<String,String> gongGoRegProc (  
-				BoardDTO  boardDTO
-		){
-			
-			Map<String,String> resultMap = new HashMap<String,String>();
-			
-			int gongGoRegCnt = this.regUpDelService.insertGongo(boardDTO);
-			
-			resultMap.put( "result", gongGoRegCnt+"" );
-			
-			return resultMap;
-		}
+	  	
 	  	
 	  //********************************************************************//
 		//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
@@ -935,6 +907,13 @@ public class RegUpDelController {
 					MypageDTO mypageDTO = this.regUpDelService.getPrivacyForUpDel(p_no);
 					
 					ModelAndView mav = new ModelAndView( );
+					
+			        String[] addressParts = mypageDTO.getAddr().split(" ", 3);
+			        
+			        // 주소의 각 부분을 모델에 추가
+			            mav.addObject("addr1", addressParts[0]); // 서울특별시
+			            mav.addObject("addr2", addressParts[1]); // 성북구
+			            mav.addObject("addr3", addressParts[2]); // 나머지 주소
 				    
 					mav.addObject("mypageDTO", mypageDTO);
 			

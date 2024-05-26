@@ -26,8 +26,7 @@
 		<input type="hidden" name="boardname" class="boardname">
 	</form>
 
-	<form name="freedomeDetailForm" action="/freedomeDetailForm.do"
-		method="post">
+	<form name="freedomeDetailForm" action="/freedomeDetailForm.do" method="post">
 		<input type="hidden" name="Detail_b_no"> 
 		<input type="hidden" name="Detail_board">
 		<input type="hidden" name="Comment_board">

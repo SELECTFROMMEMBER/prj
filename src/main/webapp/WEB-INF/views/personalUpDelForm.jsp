@@ -10,15 +10,40 @@
 <html>
 
 <head>
+<style>
+        .button-right {
+            float: right;
+        }
+     
+    .hidden-row {
+        display: none;
+  		}
+	</style>
 <script>
 
-
+function showSelect(){
+	 $(".hidden-row").css("display", "table-row");
+	 $("#showMoreBtn").hide();
+	 $("#addr1").removeAttr("name");
+	 $("#addr2").removeAttr("name");
+	 $("#addr3").removeAttr("name");
+	 $("#addr1").val("");
+	 $("#addr2").val("");
+	 $("#addr3").val("");
+}	
 // 수정필
 
 // (회원정보 수정버튼 함수)
 function checkPrivacyUpForm(){
 	var formObj  = $("[name='PrivacyUpDelForm']");
 	
+	
+	if($("#addr1").val()!=""){				
+    	$("select#sido1").removeAttr("name"); 	
+    	$("select#gugun1").removeAttr("name"); 	
+    	$("#addr").removeAttr("name"); 	
+		
+	}
 // 	    var pwdObj   = formObj.find(".pwd");
 //  	var contentObj   = formObj.find(".content");
 	
@@ -169,9 +194,13 @@ function checkPrivacyDelForm(){
             
         <tr>
                 <td> 주소</td>
-                <td><select name="addr1" id="sido1" value="addr"></select>
-                  <select name="addr2" id="gugun1" value="addr"></select>&nbsp; 
-                  <input type="text" name="addr3" id="addr" value="나머지 상세주소" onfocus="if(this.value=='나머지 상세주소') this.value='';"></td>
+                <td id="showMoreBtn">${requestScope.mypageDTO.addr } &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="수정" onClick="showSelect()"></td>
+						<td class="hidden-row">
+							<select name="addr1" id="sido1"></select> <select
+							name="addr2" id="gugun1"></select>&nbsp; <input type="text"
+							name="addr3" id="addr" 
+							onfocus="if(this.value=='나머지 상세주소') this.value='';">
+							</td>
         </tr>
 
 
@@ -228,7 +257,9 @@ function checkPrivacyDelForm(){
        
             <input type="hidden" name="p_no" value="${sessionScope.p_no}">
     </table>
-
+		<input type="hidden" id="addr1" name="addr1" value="${addr1}">
+		<input type="hidden" id="addr2" name="addr2" value="${addr2}">
+		<input type="hidden" id="addr3" name="addr3" value="${addr3}"> 
 		<center>
           <input type="button" value="수정" onClick="checkPrivacyUpForm();">
           <input type="button" value="회원탈퇴" onClick="checkPrivacyDelForm();"> 

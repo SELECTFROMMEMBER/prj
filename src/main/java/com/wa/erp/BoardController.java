@@ -411,16 +411,7 @@ public class BoardController {
 	
 	
 	
-	@RequestMapping( value ="/gongGoList.do")
-	public ModelAndView gongGoList(
-			BoardSearchDTO boardSearchDTO
-			) {
-		List<BoardDTO> gongGoList = this.boardService.getgongGoList();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("gongGoList", gongGoList);
-		mav.setViewName("gongGoList.jsp");
-		return mav;
-	}
+
 	
 
 

@@ -516,11 +516,11 @@
 
         pwd           = #{pwd},
         phone       = #{phone},
-        email          = #{email1} || '' || #{email2},
+        email          = #{email1} || '@' || #{email2},
         field_code = ${field_code},
         is_job        = #{is_job},
         nickname  = #{nickname},
-        addr            = #{addr1} || '' || #{addr2} || '' || #{addr3}
+        addr            = #{addr1} || ' ' || #{addr2} || ' ' || #{addr3}
      
        
     where 

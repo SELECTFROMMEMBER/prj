@@ -310,13 +310,13 @@ search();
 
 				<tr>
 					<th>기업 정보</th>
-						<c:if test="${param.sort!='AVG(r.star) asc' and param.sort!='AVG(r.star) desc'}">
-            				<th style="cursor: pointer font-weight: bold;"onClick="searchWithSort('AVG(r.star) desc')">별점</th>
+						<c:if test="${param.sort!='7 asc' and param.sort!='7 desc'}">
+            				<th style="cursor: pointer font-weight: bold;"onClick="searchWithSort('7 desc')">별점</th>
          				</c:if>
-         				<c:if test="${param.sort=='AVG(r.star) desc'}">
-            				<th style="cursor: pointer"onClick="searchWithSort('AVG(r.star) asc')">별점▼</th>
+         				<c:if test="${param.sort=='7 desc'}">
+            				<th style="cursor: pointer"onClick="searchWithSort('7 asc')">별점▼</th>
          				</c:if>
-         				<c:if test="${param.sort=='AVG(r.star) asc'}">
+         				<c:if test="${param.sort=='7 asc'}">
             				<th style="cursor: pointer" onClick="searchWithSort('')">별점▲</th>
          				</c:if> 
 						 <c:if test="${param.sort!='ci.rec_count asc' and param.sort!='ci.rec_count desc'}">
