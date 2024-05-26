@@ -161,10 +161,13 @@
 						<option value="20">20
 					</select>행보기 &nbsp;&nbsp;&nbsp;
 				</center>
-          <center>
-          <input type="button" value="등록"  onCLick= "location.replace('/interviewRegForm.do')">
-     </center>
-      </form>
+				<c:if test="${sessionScope.member=='person'}">
+					<center>
+						<input type="button" value="등록"
+							onCLick="location.replace('/interviewRegForm.do')">
+					</center>
+				</c:if>
+			</form>
   </div>
        
 </body>

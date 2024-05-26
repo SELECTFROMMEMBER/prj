@@ -159,12 +159,14 @@
 					
 					</select>행보기 &nbsp;&nbsp;&nbsp;
 				</center>
-          <center>
-								<input type="button" value="등록"
-									onCLick="location.replace('/jobReadyRegForm.do')">
-     </center>
-      
-						</form>
+				<c:if test="${sessionScope.member=='person'}">
+					<center>
+						<input type="button" value="등록"
+							onCLick="location.replace('/jobReadyRegForm.do')">
+					</center>
+				</c:if>
+
+			</form>
   </div>    
 </body>
 <%@ include file="footer.jsp" %>

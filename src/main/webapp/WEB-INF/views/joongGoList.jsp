@@ -136,12 +136,14 @@
 					</select>행보기 &nbsp;&nbsp;&nbsp;
 				</center>
 
-          
-           <center>
-     	       <input type="button" value="등록" style="font-size: 20px; margin-top: 10px;" 
-     	           onClick="location.replace('/joongGoRegForm.do')">
-           </center>  
-      </form>
+				<c:if test="${sessionScope.member=='person'}">
+					<center>
+						<input type="button" value="등록"
+							style="font-size: 20px; margin-top: 10px;"
+							onClick="location.replace('/joongGoRegForm.do')">
+					</center>
+				</c:if>
+			</form>
   </div>
                <form name="trade_type" action="joongGoList.do"
 						method="post">
