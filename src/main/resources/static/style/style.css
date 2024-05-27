@@ -40,12 +40,13 @@ ul {
 #container {
   margin:0 auto;  /* 화면 중앙에 배치 */
   width:1200px;    /* 너비 */
+  position : relative;
 }
 
 #likecompany {
-  position: absolute; /* 절대 위치 */
+  position: absolute; /*절대 위치*/
   top: 130px; /* 위에서 130px 아래 */
-  right: 280px; /* 오른쪽에서 280px 왼쪽 */
+  right: 230px; /* 오른쪽에서 280px 왼쪽 */
   z-index: 1000; /* 최상단에 배치 */
   background-color: #ff69b4; /* 핑크 계열 배경색 */
   color: #fff; /* 버튼 글자색 */

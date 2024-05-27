@@ -54,6 +54,9 @@ $('document').ready(function() {
       }
      });
     });
+    
+
+
 
 //행추가
 function addRow() {
@@ -577,6 +580,35 @@ function checkboardRegForm(boardname,boardurl) {
 					"</textarea><input type='button' value='수정' onClick='up_comment("+comment_no+")'>"+
 					"<input type='button' value='삭제' onClick='del_comment("+comment_no+")'>")
 		}
-	
+	// 관리자 게시판 게시글 다중 삭제
+	function deleteSelectedPosts(boardname) {
+    var checkboxes = $('input[type="checkbox"]');
+    var selectedPosts = [];
+    checkboxes.each(function() {
+        if ($(this).prop('checked')) {
+            selectedPosts.push($(this).val());
+        }
+    });
+    if (selectedPosts.length > 0) {
+//         var b_noList = selectedPosts.join(",");
+  
+        $.ajax({
+            type: "POST",
+            url: "/deleteSelectPost.do",
+            data: JSON.stringify({ b_noList: selectedPosts, boardname:boardname }), // selectedPosts는 배열
+            contentType: "application/json", // JSON 데이터를 전송할 때는 content type을 명시
+            success: function(response) {
+            	alert ('게시글이 삭제되었습니다.')
+                // 성공적으로 삭제되었으므로 페이지를 새로고침합니다.
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    } else {
+        alert("선택된 게시글이 없습니다.");
+    }
+}
 	
 </script>

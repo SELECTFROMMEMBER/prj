@@ -14,24 +14,38 @@
 	<!--=========================================================-->	
 	<select id="getMem" parameterType="java.util.HashMap" resultType="com.wa.erp.BoardDTO">
 		select 
-			<if test="board=='person_mem'">
+			<if test="board=='person_mem' and mid!='admin'">
 			p_no
 			,nickname
 			,name
 			</if>
-			<if test="board=='company_mem'">
+			<if test="board=='company_mem' and mid!='admin'">
 			c_no
 			,name
 			</if>
+			<if test="mid=='admin' ">
+			admin_no
+			</if>
 		from 
-			${board} 
+			<choose>
+			<when test = "mid=='admin' " >
+			admin
+			</when> 
+			<otherwise>
+			${board}
+			</otherwise>
+		</choose>
+		<if test = "mid!='admin'">
+		
 		where 
-		<if test="board=='person_mem'">
+		</if>
+		<if test="board=='person_mem' and mid!='admin'">
 			pid=#{mid}
 		</if>
-		<if test="board=='company_mem'">
+		<if test="board=='company_mem' and mid!='admin'">
 			cid=#{mid}
 		</if>
+		
 
 	</select>
 
@@ -42,7 +56,9 @@
  	<select id="checkcid" parameterType="java.util.HashMap" resultType="int">
  		select count(*) from company_mem where cid=#{mid} and pwd=#{pwd}
  	</select>
- 	
+ 	 	<select id="checkaid" parameterType="java.util.HashMap" resultType="int">
+ 		select count(*) from admin where id=#{mid} and pwd=#{pwd}
+ 		</select>
  	<select id="getIs_resume" parameterType="java.util.HashMap" resultType="int">
  		select
  			count(*)

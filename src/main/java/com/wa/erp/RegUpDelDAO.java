@@ -110,6 +110,15 @@ public interface RegUpDelDAO {
 		int deleteLikecomment(BoardDTO boardDTO);
 		int deleteReview(BoardDTO boardDTO);
 
+
+
+		int insertNotice(BoardDTO boardDTO);
+
+		int updateNotice(BoardDTO boardDTO);
+
+		int deleteNotice(BoardDTO boardDTO);
+
+		int deleteSelectPost(BoardDTO boardDTO);
 		int updateReview(BoardDTO boardDTO);
 
 		int checkLike(BoardDTO boardDTO);

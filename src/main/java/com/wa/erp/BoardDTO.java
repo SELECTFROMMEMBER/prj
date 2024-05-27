@@ -5,7 +5,9 @@ import java.util.List;
 
 public class BoardDTO {
 	private int desc_rank;
+	private int admin_no;
 	private int c_no;
+	private int n_no;
 	private int b_no;
 	private int p_no;
 	private int r_no;
@@ -32,7 +34,7 @@ public class BoardDTO {
 	private String end_time;
 	private String career;
 	private int star;
-	private double star_avg;
+	private String star_avg;
     private int rating;
     private String url;
 	private String email;
@@ -90,6 +92,28 @@ public class BoardDTO {
     private String type;
 	private String organizer;
 	private int award_no;
+	private String category;
+	private String[] b_noList;
+	private String boardname;
+
+		public String getBoardname() {
+		return boardname;
+	}
+	public void setBoardname(String boardname) {
+		this.boardname = boardname;
+	}
+		public String[] getB_noList() {
+		return b_noList;
+	}
+	public void setB_noList(String[] b_noList) {
+		this.b_noList = b_noList;
+	}
+		public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	private int mem_p_no;
 		//프로젝트 공모 위한 선언//
 		private int prj_no;
@@ -236,6 +260,12 @@ public class BoardDTO {
 		}
 		public int getB_no() {
 			return b_no;
+		}
+		public int getAdmin_no() {
+			return admin_no;
+		}
+		public void setAdmin_no(int admin_no) {
+			this.admin_no = admin_no;
 		}
 		public void setB_no(int b_no) {
 			this.b_no = b_no;
@@ -384,16 +414,22 @@ public class BoardDTO {
 		public void setCareer(String career) {
 			this.career = career;
 		}
+		public int getN_no() {
+			return n_no;
+		}
+		public void setN_no(int n_no) {
+			this.n_no = n_no;
+		}
 		public int getStar() {
 			return star;
 		}
 		public void setStar(int star) {
 			this.star = star;
 		}
-		public double getStar_avg() {
+		public String getStar_avg() {
 			return star_avg;
 		}
-		public void setStar_avg(double star_avg) {
+		public void setStar_avg(String star_avg) {
 			this.star_avg = star_avg;
 		}
 		public int getRating() {
@@ -750,12 +786,15 @@ public class BoardDTO {
 		public void setUpdateComment(String updateComment) {
 			this.updateComment = updateComment;
 		}
+
+		
 		public int getMem_p_no() {
 			return mem_p_no;
 		}
 		public void setMem_p_no(int mem_p_no) {
 			this.mem_p_no = mem_p_no;
 		}
+}	
 	
 	
 	
@@ -765,5 +804,4 @@ public class BoardDTO {
 	
 	
 	
-	
-}
+

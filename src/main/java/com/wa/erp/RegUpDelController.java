@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -891,8 +892,141 @@ public class RegUpDelController {
 					
 					return resultMap;
 				}
+		
 				
 				
+				//공지사항
+				
+				@RequestMapping(value="/noticeRegForm.do")
+				public ModelAndView noticeRegForm(   ){
+					
+					ModelAndView mav = new ModelAndView( );
+					
+					mav.setViewName( "noticeRegForm.jsp");
+
+					return mav;
+				}
+				
+				@RequestMapping( 
+						value="/noticeRegProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+				)
+				@ResponseBody
+				public Map<String,String> noticeRegProc( 
+
+						BoardDTO boardDTO	
+				) {
+					//------------------------------------------------
+					// 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
+					//------------------------------------------------
+					Map<String,String> resultMap = new HashMap<String,String>();
+					//-------------------------------------------
+					// [BoardServiceImpl 객체]의 updatetimeShare 메소드 호출로 
+					// 부업 글 수정하고 [수정 적용행의 개수] 얻기
+					//-------------------------------------------
+					int noticeUpCnt = this.regUpDelService.insertNotice(boardDTO);
+						
+					//-------------------------------------------
+					// HashMap 객체에 게시판 수정 행의 개수 저장하기
+					//-------------------------------------------
+					resultMap.put( "result", noticeUpCnt+"" );
+
+					//-------------------------------------------
+					// HashMap 객체의 메위주 리턴하기
+					//-------------------------------------------
+					return resultMap;
+				}
+				@RequestMapping( 
+						value="/upNoticeProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+				)
+				@ResponseBody
+				public Map<String,String> upNoticeProc( 
+						
+						BoardDTO boardDTO	
+				) {
+					//------------------------------------------------
+					// 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
+					//------------------------------------------------
+					Map<String,String> resultMap = new HashMap<String,String>();
+					//-------------------------------------------
+					// [BoardServiceImpl 객체]의 updatetimeShare 메소드 호출로 
+					// 부업 글 수정하고 [수정 적용행의 개수] 얻기
+					//-------------------------------------------
+					int noticeUpCnt = this.regUpDelService.updateNotice(boardDTO);
+					//-------------------------------------------
+					// HashMap 객체에 게시판 수정 행의 개수 저장하기
+					//-------------------------------------------
+					resultMap.put( "result", noticeUpCnt+"" );
+
+					//-------------------------------------------
+					// HashMap 객체의 메위주 리턴하기
+					//-------------------------------------------
+					return resultMap;
+				}
+				
+				@RequestMapping( 
+						value="/noticeDelProc.do" 
+						,method=RequestMethod.POST
+						,produces="application/json;charset=UTF-8"
+				)
+				@ResponseBody
+				public Map<String,String> noticeDelProc( 
+						
+						BoardDTO boardDTO	
+				) {
+					//------------------------------------------------
+					// 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
+					//------------------------------------------------
+					Map<String,String> resultMap = new HashMap<String,String>();
+					//-------------------------------------------
+					// [BoardServiceImpl 객체]의 updatetimeShare 메소드 호출로 
+					// 부업 글 수정하고 [수정 적용행의 개수] 얻기
+					//-------------------------------------------
+					int noticeDelCnt = this.regUpDelService.deleteNotice(boardDTO);
+					//-------------------------------------------
+					// HashMap 객체에 게시판 수정 행의 개수 저장하기
+					//-------------------------------------------
+					resultMap.put( "result", noticeDelCnt+"" );
+
+					//-------------------------------------------
+					// HashMap 객체의 메위주 리턴하기
+					//-------------------------------------------
+					return resultMap;
+				}
+				
+		
+			
+				@RequestMapping( 
+					    value="/deleteSelectPost.do", 
+					    method=RequestMethod.POST,
+					    produces="application/json;charset=UTF-8"
+					)
+					@ResponseBody
+					public Map<String,String> deleteSelectPost(@RequestBody BoardDTO boardDTO) {
+					    //------------------------------------------------
+					    // 게시판 수정 결과물을 저장할 HashMap 객체 생성하기.
+					    //------------------------------------------------
+					    Map<String,String> resultMap = new HashMap<String,String>();
+					    //-------------------------------------------
+					    // [BoardServiceImpl 객체]의 updatetimeShare 메소드 호출로 
+					    // 부업 글 수정하고 [수정 적용행의 개수] 얻기
+					    //-------------------------------------------
+					    int deleteSelectPostCnt = this.regUpDelService.deleteSelectPostCnt(boardDTO);
+					    //-------------------------------------------
+					    // HashMap 객체에 게시판 수정 행의 개수 저장하기
+					    //-------------------------------------------
+					    resultMap.put( "result", deleteSelectPostCnt+"" );
+
+					    //-------------------------------------------
+					    // HashMap 객체의 메위주 리턴하기
+					    //-------------------------------------------
+					    return resultMap;
+					}
+					
+					
 				
 				
 				

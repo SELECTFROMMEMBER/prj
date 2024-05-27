@@ -358,6 +358,7 @@ public class BoardServiceImpl implements BoardService{
 			
 			List<BoardDTO> getCommentLike = this.boardDAO.getCommentLike(paramMap);
 			
+
 			return getCommentLike;
 		}
 		
@@ -478,4 +479,69 @@ public class BoardServiceImpl implements BoardService{
 
 			return welfare;
 		}
+
+		@Override
+		public int getnoticeListCnt(BoardSearchDTO boardSearchDTO) {
+			int noticeListCnt = this.boardDAO.getnoticeListCnt(boardSearchDTO);
+			
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return noticeListCnt;
+		}
+
+		@Override
+		public List<BoardDTO> getNoticeList(BoardSearchDTO boardSearchDTO) {
+			List<BoardDTO> noticeList = this.boardDAO.getNoticeList( boardSearchDTO );
+			
+			return noticeList;
+		}
+
+		@Override
+		public int getnoticeListAllCnt(BoardSearchDTO boardSearchDTO) {
+	int noticeAllListCnt = this.boardDAO.getnoticeListAllCnt(boardSearchDTO);
+	
+			//--------------------------------------
+			// 변수 boardListCnt 안의 데이터를 리턴하기
+			//--------------------------------------
+			return noticeAllListCnt;
+		}
+
+		@Override
+		public BoardDTO getNotice(int n_no) {
+			
+			
+//			BoardDAOImpl 객체의 getBoard 메소드를 호출하여
+//			1개의 게시판 글 을 얻는다.
+//			존재하지 않는 게시판 글일 경우 null로 들어온다.
+			int updateCount = this.boardDAO.updateNoticeReadcount(n_no);
+
+			BoardDTO boardDTO  = this.boardDAO.getNoticeDetail(n_no);
+			//------------------------------------------
+			// [1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
+			//------------------------------------------
+			return boardDTO;
+		}
+	public BoardDTO getNoticeUpDel(int n_no) {
+			
+			
+//			BoardDAOImpl 객체의 getBoard 메소드를 호출하여
+//			1개의 게시판 글 을 얻는다.
+//			존재하지 않는 게시판 글일 경우 null로 들어온다.
+
+			BoardDTO boardDTO  = this.boardDAO.getNoticeDetail(n_no);
+			//------------------------------------------
+			// [1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
+			//------------------------------------------
+			return boardDTO;
+		}
+
+		@Override
+		public List<BoardDTO> getMainNoticeList(BoardSearchDTO boardSearchDTO) {
+			List<BoardDTO> MainNoticeList = this.boardDAO.getMainNoticeList( boardSearchDTO );
+			
+			return MainNoticeList;
+		}
+
+		
 }

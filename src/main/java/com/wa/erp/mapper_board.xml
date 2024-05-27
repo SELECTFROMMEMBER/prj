@@ -65,7 +65,7 @@
 		 ,business_industry as "indus" 
 		 ,sales 
 		 ,sal_avg 
-	     ,round(nvl(AVG(r.star),0),1) as "star_avg"	
+	     ,round(nvl(AVG(r.star),0),0) as "star_avg"	
 		 ,addr
 		 ,ci.rec_count
 	 from
@@ -112,15 +112,31 @@
         LISTAGG(wc.welfare_name, ',') WITHIN GROUP (ORDER BY wc.welfare_name) like '%${tmp}%'         
     </foreach>
 </if>
-	
-		   <if test="sort!=null and sort.length()>0">
-	         order by ${sort}	
-	       </if>    
+			
+		    
+		          <if test="sort!=null and sort.length()>0">
+	                order by  ${sort}	
+	                </if>    
+	       		   <if test="multisort1!=null and multisort1!=''">
+	       		   order by ${multisort1}
+	       	       </if> 
+	       	          <if test="multisort2!=null and multisort2!=''">
+	       		   ${multisort2}
+	       	       </if>    
+	       	          <if test="multisort3!=null and multisort3!=''">
+	       		   ${multisort3}
+	       	       </if>       
+
 	       	<![CDATA[
 			)zxcvb) where RNUM >= #{begin_rowNo} and RNUM <= #{end_rowNo}
 		]]>
 	       
 	       </select>
+	       
+	       
+	       
+	       
+	       
 <select id="getcompanyListCnt" parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
 		select count(*) from (select count(*) from
 		
@@ -420,6 +436,93 @@ group by m.c_no
 			like_company
 		where
 			p_no = #{p_no}
+	</select>
+	
+		<select id="getNoticeList"  parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
+
+		 select 
+		 		category,
+		 		n_no,
+		 		subject,
+		 		content,
+		 		    to_char(reg_date, 'YYYY-MM-DD') as reg_date,
+
+		 		read_count
+		from 
+			notice 
+		where 
+			1=1
+
+		 	
+		 	order  by reg_date desc
+
+	</select>
+	
+	
+		<select id="getnoticeListCnt" parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
+		select count(*) from notice
+			where
+				1=1
+		<if test="keyword!=null and keyword.length()>0">
+		 	and ( 
+					upper(subject) like upper('%${keyword}%')
+					or
+					upper(content) like upper('%${keyword}%')
+					)
+		 	</if>
+	
+	</select>
+
+	<select id="getnoticeListAllCnt"  parameterType="com.wa.erp.BoardSearchDTO" resultType="int">
+		select count(*) from notice	
+	</select>
+	
+	<select id="getNoticeDetail" parameterType="int" resultType="com.wa.erp.BoardDTO">
+	select 
+	n_no,
+	subject,
+	content,
+	read_count,
+	    to_char(reg_date, 'YYYY-MM-DD') as reg_date,
+	    category
+	from notice
+	where
+	n_no=#{n_no}
+	
+	
+	</select>				
+		<update id="updateNoticeReadcount" parameterType="com.wa.erp.BoardDTO">
+		update
+				notice
+		set 
+			read_count = read_count + 1
+		where 
+			n_no=#{n_no}
+	</update>
+	
+	<select id="getMainNoticeList"  parameterType="com.wa.erp.BoardSearchDTO" resultType="com.wa.erp.BoardDTO">
+		select
+			*
+		from ( select rownum "RNUM" , zxcvb.* from (
+		 select 
+		 		category,
+		 		n_no,
+		 		subject,
+		 		content,
+		 		reg_date,
+		 		read_count
+		from 
+			notice 
+		where 
+			1=1
+			and
+			category='main'
+
+		 	
+		 	order  by reg_date desc
+		 	<![CDATA[
+ 			)zxcvb) where RNUM >= #{begin_rowNo} and RNUM <= #{end_rowNo} 
+		]]> 
 	</select>
 	<!--	
 		~~~~~~~~~~~~~~~~~~~~~~~~~~~~

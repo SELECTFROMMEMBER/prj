@@ -75,10 +75,11 @@ public class BoardController {
 		//--------------------------------------------------------------
 		List<BoardDTO> freedomeList = this.boardService.getboardList(boardSearchDTO);
 //		List<Map<String, String>> boardList = this.boardService.getBoardList();
-		
+		List<BoardDTO> noticeList = this.boardService.getNoticeList(boardSearchDTO);
+
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		
-	
+		System.out.println(noticeList.size());
 		//ModelAndView 객체 생성하기
 		ModelAndView mav = new ModelAndView();
 		
@@ -88,6 +89,8 @@ public class BoardController {
 		//[ModelAndView 객체]에 저장된 객체는 [HttpServletRequest 객체] 에도 저장이 된다.
 		//--------------------------------------------------------------
 		mav.addObject("freedomeList", freedomeList);
+		mav.addObject("noticeList", noticeList);
+
 		//ModelAndView 객체 검색된 게시판의 개수를 저장한다.
 		mav.addObject("freedomeListCnt", freedomeListCnt+"");
 
@@ -141,12 +144,14 @@ public class BoardController {
 		boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
 		
 		List<BoardDTO> qnaList = this.boardService.getboardList(boardSearchDTO);
-		
+		List<BoardDTO> noticeList = this.boardService.getNoticeList(boardSearchDTO);
+
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("qnaList", qnaList);
-		
+		mav.addObject("noticeList", noticeList);
+
 		mav.addObject("qnaListCnt", qnaListCnt+"");
 
 		mav.addObject("qnaListAllCnt", qnaListAllCnt);
@@ -186,14 +191,16 @@ public class BoardController {
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		boardSearchDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
 		boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
-		
+		List<BoardDTO> noticeList = this.boardService.getNoticeList(boardSearchDTO);
+		System.out.println(noticeList.size());
 		List<BoardDTO> interviewList = this.boardService.getboardList(boardSearchDTO);
 		
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("interviewList", interviewList);
-		
+		mav.addObject("noticeList", noticeList);
+
 		mav.addObject("interviewListCnt", interviewListCnt+"");
 
 		mav.addObject("interviewListAllCnt", interviewListAllCnt);
@@ -234,14 +241,16 @@ public class BoardController {
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		boardSearchDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
 		boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
-		
+		List<BoardDTO> noticeList = this.boardService.getNoticeList(boardSearchDTO);
+
 		List<BoardDTO> newComerList = this.boardService.getboardList(boardSearchDTO);
 		
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("newComerList", newComerList);
-		
+		mav.addObject("noticeList", noticeList);
+
 		mav.addObject("newComerListCnt", newComerListCnt+"");
 
 		mav.addObject("newComerListAllCnt", newComerListAllCnt);
@@ -284,12 +293,14 @@ public class BoardController {
 		boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
 		
 		List<BoardDTO> jobReadyList = this.boardService.getboardList(boardSearchDTO);
-		
+		List<BoardDTO> noticeList = this.boardService.getNoticeList(boardSearchDTO);
+
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("jobReadyList", jobReadyList);
-		
+		mav.addObject("noticeList", noticeList);
+
 		mav.addObject("jobReadyListCnt", jobReadyListCnt+"");
 
 		mav.addObject("jobReadyListAllCnt", jobReadyListAllCnt);
@@ -330,14 +341,15 @@ public class BoardController {
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		boardSearchDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
 		boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
-		
+		List<BoardDTO> noticeList = this.boardService.getNoticeList(boardSearchDTO);
+
 		List<BoardDTO> joongGoList = this.boardService.getboardList(boardSearchDTO);
 		
 		boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("joongGoList", joongGoList);
-		
+		mav.addObject("noticeList", noticeList);
 		mav.addObject("joongGoListCnt", joongGoListCnt+"");
 		
 		mav.addObject("joongGoListAllCnt", joongGoListAllCnt);
@@ -826,5 +838,101 @@ public class BoardController {
 				return mav;
 			}
 			
+			
+			
+			@RequestMapping( value ="/notice.do")
+			public ModelAndView noticeList(
+					BoardSearchDTO boardSearchDTO
+					) {	
+				int noticeListCnt = this.boardService.getnoticeListCnt( boardSearchDTO );
+				int noticeListAllCnt = this.boardService.getnoticeListAllCnt(boardSearchDTO);
+				Map<String,Integer> boardMap = Util.getPagingMap(
+						boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
+						,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
+						,noticeListCnt			//검색결과 개수
+						);
+				boardSearchDTO.setSelectPageNo(  (int)boardMap.get("selectPageNo")  ); 
+				boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
+				boardSearchDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
+				boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );
+				List<BoardDTO> noticeList = this.boardService.getNoticeList(boardSearchDTO);
+
+
+				
+				
+				ModelAndView mav = new ModelAndView();
+				mav.addObject("noticeList", noticeList);
+				mav.addObject("noticeListCnt", noticeListCnt+"");
+				mav.addObject("noticeListAllCnt", noticeListAllCnt);
+				mav.addObject("boardMap", boardMap);
+				mav.setViewName("noticeList.jsp");
+				System.out.println(noticeListAllCnt);
+				return mav;
+			}
+			
+			
+			
+			@RequestMapping( value="/noticeUpDelForm.do")
+			public ModelAndView noticeUpDelForm( 
+				//--------------------------------------
+				// "b_no" 라는 파라미터명에 해당하는 파라미터값을 꺼내서 
+				// 매개변수 b_no 에 저장하고 들어온다.
+				// 즉 게시판 고유 번호가 매개변수 b_no 로 들어온다.
+				//--------------------------------------
+				@RequestParam(value="n_no") int n_no	
+			){	
+				//--------------------------------
+				// BoardServiceImpl 객체의 getBoardForUpDel 메소드를 호출하여
+				// 수정/삭제 화면에서 필요한 [1개의 게시판 글]을 가져오기
+				//--------------------------------
+				BoardDTO boardDTO = this.boardService.getNoticeUpDel(n_no);
+				ModelAndView mav = new ModelAndView( );
+				
+				mav.addObject("boardDTO", boardDTO);
+				mav.setViewName("noticeUpDelForm.jsp");
+
+				return mav;
+		}
+			
+			
+			
+			
+			@RequestMapping( value ="/12Wa.do")
+			public ModelAndView Wa12(
+					BoardSearchDTO boardSearchDTO
+
+					) {
+				int noticeListCnt = this.boardService.getnoticeListCnt( boardSearchDTO );
+				Map<String,Integer> boardMap = Util.getPagingMap(
+						boardSearchDTO.getSelectPageNo()	//선택한 페이지 번호
+						,boardSearchDTO.getRowCntPerPage()	//페이지 당 보여줄 검색 행의 개수
+						,noticeListCnt			);
+				boardSearchDTO.setSelectPageNo(  (int)boardMap.get("selectPageNo")  ); 
+				boardSearchDTO.setRowCntPerPage( (int)boardMap.get("rowCntPerPage") ); 
+				boardSearchDTO.setBegin_rowNo(   (int)boardMap.get("begin_rowNo")   ); 
+				boardSearchDTO.setEnd_rowNo(     (int)boardMap.get("end_rowNo")     );		//검색결과 개수
+				List<BoardDTO> noticeList = this.boardService.getMainNoticeList(boardSearchDTO);
+
+				ModelAndView mav = new ModelAndView();
+				mav.addObject("noticeList", noticeList);
+				mav.setViewName("main.jsp");
+				return mav;
+			}
+
+			@RequestMapping( value ="/noticeDetail.do")
+			   public ModelAndView noticeDetailForm( 
+							@RequestParam(value="n_no") int n_no	
+							
+
+					){	
+						BoardDTO boardDTO = this.boardService.getNotice(n_no);
+						ModelAndView mav = new ModelAndView( );
+						
+						mav.addObject("boardDTO", boardDTO);
+						mav.setViewName("noticeDetailForm.jsp");
+
+						return mav;
+					}
+
 
 }

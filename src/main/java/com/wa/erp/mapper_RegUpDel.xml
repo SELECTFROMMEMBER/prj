@@ -193,7 +193,12 @@
             ,#{name1}
             ,#{organizer1}
             ,#{type1}
+            <if test="award_no1 != 0">
             ,#{award_no1}
+            </if>
+            <if test="award_no1 ==0">
+            ,null
+            </if>
             <if test="name2 != null and name2 != ''">
         ,#{name2}
         </if>
@@ -507,7 +512,55 @@
     		b_no=#{b_no}
     </delete>
     
+    <delete id="deleteReview" parameterType="com.wa.erp.BoardDTO">
+    delete from review
+    where
+    	p_no=#{p_no}
+    	and
+    	r_no=#{r_no}
+    </delete>
     
+    <update id="updateReview"  parameterType="com.wa.erp.RegUpDelDAO">
+		update 
+			review
+		set	
+    content     = #{content}
+		where 
+			r_no=#{r_no}
+				
+	</update>
+	
+	<insert id="insertNotice" parameterType="com.wa.erp.BoardDTO">
+	    insert into notice (
+	        admin_no,
+	        subject,
+	        content,
+	        read_count,
+	        reg_date,
+	        n_no,
+	        category
+	    ) values (
+	        1,
+	        #{subject},
+	        #{content},
+	        0,
+	        sysdate,
+	        (select nvl(max(n_no),0)+1 from notice),
+	        #{category}
+	    )
+	</insert>
+    <update id="updateNotice"  parameterType="com.wa.erp.BoardDTO">
+		update 
+			notice
+		set	
+		
+			subject =#{subject},
+    		content = #{content},
+    		category=#{category}
+    				where 
+			n_no=#{n_no}
+				
+	</update>
    <!--  회원정보 수정 -->
    <update id="updatePrivacy" parameterType="com.wa.erp.RegUpDelDAO">
     update 
@@ -567,23 +620,24 @@
 			 pwd=#{pwd}			
 	</select>	
 	
-    <delete id="deleteReview" parameterType="com.wa.erp.BoardDTO">
-    delete from review
-    where
-    	p_no=#{p_no}
-    	and
-    	r_no=#{r_no}
-    </delete>
-    
-    <update id="updateReview"  parameterType="com.wa.erp.RegUpDelDAO">
-		update 
-			review
-		set	
-    content     = #{content}
+
+	
+	   <delete id="deleteNotice"  parameterType="com.wa.erp.BoardDTO">
+		delete 
+		FROM
+			notice
+		
 		where 
-			r_no=#{r_no}
-				
-	</update>
-    
+			n_no=#{n_no}			
+	</delete>
+	<delete id="deleteSelectPost"
+		parameterType="com.wa.erp.BoardDTO">
+		DELETE FROM ${boardname}
+		WHERE b_no IN
+		<foreach item="item" collection="b_noList" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>
  

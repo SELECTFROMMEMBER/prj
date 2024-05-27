@@ -234,7 +234,6 @@ select
          )zxcvb) where RNUM >= #{begin_rowNo} and RNUM <=  #{end_rowNo}
       ]]>
       
-      
 </select>
 
 
