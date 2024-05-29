@@ -77,13 +77,166 @@
 	    // 새로 추가된 행이면 삭제
 	    $(rowToRemove).remove();
 	}
+// 자격증 행 추가
+	function addAwardsRow() {
+	    // awardsTable의 직계 자식(tr 요소)의 개수 확인
+	    
 
+	    if ($("input[name^='name']").length >= 4) {
+	        alert("수상경력은 최대 4개까지 추가할 수 있습니다.");
+	        return;
+	    }
 
+	    var lastLicenseRow = $("input[name^='name']").last().closest("tr");
+	    // 최대 3개까지만 추가할 수 있도록 제한
+	   
+	        // 추가할 행 생성
+	        var newRow = $("<tr><td></td><td> 대회이름: <input type='text' class='name' name='name" + ($("input[name^='name']").length + 1) + "' required> 수상명: <input type='text' class='type' name='type" + ($("input[name^='name']").length + 1) + "' required><br> 주최기관: <input type='text' class='organizer' name='organizer" + ($("input[name^='name']").length + 1) + "' required> 상장번호: <input type='text' class='award_no' name='award_no" + ($("input[name^='name']").length + 1) + "' required><input type='button' value='삭제' onclick='removeRow(this)'></td></tr>");
+
+	        // awardsTable에 새로운 행 추가
+	        newRow.insertAfter(lastLicenseRow);
+	    
+	}
 
 	
 
 	function checkresumeRegForm(){
 		   var formObj = $("[name='resumeRegForm']");
+		   
+	
+	var marriedObj = formObj.find(".married");	   
+	var militaryObj = formObj.find(".military");	   
+	var career1Obj = formObj.find('input[name=career1]');  	
+	var career2Obj = formObj.find('input[name=career2]');  	
+	var career3Obj = formObj.find('input[name=career3]');  	
+	var career4Obj = formObj.find('input[name=career4]');  	
+	var career5Obj = formObj.find('input[name=career5]');  	
+	var license_name1Obj = formObj.find('input[name=license_name1]');  	
+	var license_name2Obj = formObj.find('input[name=license_name2]');  	
+	var license_name3Obj = formObj.find('input[name=license_name3]');  	
+	var license_name4Obj = formObj.find('input[name=license_name4]');  	
+	var license_name5Obj = formObj.find('input[name=license_name5]');  	
+	var name1Obj = formObj.find('input[name=name1]');  	
+	var type1Obj = formObj.find('input[name=type1]');  	
+	var organizer1Obj = formObj.find('input[name=organizer1]');  	
+	var award_no1Obj = formObj.find('input[name=award_no1]');  	
+	var name2Obj = formObj.find('input[name=name2]');  	
+	var type2Obj = formObj.find('input[name=type2]');  	
+	var organizer2Obj = formObj.find('input[name=organizer2]');  	
+	var award_no2Obj = formObj.find('input[name=award_no2]');  	
+	var name3Obj = formObj.find('input[name=name3]');  	
+	var type3Obj = formObj.find('input[name=type3]');  	
+	var organizer3Obj = formObj.find('input[name=organizer3]');  	
+	var award_no3Obj = formObj.find('input[name=award_no3]');  	
+	var name4Obj = formObj.find('input[name=name4]');  	
+	var type4Obj = formObj.find('input[name=type4]');  	
+	var organizer4Obj = formObj.find('input[name=organizer4]');  	
+	var award_no4Obj = formObj.find('input[name=award_no4]'); 
+	var educationObj = formObj.find("select[name='education']");
+	var school_nameObj = formObj.find('input[name=school_name]'); 
+	var enter_dateObj = formObj.find('input[name=enter_date]'); 
+	var graduation_dateObj = formObj.find('input[name=graduation_date]');
+	var is_offerObj = formObj.find(".is_offer");	
+	var hope_salaryrObj = formObj.find(".hope_salary");	
+	
+	
+
+	
+			if(marriedObj.is(':checked') == false){
+	  		    alert("결혼 여부를 선택해 주세요");
+	  		    return false;
+	 		}
+			if(militaryObj.is(':checked') == false){
+	  		    alert("군필 여부를 선택해 주세요");
+	  		    return false;
+	 		}		
+			if(name1Obj.val() == '' || type1Obj.val() == '' || organizer1Obj.val() == '' || award_no1Obj.val() == ''){
+	  		    alert("수상경력을 입력해 주세요1");
+	  		    return false;
+	 		}
+			if( new RegExp(/^[0-9]{2,12}$/).test(award_no1Obj.val())==false ){
+				alert("상장번호는 숫자만 가능합니다.1");
+				manager_nameObj.val("");
+				return false;
+			}
+			if(name2Obj.val() == '' || type2Obj.val() == '' || organizer2Obj.val() == '' || award_no2Obj.val() == ''){
+	  		    alert("수상경력을 입력해 주세요2");
+	  		    return false;
+	 		}
+			if(name3Obj.val() == '' || type3Obj.val() == '' || organizer3Obj.val() == '' || award_no3Obj.val() == ''){
+	  		    alert("수상경력을 입력해 주세요3");
+	  		    return false;
+	 		}
+			if(name4Obj.val() == '' || type4Obj.val() == '' || organizer4Obj.val() == '' || award_no4Obj.val() == ''){
+	  		    alert("수상경력을 입력해 주세요4");
+	  		    return false;
+	 		}
+
+			if(career1Obj.val() == ''){
+	  		    alert("경력을 입력해 주세요1");
+	  		    return false;
+	 		}
+			if(career2Obj.val() == ''){
+	  		    alert("경력을 입력해 주세요2");
+	  		    return false;
+	 		}
+			if(career3Obj.val() == ''){
+	  		    alert("경력을 입력해 주세요3");
+	  		    return false;
+	 		}
+			if(career4Obj.val() == ''){
+	  		    alert("경력을 입력해 주세요4");
+	  		    return false;
+	 		}
+			if(career5Obj.val() == ''){
+	  		    alert("경력을 입력해 주세요5");
+	  		    return false;
+	 		}
+			if(license_name1Obj.val() == ''){
+	  		    alert("자격증을 입력해 주세요1");
+	  		    return false;
+	 		}
+			if(license_name2Obj.val() == ''){
+	  		    alert("자격증을 입력해 주세요2");
+	  		    return false;
+	 		}
+			if(license_name3Obj.val() == ''){
+	  		    alert("자격증을 입력해 주세요3");
+	  		    return false;
+	 		}
+			if(license_name4Obj.val() == ''){
+	  		    alert("자격증을 입력해 주세요4");
+	  		    return false;
+	 		}
+			if(license_name5Obj.val() == ''){
+	  		    alert("자격증을 입력해 주세요5");
+	  		    return false;
+	 		}
+
+			if(educationObj.val() == 'none'){
+				alert("최종학력을 선택해 주세요");
+				return false;
+			}
+			if(school_nameObj.val() == ''){
+				alert("학교명을 입력해 주세요");
+				return false;
+			}
+			if(enter_dateObj.val()  > graduation_dateObj.val()){
+				alert("입학일과 졸업일을 정확히 입력해주세요.");
+				return false;
+			}
+			if(is_offerObj.is(':checked') == false){
+			    alert("제안받기를 선택해 주세요");
+			    return false;
+			}
+			if(hope_salaryrObj.val() == ''){
+				alert("희망연봉을 입력해주세요")
+				return false;
+			}
+			   
+			
+		   alert("입력완료")
+		   return;
 		   alert(formObj.serialize())
 		   
 		$.ajax(
@@ -141,14 +294,14 @@
             
             
             
-            
+          
             <tr>
                 <td>수상경력</td>
                 <td>대회이름: <input type="text" id="name1" class="name1" name="name1" required>
                      수상명: <input type="text" id="type1"   class="type1"  name="type1" required>
                   <br> 주최기관:<input type="text" id="organizer1"  class="organizer1"   name="organizer1" required>
                      상장번호:<input type="text" id="award_no1"  class="award_no1"    name="award_no1"  value=0 required>
-                 
+                 <input type="button" onclick="addAwardsRow()" value="추가">
                 </td>
             </tr>
             
@@ -214,7 +367,7 @@
                    name="enter_date" value="2000-01-01" min="1970-01-01" max="2040-12-31" />
                         ~
                      <label for="graduation_date">졸업일:</label> 
-                  <input type="date" id="graduation_date" name="graduation_date" value="2000-01-01" min="1970-01-01" max="2040-12-31" />
+                  <input type="date" id="graduation_date"  class="graduation_date" name="graduation_date" value="2000-01-01" min="1970-01-01" max="2040-12-31" />
                 </td>
             </tr>
             

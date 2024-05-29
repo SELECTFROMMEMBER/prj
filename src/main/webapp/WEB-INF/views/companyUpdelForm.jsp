@@ -11,7 +11,54 @@
 	function comRegUpDel(){
 		var formObj = $("[name='comUpDel']");
 		
-		
+		var urlObj = formObj.find(".url");
+		 var volumeObj = formObj.find("select[name='volume']");
+		 var birthObj = formObj.find(".birth");
+		 var salesObj = formObj.find(".sales");
+		 var addr1Obj = formObj.find(".addr1");
+		 var addr2Obj = formObj.find(".addr2");
+		 var addr3Obj = formObj.find(".addr3");
+		 var emp_noObj = formObj.find(".emp_no");
+		 var sal_avgObj = formObj.find(".sal_avg");
+		 
+		 
+		 if(new RegExp(/^[www]{1,3}$/).test(urlObj.val())==false ){
+			 alert("홈페이지는 www로 시작해야 합니다.");
+				return false;
+		 }
+		 if(volumeObj.val() == ''){
+			 alert("기업형태를 선택해주세요.");
+			 return false;
+		 }
+		 if(birthObj.val() ==''){
+			 alert("설립연도를 설정해주세요");
+			 return false;
+		 }
+		 if( new RegExp(/^[0-9]{2,12}$/).test(salesObj.val())==false){
+			 alert("매출액은 숫자만 가능합니다.");
+			 return false;
+		 }
+
+	 if(addr1Obj.val() =='시/도 선택' || addr2Obj.val() =='구/군 선택' ||addr3Obj.val() ==''
+			 || addr3Obj.val() =='나머지 상세주소'){
+			 alert("주소를 입력해 주세요.");
+			 return false;
+		 }
+		 if( new RegExp(/^[0-9]{2,12}$/).test(emp_noObj.val())==false){
+		 alert("사원수는 숫자만 가능합니다.");
+		 return false;
+	 }
+		 if( new RegExp(/^[0-9]{2,12}$/).test(sal_avgObj.val())==false){
+			 alert("평균연봉은 숫자만 가능합니다.");
+			 return false;
+		 }
+
+
+
+		 
+		 
+		alert("종료")
+		 return;     
 		$.ajax(
 				{ 
 					
@@ -114,7 +161,7 @@
 					</tr>
 					<tr>
 						<td>기업 형태</td>
-						<td><select id="volume" name="volume" required>
+						<td><select id="volume" name="volume"  class="volume" required>
 								<option value=""></option>
 								<option value="대기업">대기업</option>
 								<option value="중견기업">중견기업</option>
@@ -123,7 +170,7 @@
 					</tr>
 					<tr>
 						<td>대표 업종</td>
-						<td><select id="business_industry" name="business_industry"
+						<td><select id="business_industry" name="business_industry" class="business_industry"
 							required>
 								<option value="화장품 및 뷰티 제품 제조업">화장품 및 뷰티 제품 제조업
 								<option value="식품 및 음료 소매업">식품 및 음료 소매업
@@ -159,19 +206,19 @@
 					</tr>
 					<tr>
 						<td>설립일</td>
-						<td><input type="date" id="birth" name="birth" required></td>
+						<td><input type="date" id="birth" name="birth" class="birth" required></td>
 					</tr>
 					
 
 					<tr>
 						<td>매출 액</td>
-						<td><input type="text" id="sales" name="sales" required></td>
+						<td><input type="text" id="sales" name="sales" class="sales" required></td>
 					</tr>
 					<tr>
 						<td>회사 주소</td>
-						<td><select name="addr1" id="sido1"></select> <select
-							name="addr2" id="gugun1"></select>&nbsp; <input type="text"
-							name="addr3" id="addr" value="나머지 상세주소"
+						<td><select name="addr1" id="sido1" class="addr1"></select> <select
+							name="addr2" id="gugun1" class="addr2"></select>&nbsp; <input type="text"
+							name="addr3" id="addr" class="addr3" value="나머지 상세주소"
 							onfocus="if(this.value=='나머지 상세주소') this.value='';"></td>
 
 					</tr>
@@ -179,13 +226,13 @@
 
 
 
-               <tr>
+               <tr> 
                   <td>사원수</td>
-                  <td><input type="text" id="emp_no" name="emp_no" required></td>
+                  <td><input type="text" id="emp_no" name="emp_no" class="emp_no" required></td>
                </tr>
                <tr>
                   <td>평균연봉</td>
-                  <td><input type="text" id="sal_avg" name="sal_avg" required></td>
+                  <td><input type="text" id="sal_avg" name="sal_avg" class="sal_avg" required></td>
                </tr>
                <input type="hidden" name="mem_c_no" value="${sessionScope.c_no}">
 

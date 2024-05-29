@@ -21,7 +21,6 @@ public class GonggoDTO {
 	private String trade_type;
 	private int price;
 
-
 	private String indus;
 	private int sales;
 	private int sal_avg;
@@ -189,7 +188,6 @@ public class GonggoDTO {
 	private int order_no7;
 
 	private String gonggoreg_date;
-	private String age_irrelevant;
 	
 	private String ph_d_candidate;
 	private String career;
@@ -1483,13 +1481,6 @@ public class GonggoDTO {
 		this.gonggoreg_date = gonggoreg_date;
 	}
 
-	public String getAge_irrelevant() {
-		return age_irrelevant;
-	}
-
-	public void setAge_irrelevant(String age_irrelevant) {
-		this.age_irrelevant = age_irrelevant;
-	}
 
 	public String getPh_d_candidate() {
 		return ph_d_candidate;

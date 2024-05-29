@@ -12,9 +12,53 @@
 	  
 	  var formObj    = $("[name='prjRegForm']");
 	  
+	  var subjectObj = formObj.find(".subject");
+	  var project_typeObj =  formObj.find('input[name=project_type]');
+	  var people_toObj = formObj.find("#people_to");
+	  var prjstartdateObj= formObj.find("#prjstartdate");
+	  var prjenddateObj = formObj.find("#prjenddate");
+	  var contentObj = formObj.find(".content");
+	  var pwdObj = formObj.find(".pwd");
 	  
-	  alert(formObj.serialize( ));
+	  if( new RegExp(/^[가-힣a-zA-Z]{2,15}$/).test(subjectObj.val())==false ){
+			alert("제목은 2~15자 한글,영어로 입력해주세요.");
+			subjectObj.val("");
+			return false;
+		}
+
+	  if(project_typeObj.is(':checked') == false){
+			alert("프로젝트 종류를 선택해주세요")
+			return false;
+	  }
+	  if(people_toObj.val() == ''){
+		  alert("모집인원을 입력해주세요.")
+		  return false;
+	  }
+	  if(people_toObj.val() > 20){
+		  alert("모집인원은 20명을 넘을 수 없습니다..")
+		  return false;
+	  }
+	  if(! prjstartdateObj.val() ||  ! prjenddateObj.val() ){
+		  alert("기간을 등록해주세요")
+		  return false;
+	  }
+	  if(prjstartdateObj.val() >  prjenddateObj.val() ){
+		  alert("시작일은 마감일보다 작아야 합니다.")
+		  return false;
+	  }
+	  if(pwdObj.val() == '' ){
+		  alert("비밀번호를 입력해주세요.")
+		  return false;
+	  }
+	  if(!/^\d{4}$/.test(pwdObj.val().trim())){
+		  alert("암호는 공백 없이 4자리 숫자여야 합니다.");
+			$("[name='pwd']").val("").focus();
+			return;
+	  }
 	  
+
+
+
 	  $.ajax(
 				{ 
 					//--------------------------------------
@@ -69,14 +113,14 @@
                 <table align="center" border="1" cellpadding="7" style="border-collapse:collapse">
                     <tr>
                         <td>제목</td>
-                        <td><input type="text" id="subject" name="subject" required></td>
+                        <td><input type="text" id="subject" name="subject"  class="subject" required></td>
                     </tr>   
                     
                     <tr>
                         <td>프로젝트 종류</td>   
                         <td>
-                            <input type="radio" name="project_type" value="개인"> 개인 
-                            <input type="radio" name="project_type" value="공모전"> 공모전
+                            <input type="radio" name="project_type" value="개인" class="project_type"> 개인 
+                            <input type="radio" name="project_type" value="공모전" class=" project_type"> 공모전
                         </td>       
                     </tr>
 
@@ -133,7 +177,7 @@
                     <tr>
                         <td>내용</td>
                         <td>        
-                            <textarea name="content" textarea style="width:100%; height:100%;" rows="20"></textarea>
+                            <textarea name="content" textarea style="width:100%; height:100%;" rows="20" class="content"></textarea>
                         </td>
                     </tr>
                         

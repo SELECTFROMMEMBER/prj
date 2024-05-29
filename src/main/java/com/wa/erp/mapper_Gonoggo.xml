@@ -80,6 +80,8 @@
 			order by ${sort}
 			,13 asc
 	, gonggoreg_date
+	,business_industry asc
+	,work_place asc
 		</if>
 		
 		
@@ -129,7 +131,10 @@
 		,work_place
 		,career
 		,seeker_sex
-		,replace(substr(seeker_age,1,2),',','')||'~'||replace(substr(seeker_age,3,3),',','') as"seeker_age"
+		,replace(substr(seeker_age,'1','2'),',','') as "seeker_age1"
+		,replace(substr(seeker_age,'4','2'),',','') as "seeker_age2"
+<!--   		,substr(seeker_age,1,2) as "seeker_age1" -->
+<!--   		,substr(seeker_age,4,2) as "seeker_age2" -->
         ,salary
         ,other_salary
 		,attendencetime
@@ -140,10 +145,10 @@
 		,closedate
 		,content
 		,ph_d_candidate
-		,age_irrelevant
+
 		,closedate
 		,opendate
-		,round(closedate - opendate) as "gonggoreg_date"
+		,round(closedate - sysdate) as "gonggoreg_date"
 		,(select  c.process_name from gonggo g, gonggo_process p, code_process c where g.g_no=p.g_no  and p.process_code1=c.process_code and g.g_no=#{g_no} and p.order_no1 = 1) as "process_name1"
 		,(select  c.process_name from gonggo g, gonggo_process p, code_process c where g.g_no=p.g_no  and p.process_code2=c.process_code and g.g_no=#{g_no} and p.order_no2 = 2) as "process_name2"
 		,(select  c.process_name from gonggo g, gonggo_process p, code_process c where g.g_no=p.g_no  and p.process_code3=c.process_code and g.g_no=#{g_no} and p.order_no3 = 3) as "process_name3"
@@ -173,8 +178,8 @@
  		
  		,(select replace(r.field_detail3, ',','') from gonggo g, role_detail r where g.g_no=r.g_no
 		and g.g_no=#{g_no}) as "field_detail3"
- 		,(select r.content2 from gonggo g, role_detail r where g.g_no=r.g_no  
-		and g.g_no=#{g_no}) as "content2"  
+ 		,(select r.content3 from gonggo g, role_detail r where g.g_no=r.g_no 
+		and g.g_no=#{g_no}) as "content3" 
   		,(select c.dept_name from gonggo g, role_detail r, code_dept c where g.g_no= r.g_no and r.dept_code3= c.dept_code
   		and g.g_no=#{g_no}) as "dept_name3"  
   		,(select c.position_name from gonggo g, role_detail r, code_position c where g.g_no= r.g_no and r.position_code3= c.position_code
@@ -246,7 +251,6 @@
         closedate,
         gonggoreg_date,
           other_salary,
-        age_irrelevant,
         ph_d_candidate
       
         
@@ -278,8 +282,7 @@
  		#{other_salary}
        
        
-        <if test="age_irrelevant != null and age_irrelevant != ''"> ,#{age_irrelevant} </if>
-        <if test="age_irrelevant == null or age_irrelevant == ''"> ,' ' </if>
+
 
         <if test="ph_d_candidate != null and ph_d_candidate != ''"> ,#{ph_d_candidate} </if>
         <if test="ph_d_candidate == null or ph_d_candidate == ''"> ,' ' </if>
@@ -610,7 +613,7 @@
 		,g.career
 		,g.seeker_sex
 		,substr(g.seeker_age,'1','2') as "seeker_age1"
-		,replace(substr(g.seeker_age,'4','2'), ',','') as "seeker_age2"
+		,substr(g.seeker_age,'4','2') as "seeker_age2"
 		,g.salary
 		,g.attendencetime
 		,g.leaveworktime
@@ -620,7 +623,6 @@
         ,g.closedate
         ,g.content
         ,g.ph_d_candidate
-        ,g.age_irrelevant
         ,g.other_salary
         ,b.choice1
         ,b.choice2
@@ -640,6 +642,8 @@
         ,r.position_code3
         ,r.content1
         ,r.content2
+        ,r.content3
+        
         ,(select c.name from gonggo g, company_mem c where
         g.c_no=c.c_no and g.g_no=#{g_no}) as "name"
         ,(select i.volume from
@@ -708,7 +712,7 @@
 		manager_name=#{manager_name}
 		,career=#{career}
 		,seeker_sex=#{seeker_sex}
-		,seeker_age=replace(#{seeker_age}, ',', '')
+		,seeker_age=#{seeker_age}
 		<!-- ,seeker_age=#{seeker_age} -->
 		,salary=#{salary}
 		,opendate=#{opendate}
@@ -725,14 +729,7 @@
 			</otherwise>
 		</choose>
 
-		<choose>
-			<when test="age_irrelevant != null and age_irrelevant != ''">
-				,age_irrelevant=#{age_irrelevant}
-			</when>
-			<otherwise>
-				,age_irrelevant=null
-			</otherwise>
-		</choose>
+	
 		where
 		g_no=#{g_no}
 
@@ -795,11 +792,58 @@
 		,content1=#{content1}
 		,content2=#{content2}
 		,content3=#{content3}
+<!-- <choose> -->
+<!-- 			<when test="content1 == null or content1 ''"> -->
+<!-- 				,content1=null -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 				,content1=#{content1} -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+<!-- 		<choose> -->
+<!-- 		<when test="content2 == null or content2 ==''"> -->
+<!-- 				,content2=null -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 				,content2=#{content2} -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+<!-- 		<choose> -->
+<!-- 		<when test="content3 == null or content3 ''"> -->
+<!-- 				,content3=null -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 				,content3=#{content3} -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
 
-
-		,field_detail1=#{field_detail1}
-		,field_detail2=#{field_detail2}
-		,field_detail3=#{field_detail3}
+<choose>
+			<when test="field_detail1 == null or field_detail1== ''">
+				,field_detail1=null
+			</when>
+			<otherwise>
+				,field_detail1=#{field_detail1}
+			</otherwise>
+		</choose>
+		<choose>
+		<when test="field_detail2 == null or field_detail2 ==''">
+				,field_detail2=null
+			</when>
+			<otherwise>
+				,field_detail2=#{field_detail2}
+			</otherwise>
+		</choose>
+		<choose>
+		<when test="field_detail3 == null or field_detail3== ''">
+				,field_detail3=null
+			</when>
+			<otherwise>
+				,field_detail3=#{field_detail3}
+			</otherwise>
+		</choose>
+<!-- 		,field_detail1=#{field_detail1} -->
+<!-- 		,field_detail2=#{field_detail2} -->
+<!-- 		,field_detail3=#{field_detail3} -->
 		where
 		g_no=#{g_no}
 

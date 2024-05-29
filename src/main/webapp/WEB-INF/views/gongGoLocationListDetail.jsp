@@ -103,14 +103,18 @@
 						${requestScope.GonggoDTO.ph_d_candidate}</td>
 				</tr>
 				<tr>
-					<c:if test="${requestScope.GonggoDTO.seeker_age!='~' }">
-						<td>나이 : ${requestScope.GonggoDTO.seeker_age}
-							${requestScope.GonggoDTO.age_irrelevant}</td>
+					
+						<td>나이 : 
+					<c:if test="${requestScope.GonggoDTO.seeker_age1=='나이'}">
+					 	나이 무관
+					 	</c:if>
+					<c:if test="${requestScope.GonggoDTO.seeker_age1!='나이'}">
+					 	${requestScope.GonggoDTO.seeker_age1} ~ ${requestScope.GonggoDTO.seeker_age2}
+					 	</c:if>
+						</td>
 
-					</c:if>
-					<c:if test="${requestScope.GonggoDTO.seeker_age=='~'}">
-						<td>나이 : 조회할 데이터가 없습니다.</td>
-					</c:if>
+				
+
 				</tr>
 				<tr>
 					<td>필수조건 : ${requestScope.GonggoDTO.benefit_name_essential1}
@@ -357,7 +361,14 @@
   	<table>
 			  	 
 			    <tr>
-			        <td rowspan="4">남은기간 : ${requestScope.GonggoDTO.gonggoreg_date}일  
+			        <td rowspan="4">남은기간 : 
+			        <c:if test ="${requestScope.GonggoDTO.gonggoreg_date <= 0 }" >
+			        마감
+			        </c:if>
+			          <c:if test ="${requestScope.GonggoDTO.gonggoreg_date > 0 }" >
+			        ${requestScope.GonggoDTO.gonggoreg_date}일 
+			        </c:if>
+			         
 			        <br>시작일	:  ${requestScope.GonggoDTO.opendate}<br>
 			        마감일	:	${requestScope.GonggoDTO.closedate}
 			        </td>

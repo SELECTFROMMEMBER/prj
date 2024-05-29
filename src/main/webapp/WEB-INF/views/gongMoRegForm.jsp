@@ -12,9 +12,45 @@
   function checkGongMoRegForm(){
 	  
 	  var formObj    = $("[name='gongMoRegForm']");
+	   
+	  var subjectObj = formObj.find(".subject");
+	  var start_timeObj= formObj.find("#start_time");
+	  var end_timeObj = formObj.find("#end_time");
+	  var pwdObj = formObj.find(".pwd");
+	  var contentObj = formObj.find(".content");
+	  
+	  if( new RegExp(/^[가-힣a-zA-Z]{2,15}$/).test(subjectObj.val())==false ){
+			alert("제목은 2~15자 한글,영어로 입력해주세요.");
+			subjectObj.val("");
+			return false;
+		}
+	  if(! start_timeObj.val() ||  ! end_timeObj.val() ){
+		  alert("기간을 등록해주세요")
+		  return false;
+	  }
+	  if(start_timeObj.val() >  end_timeObj.val() ){
+		  alert("시작일은 마감일보다 작아야 합니다.")
+		  return false;
+	  }
+	  if(pwdObj.val() == '' ){
+		  alert("비밀번호를 입력해주세요.")
+		  return false;
+	  }
+	  alert(pwdObj.val())
+	  
+	  if(!/^\d{4}$/.test(pwdObj.val().trim())){
+		  alert("암호는 공백 없이 4자리 숫자여야 합니다.");
+			$("[name='pwd']").val("").focus();
+			return;
+	  }
+	  if (contentObj.trim().length == 0 || contentObj.trim().length < 500) {
+			alert("내용은 임의 문자 1~500자 입력해야 합니다.");
+			return;
+		}
+		
 	  
 	  alert(formObj.serialize( ));
-	  
+	  return;
 	  $.ajax(
 				{ 
 					//--------------------------------------
@@ -71,7 +107,7 @@
               
              <tr>
                  <th>제목</th>
-                 <td><input type="text" id="subject" name="subject" required></td>
+                 <td><input type="text" id="subject" name="subject" class="subject" required ></td>
              </tr>
              
                 <tr>
@@ -101,7 +137,7 @@
                
             <tr>
 			    <th>설명</th>
-			    <td><textarea id="content" name="content" rows="20" cols="50" required></textarea></td>
+			    <td><textarea id="content" name="content" rows="20" cols="50" class="content" required></textarea></td>
 			</tr>
 				
 			<tr>
